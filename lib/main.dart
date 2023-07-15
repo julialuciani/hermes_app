@@ -16,6 +16,7 @@ void main() {
       );
     },
     (error, stackTrace) {
+      //TODO: ADD FIREBASE CRASHLYTICS IN THE FUTURE TO RECORD THIS ERRORS
       print(error);
       print(stackTrace);
     },
