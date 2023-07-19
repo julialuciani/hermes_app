@@ -43,5 +43,5 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: dart format --dry-run --set-exit-if-changed lib/
-      - run: dart format --dry-run --set-exit-if-changed test/
+      - run: dart format --set-exit-if-changed lib/
+      - run: dart format --set-exit-if-changed test/
