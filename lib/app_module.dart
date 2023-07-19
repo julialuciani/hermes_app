@@ -6,7 +6,7 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(
       '/',
-      module: HomeModule(), 
+      module: HomeModule(),
     ),
   ];
 }
