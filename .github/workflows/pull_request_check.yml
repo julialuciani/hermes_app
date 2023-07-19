@@ -16,7 +16,7 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
+      - run: dart test
 
   flutter_analyze:
     name: Run Flutter analyze
@@ -30,7 +30,7 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get   
-      - run: flutter analyze .
+      - run: dart analyze .
 
   flutter_format:
     name: Run Flutter format
@@ -44,5 +44,5 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get   
-      - run: flutter format --dry-run --set-exit-if-changed lib/
-      - run: flutter format --dry-run --set-exit-if-changed test/
+      - run: dart format --dry-run --set-exit-if-changed lib/
+      - run: dart format --dry-run --set-exit-if-changed test/
