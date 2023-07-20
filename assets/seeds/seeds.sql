@@ -6,4 +6,4 @@ INSERT OR IGNORE INTO `transaction_type` VALUES
 --SPLIT--
 
 INSERT OR IGNORE INTO `category` VALUES
-(1, 'Alimentação', 2, 'food', 00000000111100000010010000100100)
+(1, 'Alimentação', 2, 'food', 1, 234, 22, 22);
