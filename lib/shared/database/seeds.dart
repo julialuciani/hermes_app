@@ -1,5 +1,5 @@
 class Seeds{
- static String runSeeds(){
+ static String getSeeds(){
   
 return '''
 INSERT OR IGNORE INTO `transaction_type` VALUES
