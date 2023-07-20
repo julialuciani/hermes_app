@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:hermes_app/shared/database/seeds.dart';
 import 'package:hermes_app/shared/utils/sql_utils.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -25,8 +26,13 @@ class DatabaseSqflite {
       version: 1,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
-      onOpen: (db) {},
+      onOpen: _onOpen,
     );
+  }
+
+  Future<void> _onOpen(Database db) async {
+    final seeds = Seeds.getSeeds();
+    await db.rawQuery(seeds);
   }
 
   Future<void> _onCreate(Database db, int version) async {
