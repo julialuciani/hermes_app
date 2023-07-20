@@ -10,7 +10,10 @@ CREATE TABLE `category` (
     `name` TEXT NOT NULL,
     `transactionTypeId` INTEGER NOT NULL,
     `icon` TEXT NOT NULL,
-    `color` INTEGER NOT NULL,
+    `alpha` REAL NOT NULL,
+    `red` INTEGER NOT NULL,
+    `green` INTEGER NOT NULL,
+    `blue` INTEGER NOT NULL,
     CONSTRAINT `transaction_type_FK` FOREIGN KEY `transactionTypeId` REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
