@@ -1,4 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hermes_app/shared/database/database_sqflite.dart';
 import 'package:sqflite/sqflite.dart';
+
+
+final databaseProvider = Provider<IDatabase>((ref) => DatabaseImp());
 
 typedef FutureList = Future<List<Map<String, dynamic>>>;
 typedef Model = Map<String, dynamic>;
@@ -12,31 +17,38 @@ abstract class IDatabase{
 }
 
 class DatabaseImp implements IDatabase{
-  final Database _db;
 
-  DatabaseImp(this._db);
-  @override
-  Future<int> delete(String table, {String? where, List? whereArgs}) {
-   return  _db.delete(table, where: where, whereArgs: whereArgs);
+  Future<Database> _getDatabase() async {
+   return await DatabaseSqflite.instance.database;
   }
 
   @override
-  FutureList getAll(String table, {String? where, List? whereArgs, String? orderBy}) {
-   return _db.query(table, where: where, whereArgs: whereArgs, orderBy: orderBy);
+  Future<int> delete(String table, {String? where, List? whereArgs}) async {
+  final db =  await _getDatabase();
+   return db.delete(table, where: where, whereArgs: whereArgs);
   }
 
   @override
-  Future<int> insert(String table, Model model) {
-    return  _db.insert(table, model, conflictAlgorithm: ConflictAlgorithm.fail);
+  FutureList getAll(String table, {String? where, List? whereArgs, String? orderBy}) async{
+    final db =  await _getDatabase();
+   return db.query(table, where: where, whereArgs: whereArgs, orderBy: orderBy);
   }
 
   @override
-  FutureList rawQuery(String query, [List? args]) {
-   return _db.rawQuery(query, args);
+  Future<int> insert(String table, Model model) async {
+    final db =  await _getDatabase();
+    return  db.insert(table, model, conflictAlgorithm: ConflictAlgorithm.fail);
   }
 
   @override
-  Future<int> update(String table, Model model, {String? where, List? whereArgs}) {
-   return _db.update(table, model, where: where, whereArgs: whereArgs);
+  FutureList rawQuery(String query, [List? args]) async{
+    final db =  await _getDatabase();
+   return db.rawQuery(query, args);
+  }
+
+  @override
+  Future<int> update(String table, Model model, {String? where, List? whereArgs}) async{
+    final db =  await _getDatabase();
+   return db.update(table, model, where: where, whereArgs: whereArgs);
   }
 }
