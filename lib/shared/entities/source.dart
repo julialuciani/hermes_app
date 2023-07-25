@@ -1,7 +1,7 @@
 class Source {
   final int id;
   final String name;
-  final int transactionTypeId;
+  final TransactionType transactionType;
   const Source({
     required this.id,
     required this.name,
