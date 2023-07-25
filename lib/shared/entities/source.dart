@@ -1,3 +1,5 @@
+import 'package:hermes_app/shared/entities/transaction_type.dart';
+
 class Source {
   final int id;
   final String name;
@@ -5,6 +7,6 @@ class Source {
   const Source({
     required this.id,
     required this.name,
-    required this.transactionTypeId,
+    required this.transactionType,
   });
 }

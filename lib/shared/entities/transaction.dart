@@ -1,5 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:hermes_app/shared/entities/category.dart';
+import 'package:hermes_app/shared/entities/source.dart';
+
 class Transaction {
   final int id;
   final String description;
@@ -12,8 +15,8 @@ class Transaction {
     required this.id,
     required this.description,
     required this.value,
-    required this.categoryId,
-    required this.sourceId,
+    required this.category,
+    required this.source,
     required this.date,
     required this.image,
   });

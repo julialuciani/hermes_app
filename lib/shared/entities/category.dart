@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/shared/entities/transaction_type.dart';
 
 class Category {
   final int id;
@@ -9,7 +10,7 @@ class Category {
   const Category({
     required this.id,
     required this.name,
-    required this.transactionTypeId,
+    required this.transactionType,
     required this.icon,
     required this.color,
   });
