@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Category {
   final int id;
   final String name;
-  final int transactionTypeId;
+  final TransactionType transactionType;
   final String icon;
   final Color color;
   const Category({
