@@ -4,8 +4,8 @@ class Transaction {
   final int id;
   final String description;
   final double value;
-  final int categoryId;
-  final int sourceId;
+  final Category category;
+  final Source source;
   final int date;
   final Uint8List image;
   const Transaction({
