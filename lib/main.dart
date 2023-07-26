@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -22,8 +20,6 @@ void main() {
     },
     (error, stackTrace) {
       //TODO: ADD FIREBASE CRASHLYTICS IN THE FUTURE TO RECORD THIS CRASHES
-      print(error);
-      print(stackTrace);
     },
   );
 }
