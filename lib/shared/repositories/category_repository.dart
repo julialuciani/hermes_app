@@ -12,6 +12,7 @@ final categoryRepositoryProvider = Provider<CategoryRepository>(
 );
 
 class CategoryRepository extends BaseRepository<Category> {
+  // ignore: unused_field
   final IDatabase _db;
 
   CategoryRepository(this._db) : super(_db, Tables.category);
