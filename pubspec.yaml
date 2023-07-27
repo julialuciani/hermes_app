@@ -39,6 +39,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   sqflite: ^2.2.8+4
   riverpod: ^2.3.6
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:
