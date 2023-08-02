@@ -1,8 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hermes_app/shared/database/database_sqflite.dart';
 import 'package:sqflite/sqflite.dart';
-
-final databaseProvider = Provider<IDatabase>((ref) => DatabaseImp());
 
 typedef FutureList = Future<List<Map<String, dynamic>>>;
 typedef Model = Map<String, dynamic>;
