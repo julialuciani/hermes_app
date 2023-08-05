@@ -3,10 +3,12 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
+  final void Function(int?) onTap;
 
   const BottomNavBar({
     super.key,
     required this.currentIndex,
+    required this.onTap,
   });
 
   @override
@@ -27,6 +29,7 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: BottomNavigationBar(
         currentIndex: currentIndex,
+        onTap: onTap,
         elevation: 30,
         showSelectedLabels: true,
         showUnselectedLabels: true,
