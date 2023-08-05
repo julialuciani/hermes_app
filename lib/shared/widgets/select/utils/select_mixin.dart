@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/utils/app_colors.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 
 mixin SelectMixin {
   Color getTextColor(bool isSelected) {
