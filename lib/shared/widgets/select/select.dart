@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hermes_app/shared/widgets/select/utils/select_mixin.dart';
 
-import '../../utils/app_colors.dart';
+import '../../theme/app_colors.dart';
 
 class Select extends StatefulWidget {
   final List<SelectData> data;
