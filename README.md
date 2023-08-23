@@ -1,5 +1,5 @@
 ### Sobre o projeto
-- O Hermes-Money_Management surgiu com a ideia de tornar a gestão financeira mais
+- O Hermes-Money-Management surgiu com a ideia de tornar a gestão financeira mais
   acessível e prática. Se baseia na ideia de disponibilizar ao usuário uma interface
   mais interessante e motivadora para manter acompanhamento de sua vida financeira.
 
