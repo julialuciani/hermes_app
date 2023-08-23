@@ -1,16 +1,20 @@
-# hermes_app
+### Sobre o projeto
+- O Hermes-Money_Management surgiu com a ideia de tornar a gestão financeira mais
+  acessível e prática. Se baseia na ideia de disponibilizar ao usuário uma interface
+  mais interessante e motivadora para manter acompanhamento de sua vida financeira.
 
-A new Flutter project.
+### Parte Técnica
+Procuramos criar um app bem arquitetado, seguindo os princípios de SOLID e utilizando
+uma arquitetura para tornar o desenvolvimento deste app mais rápido e mais eficiente a 
+longo prazo. Optamos por utilizar os seguintes recursos no desenvolvimento deste software:
+- Sqflite
+- Modular
+- BLoC
+- Testes Unitários e de Widget
+- Internacionalização
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Design
+- Utilização do [FIGMA](https://www.figma.com/file/RypNbcb25S059aUbFXUTNf/AppScreens?type=design&node-id=0%3A1&mode=design&t=Ks19uofKBfWEJgUz-1)
+  
+### Arquitetura
+- Utilização do [MIRO](https://miro.com/app/board/uXjVMz44oRI=/?share_link_id=565650575665)
