@@ -14,7 +14,7 @@ longo prazo. Optamos por utilizar os seguintes recursos no desenvolvimento deste
 - Internacionalização
 
 ### Design
-- Utilização do [FIGMA](https://www.figma.com/file/RypNbcb25S059aUbFXUTNf/AppScreens?type=design&node-id=0%3A1&mode=design&t=Ks19uofKBfWEJgUz-1)
+- Utilização do [FIGMA](https://www.figma.com/file/RypNbcb25S059aUbFXUTNf/AppScreens?type=design&node-id=0%3A1&mode=design&t=5OIqFJFOxcZtFDCI-1)
   
 ### Arquitetura
 - Utilização do [MIRO](https://miro.com/app/board/uXjVMz44oRI=/?share_link_id=565650575665)
