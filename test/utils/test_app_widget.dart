@@ -11,7 +11,7 @@ class TestAppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MediaQuery(
-        data: const MediaQueryData(),
+        data: const MediaQueryData(size: Size(300, 700)),
         child: Scaffold(body: child),
       ),
     );
