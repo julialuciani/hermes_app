@@ -10,10 +10,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: DefaultButton(
-        onPressed: () {},
-        title: const Text('ola gostoso'),
-      ),
+      body: const SizedBox(),
     );
   }
 }
