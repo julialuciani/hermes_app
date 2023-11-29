@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
