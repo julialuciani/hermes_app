@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/services.dart';
 import 'package:hermes_app/shared/database/seeds.dart';
 import 'package:hermes_app/shared/utils/sql_utils.dart';
 import 'package:sqflite/sqflite.dart';
@@ -38,7 +37,7 @@ class DatabaseSqflite {
   Future<void> _onCreate(Database db, int version) async {
     for (int index = 1; index <= version; index++) {
       final file =
-          await File('assets/migrations/migration_$index.sql').readAsString();
+          await rootBundle.loadString('assets/migrations/migration_$index.sql');
 
       final queries = SqlUtils.getMigrationQueries(file);
 
@@ -51,7 +50,7 @@ class DatabaseSqflite {
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     for (int index = oldVersion; index <= newVersion; index++) {
       final file =
-          await File('assets/migrations/migration_$index.sql').readAsString();
+          await rootBundle.loadString('assets/migrations/migration_$index.sql');
 
       final queries = SqlUtils.getMigrationQueries(file);
 
