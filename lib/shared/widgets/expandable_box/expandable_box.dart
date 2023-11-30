@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
-import 'package:hermes_app/shared/theme/app_typography.dart';
 
 class ExpandableBox extends StatefulWidget {
   /// [title] a required Widget that will be displayed at the top of the [ExpandableBox]
@@ -39,7 +39,7 @@ class _ExpandableBoxState extends State<ExpandableBox> {
 
   @override
   Widget build(BuildContext context) {
-    final typography = AppTypography.typography;
+    final typography = context.typography;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
