@@ -61,4 +61,64 @@ void main() {
 
     expect(color.resolve({MaterialState.pressed}), AppColors.mediumRed);
   });
+
+  testWidgets('WHEN button is disabled onPressed is null', (tester) async {
+    await tester.pumpWidget(
+      TestAppWidget(
+        child: DefaultButton(
+          onPressed: () {},
+          title: const Text(''),
+          enabled: false,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final button =
+        tester.widget<ElevatedButton>(find.byKey(const Key('DefaultButton')));
+    final onPressed = button.onPressed;
+
+    expect(onPressed, null);
+  });
+
+  testWidgets('WHEN button is loading onPressed is null', (tester) async {
+    await tester.pumpWidget(
+      TestAppWidget(
+        child: DefaultButton(
+          onPressed: () {},
+          title: const Text(''),
+          isLoading: true,
+        ),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 2));
+
+    final button =
+        tester.widget<ElevatedButton>(find.byKey(const Key('DefaultButton')));
+    final onPressed = button.onPressed;
+
+    expect(onPressed, null);
+  });
+
+  testWidgets('WHEN button is enabled and its not loading onPressed is called',
+      (tester) async {
+    int timesButtonWasTapped = 0;
+
+    await tester.pumpWidget(
+      TestAppWidget(
+        child: DefaultButton(
+          onPressed: () {
+            timesButtonWasTapped++;
+          },
+          title: const Text(''),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(DefaultButton));
+
+    expect(timesButtonWasTapped, 1);
+  });
 }

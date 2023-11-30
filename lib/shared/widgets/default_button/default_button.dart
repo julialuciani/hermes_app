@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
-import 'package:hermes_app/shared/widgets/default_button/utils/dafault_button_mixin.dart';
+import 'package:hermes_app/shared/widgets/default_button/utils/default_button_mixin.dart';
 
 class DefaultButton extends StatelessWidget with DefaultButtonMixin {
   final VoidCallback onPressed;
@@ -19,7 +20,7 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45,
-      width: double.maxFinite,
+      width: context.screenWidth,
       child: ElevatedButton(
         key: const Key('DefaultButton'),
         style: ButtonStyle(
@@ -27,7 +28,7 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
           splashFactory: NoSplash.splashFactory,
           backgroundColor: getBackgroundColor(enabled),
         ),
-        onPressed: enabled || isLoading ? onPressed : null,
+        onPressed: enabled && !isLoading ? onPressed : null,
         child: isLoading
             ? const CircularProgressIndicator()
             : DefaultTextStyle(
