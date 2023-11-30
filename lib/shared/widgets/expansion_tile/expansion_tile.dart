@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/theme/app_typography.dart';
 
 class ExpandableBox extends StatelessWidget {
   final Widget title;
@@ -12,6 +13,7 @@ class ExpandableBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final typography = AppTypography.typography;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -22,14 +24,8 @@ class ExpandableBox extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
       child: ExpansionTile(
-        textColor: AppColors.black,
-        collapsedTextColor: AppColors.black,
         title: DefaultTextStyle(
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: typography.regular.medium,
           child: title,
         ),
         children: children,
