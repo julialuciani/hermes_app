@@ -35,9 +35,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    final button = tester.widget<ElevatedButton>(
-      find.byKey(const Key('DefaultButton')),
-    );
+    final button =
+        tester.widget<ElevatedButton>(find.byKey(const Key('DefaultButton')));
     final color = button.style!.backgroundColor!;
 
     expect(color.resolve({}), AppColors.grey);
