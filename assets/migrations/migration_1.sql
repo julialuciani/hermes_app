@@ -14,7 +14,7 @@ CREATE TABLE `category` (
     `red` INTEGER NOT NULL,
     `green` INTEGER NOT NULL,
     `blue` INTEGER NOT NULL,
-    CONSTRAINT `transaction_type_FK` FOREIGN KEY `transactionTypeId` REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `category_FK` FOREIGN KEY (`transactionTypeId`) REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 --SPLIT--
@@ -23,10 +23,10 @@ CREATE TABLE `source` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `name` TEXT NOT NULL,
     `transactionTypeId` INTEGER NOT NULL,
-    CONSTRAINT `transaction_type_FK` FOREIGN KEY `transactionTypeId` REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `transaction_type_FK` FOREIGN KEY (`transactionTypeId`) REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---SPLIT-- 
+--SPLIT--
 
 CREATE TABLE `transaction` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,6 +36,6 @@ CREATE TABLE `transaction` (
     `sourceId` INTEGER NULL,
     `date` INTEGER NOT NULL,
     `image` BLOB NULL,
-    CONSTRAINT `category_FK` FOREIGN KEY `categoryId` REFERENCES `category`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `source_FK` FOREIGN KEY `sourceId` REFERENCES `source`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `category_FK` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `source_FK` FOREIGN KEY (`sourceId`) REFERENCES `source`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
