@@ -16,8 +16,8 @@ class AppColors {
   static Color mediumRed = const Color(0xFFDF6262);
   static Color lightRed = const Color(0xFFF0B4B4);
   static Color basicOrange = const Color(0xFFFB5A00);
-  static Color white = const Color(0xFFFFFFFF);
-  static Color black = const Color(0xFF000000);
+  static Color white = const Color(0xFFF5F2D0);
+  static Color black = const Color(0xFF2E293A);
   static Color grey = const Color(0xFFC4C4C4);
   static Color lightGrey = const Color(0xFFE9E9E9);
 }
