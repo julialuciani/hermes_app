@@ -16,6 +16,8 @@ class AppWidget extends StatelessWidget {
             borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
           ),
         ),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
       ),
     );
   }
