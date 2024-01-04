@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/home_module.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/repositories/category_repository.dart';
+import 'package:hermes_app/transaction/transaction_module.dart';
 
 class AppModule extends Module {
   @override
@@ -19,6 +20,10 @@ class AppModule extends Module {
     ModuleRoute(
       '/',
       module: HomeModule(),
+    ),
+    ModuleRoute(
+      '/transaction',
+      module: TransactionModule(),
     ),
   ];
 }
