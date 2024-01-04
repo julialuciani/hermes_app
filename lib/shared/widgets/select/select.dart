@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/select/utils/select_mixin.dart';
 
 import '../../theme/app_colors.dart';
@@ -31,6 +32,7 @@ class _SelectState extends State<Select> with SelectMixin {
 
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return SizedBox(
       height: 36,
       child: ListView.separated(
@@ -57,9 +59,8 @@ class _SelectState extends State<Select> with SelectMixin {
               child: Center(
                 child: Text(
                   selectData.label,
-                  style: TextStyle(
+                  style: typography.regular.small.copyWith(
                     color: getTextColor(isSelected),
-                    fontSize: 15,
                   ),
                 ),
               ),

@@ -18,6 +18,7 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
 
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return SizedBox(
       height: 45,
       width: context.screenWidth,
@@ -32,11 +33,7 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
         child: isLoading
             ? const CircularProgressIndicator()
             : DefaultTextStyle(
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: typography.bold.large.copyWith(color: AppColors.white),
                 child: title,
               ),
       ),
