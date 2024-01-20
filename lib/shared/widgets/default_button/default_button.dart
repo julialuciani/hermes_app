@@ -20,7 +20,7 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
   Widget build(BuildContext context) {
     final typography = context.typography;
     return SizedBox(
-      height: 45,
+      height: 56,
       width: context.screenWidth,
       child: ElevatedButton(
         key: const Key('DefaultButton'),
@@ -31,11 +31,8 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
         ),
         onPressed: enabled && !isLoading ? onPressed : null,
         child: isLoading
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircularProgressIndicator(
-                  color: AppColors.white,
-                ),
+            ? CircularProgressIndicator(
+                color: AppColors.white,
               )
             : DefaultTextStyle(
                 style: typography.bold.large.copyWith(color: AppColors.white),

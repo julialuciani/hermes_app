@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
+import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 
 class DefaultErrorWidget extends StatefulWidget {
   final String title;
   final String description;
   final String buttonLabel;
   final Future<void> Function() onPressed;
+  final Failure failure;
   const DefaultErrorWidget({
     Key? key,
     required this.title,
+    required this.failure,
     required this.description,
     required this.buttonLabel,
     required this.onPressed,
@@ -22,6 +26,13 @@ class DefaultErrorWidget extends StatefulWidget {
 
 class _DefaultErrorWidgetState extends State<DefaultErrorWidget> {
   bool isLoading = false;
+  final registerError = Modular.get<RegisterErrorCubit>();
+
+  @override
+  void initState() {
+    registerError.registerError(widget.failure);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
