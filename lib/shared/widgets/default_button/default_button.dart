@@ -31,7 +31,12 @@ class DefaultButton extends StatelessWidget with DefaultButtonMixin {
         ),
         onPressed: enabled && !isLoading ? onPressed : null,
         child: isLoading
-            ? const CircularProgressIndicator()
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(
+                  color: AppColors.white,
+                ),
+              )
             : DefaultTextStyle(
                 style: typography.bold.large.copyWith(color: AppColors.white),
                 child: title,
