@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/models/failure.dart';
+import 'package:hermes_app/shared/models/unknown_error.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 
 class HomePage extends StatelessWidget {

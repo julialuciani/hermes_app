@@ -6,10 +6,3 @@ abstract class Failure {
     this.stackTrace,
   });
 }
-
-class UnknownError extends Failure {
-  UnknownError({
-    required super.error,
-    super.stackTrace,
-  });
-}
