@@ -40,6 +40,7 @@ dependencies:
   fl_chart: ^0.62.0
   flutter_svg: ^2.0.5
   shimmer: ^3.0.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:
