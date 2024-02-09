@@ -13,7 +13,7 @@ class TransactionTypeDropdownCubit extends Cubit<TransactionTypeDropdownState> {
   void fetch() async {
     emit(TransactionTypeDropdownLoading());
     try {
-      final items = await _usecase();
+      final List<DropdownItem> items = await _usecase();
 
       emit(TransactionTypeDropdownSuccess(items.translate()));
     } catch (exception, stackTrace) {
