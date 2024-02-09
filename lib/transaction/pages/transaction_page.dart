@@ -74,11 +74,13 @@ class _TransactionPageState extends State<TransactionPage> {
               ),
               const SizedBox(height: 20),
               const TransactionPhotoWidget(),
+              const SizedBox(height: 20),
               const SizedBox(height: 100),
             ],
           ),
         ),
         bottomSheet: Container(
+          height: 100,
           padding: const EdgeInsets.all(20),
           child: DefaultButton(
             onPressed: () {},

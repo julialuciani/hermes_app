@@ -17,7 +17,7 @@ class _TransactionPhotoWidgetState extends State<TransactionPhotoWidget> {
   Widget build(BuildContext context) {
     final typography = context.typography;
     return DottedBorder(
-      strokeWidth: 2,
+      strokeWidth: 1.5,
       dashPattern: const [4, 4],
       borderType: BorderType.RRect,
       padding: const EdgeInsets.all(48),

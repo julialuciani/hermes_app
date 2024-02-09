@@ -41,6 +41,7 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
           const SizedBox(height: 6),
         ],
         GestureDetector(
+          key: const Key("content_box_key"),
           onTap: onTap,
           child: Container(
             padding: getPadding(padding),

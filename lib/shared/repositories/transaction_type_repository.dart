@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field
-
 import 'package:hermes_app/shared/entities/transaction_type.dart';
 
 import '../constants/tables.dart';
