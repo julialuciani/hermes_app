@@ -26,11 +26,19 @@ class DatabaseImp implements IDatabase {
   }
 
   @override
-  FutureList getAll(String table,
-      {String? where, List? whereArgs, String? orderBy}) async {
+  FutureList getAll(
+    String table, {
+    String? where,
+    List? whereArgs,
+    String? orderBy,
+  }) async {
     final db = await _getDatabase();
-    return db.query(table,
-        where: where, whereArgs: whereArgs, orderBy: orderBy);
+    return db.query(
+      table,
+      where: where,
+      whereArgs: whereArgs,
+      orderBy: orderBy,
+    );
   }
 
   @override
