@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
         onTap: (newIndex) {
-          if (newIndex == null) return;
           setState(() {
             _currentIndex = newIndex;
           });
