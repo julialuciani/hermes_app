@@ -52,7 +52,7 @@ void main() {
 
       expect(timesOnTapWasCalled, 0);
 
-      await tester.tap(find.byType(ContentBox));
+      await tester.tap(find.byKey(const Key("content_box_key")));
 
       expect(timesOnTapWasCalled, 1);
     },
