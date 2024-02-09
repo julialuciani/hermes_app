@@ -20,7 +20,10 @@ extension _TransactionTypeToDropdownItemTransformer on List<TransactionType> {
   List<DropdownItem> transform() {
     return List.from(
       map(
-        (e) => DropdownItem(description: e.name, value: e.id!),
+        (e) => DropdownItem(
+          description: e.name,
+          value: e.id!,
+        ),
       ),
     );
   }

@@ -7,6 +7,8 @@ import 'package:hermes_app/shared/usecases/get_transaction_types_to_dropdown_use
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 import 'package:hermes_app/transaction/transaction_module.dart';
 
+import 'shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
+
 class AppModule extends Module {
   @override
   final List<Bind<Object>> binds = [
@@ -31,6 +33,9 @@ class AppModule extends Module {
     //Cubits
     Bind.factory<RegisterErrorCubit>(
       (i) => RegisterErrorCubit(''),
+    ),
+    Bind.lazySingleton<TransactionTypeDropdownCubit>(
+      (i) => TransactionTypeDropdownCubit(i()),
     )
   ];
 
