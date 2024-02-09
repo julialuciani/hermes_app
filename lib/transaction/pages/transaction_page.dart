@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown.dart';
 import 'package:hermes_app/shared/utils/transaction_type_enum.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
-import 'package:hermes_app/shared/widgets/dropdown/dropdown.dart';
-import 'package:hermes_app/shared/widgets/dropdown/dropdown_item.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
 import 'package:hermes_app/transaction/widgets/transaction_photo_widget.dart';
@@ -29,24 +28,7 @@ class _TransactionPageState extends State<TransactionPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Dropdown(
-                items: [
-                  DropdownItem(
-                    description: "Gastos",
-                    value: 1,
-                  ),
-                  DropdownItem(
-                    description: "Entradas",
-                    value: 2,
-                  ),
-                  DropdownItem(
-                    description: "Investimentos",
-                    value: 3,
-                  ),
-                ],
-                onChanged: (id) {},
-                label: "Tipo",
-              ),
+              const TransactionTypeDropdown(),
               const SizedBox(height: 20),
               const Input(
                 label: "Valor",
