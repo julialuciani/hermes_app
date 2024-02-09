@@ -15,9 +15,12 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
   /// [borderColor] allows customization of the component's border color, the default is [AppColors.black]
   final Color? borderColor;
 
+  final String? outsideLabel;
+
   /// [ContentBox] is a widget that must be used to group information that is related
   const ContentBox({
     super.key,
+    this.outsideLabel,
     this.padding,
     required this.child,
     this.onTap,
@@ -26,20 +29,33 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: getPadding(padding),
-        width: context.screenWidth,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: getBorderColor(borderColor),
-            width: 0.5,
+    final typography = context.typography;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (outsideLabel != null) ...[
+          Text(
+            outsideLabel!,
+            style: typography.regular.medium,
+          ),
+          const SizedBox(height: 6),
+        ],
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: getPadding(padding),
+            width: context.screenWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: getBorderColor(borderColor),
+                width: 0.5,
+              ),
+            ),
+            child: UnconstrainedBox(child: child),
           ),
         ),
-        child: UnconstrainedBox(child: child),
-      ),
+      ],
     );
   }
 }
