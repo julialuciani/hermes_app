@@ -1,25 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/models/unknown_error.dart';
-import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
+import 'package:hermes_app/home/balance/balance_screen.dart';
+import 'package:hermes_app/home/expenses/expenses_screen.dart';
+import 'package:hermes_app/home/income/income_screen.dart';
+import 'package:hermes_app/home/investments/investments_screen.dart';
+import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 1;
+
+  final List<Widget> pages = [
+    const BalanceScreen(),
+    const ExpensesScreen(),
+    const IncomeScreen(),
+    const InvestmentsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: DefaultErrorWidget(
-        title: 'Cliente não autorizado',
-        description:
-            'Ocorreu um erro ao abrir esta tela. Por favor tente novamente mais tarde',
-        buttonLabel: 'Voltar',
-        onPressed: () async {
-          await Future.delayed(const Duration(seconds: 2));
+      body: pages[_selectedIndex],
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value ?? 0;
+          });
         },
-        failure: UnknownError(error: ''),
       ),
     );
   }
