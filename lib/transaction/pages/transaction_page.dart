@@ -7,6 +7,7 @@ import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
+import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_cubit.dart';
 import 'package:hermes_app/transaction/widgets/transaction_photo_widget.dart';
 
 class TransactionPage extends StatefulWidget {
@@ -20,10 +21,12 @@ class TransactionPage extends StatefulWidget {
 
 class _TransactionPageState extends State<TransactionPage> {
   final transactionTypesCubit = Modular.get<TransactionTypeDropdownCubit>();
+  final transactionFormCubit = Modular.get<TransactionFormCubit>();
 
   @override
   void initState() {
     transactionTypesCubit.fetch();
+    transactionFormCubit.init();
     super.initState();
   }
 
