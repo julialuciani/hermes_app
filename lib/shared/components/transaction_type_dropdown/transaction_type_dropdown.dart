@@ -36,7 +36,7 @@ class _TransactionTypeDropdownState extends State<TransactionTypeDropdown> {
         }
 
         return Dropdown(
-          label: "Tipo",
+          label: "Tipo *",
           items: items,
           onChanged: widget.onChanged,
           value: widget.value,

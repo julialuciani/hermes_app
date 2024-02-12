@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/input/utils/input_mixin.dart';
@@ -21,6 +22,10 @@ class Input extends StatefulWidget {
   /// [enabled] if not enabled, many of the functions of the input will not be called and its style will be different
   final bool enabled;
 
+  final List<TextInputFormatter>? inputFormatters;
+
+  final TextInputType? keyboardType;
+
   /// [Input] is a widget used to allow user to insert data of any type into the app
   const Input({
     Key? key,
@@ -30,6 +35,8 @@ class Input extends StatefulWidget {
     this.onChanged,
     this.onFieldSubmitted,
     this.enabled = true,
+    this.inputFormatters,
+    this.keyboardType,
   }) : super(key: key);
 
   @override
@@ -55,6 +62,8 @@ class _InputState extends State<Input> with InputMixin {
         TextFormField(
           controller: widget.controller,
           enabled: widget.enabled,
+          inputFormatters: widget.inputFormatters,
+          keyboardType: widget.keyboardType,
           cursorColor: AppColors.black,
           onChanged: widget.onChanged,
           validator: (value) {
