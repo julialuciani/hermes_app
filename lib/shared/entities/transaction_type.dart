@@ -9,9 +9,16 @@ class TransactionType extends BaseModel<TransactionType> {
 
   @override
   Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "name": name,
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
     };
+  }
+
+  factory TransactionType.fromMap(Map<String, dynamic> map) {
+    return TransactionType(
+      id: map['id'] as int?,
+      name: map['name'] as String,
+    );
   }
 }

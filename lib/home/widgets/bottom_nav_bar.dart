@@ -3,7 +3,7 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
-  final void Function(int?) onTap;
+  final void Function(int) onTap;
 
   const BottomNavBar({
     super.key,
