@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:typed_data';
 
 import 'package:hermes_app/shared/entities/unmapped_entities/base_model.dart';
+import 'package:hermes_app/shared/models/nullable.dart';
 
 class Transaction extends BaseModel<Transaction> {
   final String? description;
@@ -10,6 +12,7 @@ class Transaction extends BaseModel<Transaction> {
   final int? sourceId;
   final DateTime? date;
   final Uint8List? image;
+
   const Transaction({
     int? id,
     this.description,
@@ -32,5 +35,25 @@ class Transaction extends BaseModel<Transaction> {
       "date": date?.millisecondsSinceEpoch,
       "image": image,
     };
+  }
+
+  Transaction copyWith({
+    String? description,
+    double? value,
+    Nullable<int?>? typeId,
+    int? categoryId,
+    int? sourceId,
+    DateTime? date,
+    Uint8List? image,
+  }) {
+    return Transaction(
+      description: description ?? this.description,
+      value: value ?? this.value,
+      typeId: typeId != null ? typeId.value : this.typeId,
+      categoryId: categoryId ?? this.categoryId,
+      sourceId: sourceId ?? this.sourceId,
+      date: date ?? this.date,
+      image: image ?? this.image,
+    );
   }
 }
