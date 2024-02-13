@@ -9,7 +9,6 @@ class Transaction extends BaseModel<Transaction> {
   final double? value;
   final int? typeId;
   final int? categoryId;
-  final int? sourceId;
   final DateTime? date;
   final Uint8List? image;
 
@@ -19,7 +18,6 @@ class Transaction extends BaseModel<Transaction> {
     this.value,
     this.typeId,
     this.categoryId,
-    this.sourceId,
     this.date,
     this.image,
   }) : super(id: id);
@@ -31,7 +29,6 @@ class Transaction extends BaseModel<Transaction> {
       "description": description,
       "value": value,
       "categoryId": categoryId,
-      "sourceId": sourceId,
       "date": date?.millisecondsSinceEpoch,
       "image": image,
     };
@@ -42,7 +39,6 @@ class Transaction extends BaseModel<Transaction> {
     double? value,
     Nullable<int?>? typeId,
     int? categoryId,
-    int? sourceId,
     DateTime? date,
     Uint8List? image,
   }) {
@@ -51,7 +47,6 @@ class Transaction extends BaseModel<Transaction> {
       value: value ?? this.value,
       typeId: typeId != null ? typeId.value : this.typeId,
       categoryId: categoryId ?? this.categoryId,
-      sourceId: sourceId ?? this.sourceId,
       date: date ?? this.date,
       image: image ?? this.image,
     );
