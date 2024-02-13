@@ -16,11 +16,13 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     Nullable<int?>? typeId,
     String? value,
     String? description,
+    int? sourceId,
   }) {
     transaction = transaction.copyWith(
       typeId: typeId,
       value: _formatValueToDouble(value),
       description: description,
+      sourceId: sourceId,
     );
 
     emit(TransactionFormSuccessChangeFields());

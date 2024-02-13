@@ -4,7 +4,6 @@ CREATE TABLE `transaction_type` (
 );
 
 --SPLIT--
-
 CREATE TABLE `category` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `name` TEXT NOT NULL,
@@ -18,16 +17,6 @@ CREATE TABLE `category` (
 );
 
 --SPLIT--
-
-CREATE TABLE `source` (
-    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `name` TEXT NOT NULL,
-    `transactionTypeId` INTEGER NOT NULL,
-    CONSTRAINT `transaction_type_FK` FOREIGN KEY (`transactionTypeId`) REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
---SPLIT--
-
 CREATE TABLE `transaction` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `description` TEXT NULL,

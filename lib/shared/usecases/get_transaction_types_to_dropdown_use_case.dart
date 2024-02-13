@@ -2,10 +2,10 @@ import 'package:hermes_app/shared/entities/transaction_type.dart';
 import 'package:hermes_app/shared/repositories/transaction_type_repository.dart';
 import 'package:hermes_app/shared/widgets/dropdown/dropdown_item.dart';
 
-class GetTransactionTypesToDropdownUsecase {
+class GetTransactionTypesToDropdownUseCase {
   final TransactionTypeRepository _repository;
 
-  GetTransactionTypesToDropdownUsecase(
+  GetTransactionTypesToDropdownUseCase(
     this._repository,
   );
 

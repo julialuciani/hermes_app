@@ -8,7 +8,6 @@ import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
-import 'package:hermes_app/shared/widgets/select/select.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_cubit.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_state.dart';
 import 'package:hermes_app/transaction/widgets/transaction_photo_widget.dart';
@@ -82,27 +81,6 @@ class _TransactionPageState extends State<TransactionPage> {
                         child: Wrap(),
                       ),
                       const SizedBox(height: 20),
-                      Select(
-                        label: "Fonte",
-                        data: const [
-                          SelectData(
-                            value: 0,
-                            label: "Dinheiro",
-                          ),
-                          SelectData(
-                            value: 1,
-                            label: "Cartão",
-                          ),
-                          SelectData(
-                            value: 2,
-                            label: "Outro",
-                          ),
-                        ],
-                        onPressed: (value) {
-                          print(value);
-                        },
-                        selectedValue: 4,
-                      ),
                       const SizedBox(height: 20),
                       const TransactionPhotoWidget(),
                       const SizedBox(height: 20),

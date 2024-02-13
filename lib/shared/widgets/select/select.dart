@@ -43,7 +43,7 @@ class _SelectState extends State<Select> with SelectMixin {
             widget.label!,
             style: typography.regular.medium,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
         ],
         SizedBox(
           height: 36,
