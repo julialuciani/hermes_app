@@ -101,7 +101,7 @@ class _TransactionPageState extends State<TransactionPage> {
                         onPressed: (value) {
                           print(value);
                         },
-                        selectedValue: 0,
+                        selectedValue: 4,
                       ),
                       const SizedBox(height: 20),
                       const TransactionPhotoWidget(),

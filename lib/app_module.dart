@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/home_module.dart';
+import 'package:hermes_app/shared/components/source_select/source_select_cubit.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/repositories/category_repository.dart';
 import 'package:hermes_app/shared/repositories/transaction_type_repository.dart';
@@ -36,6 +37,9 @@ class AppModule extends Module {
     ),
     Bind.lazySingleton<TransactionTypeDropdownCubit>(
       (i) => TransactionTypeDropdownCubit(i()),
+    ),
+    Bind.lazySingleton<SourceSelectCubit>(
+      (i) => SourceSelectCubit(),
     )
   ];
 
