@@ -9,6 +9,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   Transaction transaction = const Transaction();
   TextEditingController valueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   TransactionFormCubit() : super(TransactionFormInitial());
 
@@ -16,11 +17,17 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     Nullable<int?>? typeId,
     String? value,
     String? description,
+    Nullable<int?>? categoryId,
   }) {
+    if (typeId?.value != transaction.typeId) {
+      categoryId = Nullable(null);
+    }
+
     transaction = transaction.copyWith(
       typeId: typeId,
       value: _formatValueToDouble(value),
       description: description,
+      categoryId: categoryId,
     );
 
     emit(TransactionFormSuccessChangeFields());
@@ -39,6 +46,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   Future<void> close() {
     valueController.dispose();
     descriptionController.dispose();
+    dateController.dispose();
     return super.close();
   }
 }

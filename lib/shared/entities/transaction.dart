@@ -37,7 +37,7 @@ class Transaction extends BaseModel<Transaction> {
     String? description,
     double? value,
     Nullable<int?>? typeId,
-    int? categoryId,
+    Nullable<int?>? categoryId,
     DateTime? date,
     Uint8List? image,
   }) {
@@ -45,7 +45,7 @@ class Transaction extends BaseModel<Transaction> {
       description: description ?? this.description,
       value: value ?? this.value,
       typeId: typeId != null ? typeId.value : this.typeId,
-      categoryId: categoryId ?? this.categoryId,
+      categoryId: categoryId != null ? categoryId.value : this.categoryId,
       date: date ?? this.date,
       image: image ?? this.image,
     );

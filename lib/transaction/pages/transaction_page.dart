@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/shared/components/category_selector_box/category_selector_box.dart';
+import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/models/nullable.dart';
-import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
+import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
@@ -47,6 +49,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     children: [
                       TransactionTypeDropdown(
                         onChanged: (value) {
+                          eventBus.fire(ChangeTransactionTypeEvent(value));
                           transactionFormCubit.change(typeId: Nullable(value));
                         },
                         value: transactionFormCubit.transaction.typeId,
@@ -76,9 +79,30 @@ class _TransactionPageState extends State<TransactionPage> {
                         },
                       ),
                       const SizedBox(height: 20),
-                      ContentBox(
-                        outsideLabel: "Categoria",
-                        child: Wrap(),
+                      Input(
+                        label: "Data *",
+                        controller: transactionFormCubit.dateController,
+                        onChanged: (value) {
+                          transactionFormCubit.change(description: value);
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Campo obrigatório";
+                          }
+                          final date = DateTime.tryParse(value);
+                          if (date == null) return "Formato de data inválido";
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      CategorySelectorBox(
+                        onChange: (categoryId) {
+                          transactionFormCubit.change(
+                            categoryId: Nullable(categoryId),
+                          );
+                        },
+                        selectedCategory:
+                            transactionFormCubit.transaction.categoryId,
                       ),
                       const SizedBox(height: 20),
                       const TransactionPhotoWidget(),
