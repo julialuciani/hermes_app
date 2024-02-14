@@ -1,9 +1,9 @@
 import '../constants/tables.dart';
 import '../database/idatabase.dart';
-import '../entities/category.dart';
+import '../entities/category_model.dart';
 import 'base_repository.dart';
 
-class CategoryRepository extends BaseRepository<Category> {
+class CategoryRepository extends BaseRepository<CategoryModel> {
   // ignore: unused_field
   final IDatabase _db;
 

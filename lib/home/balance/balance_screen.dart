@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/home/balance/balance_period_button.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/chart/chart.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
-import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
+import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
-import 'package:hermes_app/shared/widgets/input/input.dart';
-import 'package:hermes_app/shared/widgets/modal/modal.dart';
-import 'package:hermes_app/shared/widgets/select/select.dart';
 
 class BalanceScreen extends StatelessWidget {
   const BalanceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final typography = context.typography;
     return Scaffold(
       drawer: const Drawer(
         child: Icon(
@@ -22,39 +20,8 @@ class BalanceScreen extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        actions: [
-          UnconstrainedBox(
-            child: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => const BalanceModal(),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.black,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                padding: const EdgeInsets.only(
-                  left: 25,
-                ),
-                margin: const EdgeInsets.only(right: 10),
-                alignment: Alignment.center,
-                width: 87,
-                child: Row(
-                  children: [
-                    const Text('Mês'),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: AppColors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+        actions: const [
+          BalancePeriodButton(),
         ],
         iconTheme: IconThemeData(
           color: AppColors.black,
@@ -69,75 +36,18 @@ class BalanceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_left,
-                  ),
-                ),
-                const Text('Julho - 2023'),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_right),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const PeriodRow(),
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 vertical: 80,
               ),
               child: Center(
-                child: Chart(
-                  sections: [
-                    ChartSection(
-                      value: 50,
-                      title: 'Ações',
-                      icon: const Icon(Icons.airplanemode_active),
-                      color: Colors.red,
-                    ),
-                    ChartSection(
-                      value: 50,
-                      title: 'Alimentos',
-                      icon: const Icon(Icons.food_bank),
-                      color: Colors.blue,
-                    ),
-                  ],
-                  // innerContent: ,
-                ),
+                child: BalanceChart(),
               ),
             ),
-            ContentBox(
-              outsideLabel: 'Total do período',
-              child: Column(
-                children: const [
-                  ExpandableRow(
-                    title: 'Gastos',
-                    value: 'R\$ 700,00',
-                    textSize: TextSize.medium,
-                  ),
-                  ExpandableRow(
-                    title: 'Entradas',
-                    value: 'R\$ 1.000',
-                    textSize: TextSize.medium,
-                  ),
-                  ExpandableRow(
-                    title: 'Investimentos',
-                    value: 'R\$ 100,00',
-                    textSize: TextSize.medium,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-            Text(
-              'Extrato Diário',
-              style: typography.bold.medium,
-            ),
+            const PeriodBalanceContentBox(),
+            const SizedBox(height: 22),
+            const DailyExtractText(),
             Padding(
               padding: const EdgeInsets.only(
                 top: 22,
@@ -150,32 +60,32 @@ class BalanceScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: const [
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Gastos',
                           value: 'R\$ 250,00',
                           textSize: TextSize.medium,
                         ),
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Alimentação',
                           value: 'R\$ 100,00',
                           textSize: TextSize.small,
                         ),
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Alimentação',
                           value: 'R\$ 100,00',
                           textSize: TextSize.small,
                         ),
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Alimentação',
                           value: 'R\$ 100,00',
                           textSize: TextSize.small,
                         ),
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Entradas',
                           value: 'R\$ 250,00',
                           textSize: TextSize.medium,
                         ),
-                        ExpandableRow(
+                        DefaultRow(
                           title: 'Investimentos',
                           value: 'R\$ 250,00',
                           textSize: TextSize.medium,
@@ -192,17 +102,17 @@ class BalanceScreen extends StatelessWidget {
               child: ExpandableBox(
                 title: Text('06/07/2023'),
                 children: [
-                  ExpandableRow(
+                  DefaultRow(
                     title: 'Gastos',
                     value: 'R\$ 250,00',
                     textSize: TextSize.medium,
                   ),
-                  ExpandableRow(
+                  DefaultRow(
                     title: 'Entradas',
                     value: 'R\$ 250,00',
                     textSize: TextSize.medium,
                   ),
-                  ExpandableRow(
+                  DefaultRow(
                     title: 'Investimentos',
                     value: 'R\$ 250,00',
                     textSize: TextSize.medium,
@@ -217,78 +127,47 @@ class BalanceScreen extends StatelessWidget {
   }
 }
 
-class BalanceModal extends StatefulWidget {
-  const BalanceModal({
+class DailyExtractText extends StatelessWidget {
+  const DailyExtractText({
     super.key,
   });
 
   @override
-  State<BalanceModal> createState() => _BalanceModalState();
-}
-
-class _BalanceModalState extends State<BalanceModal> {
-  String selectedValue = '';
-  @override
   Widget build(BuildContext context) {
     final typography = context.typography;
 
-    return Modal(
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 30,
-            ),
-            child: Text(
-              'Período',
-              style: typography.bold.extraLarge,
-            ),
+    return Text(
+      'Extrato Diário',
+      style: typography.bold.medium,
+    );
+  }
+}
+
+class PeriodBalanceContentBox extends StatelessWidget {
+  const PeriodBalanceContentBox({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ContentBox(
+      outsideLabel: 'Total do período',
+      child: Column(
+        children: const [
+          DefaultRow(
+            title: 'Gastos',
+            value: 'R\$ 700,00',
+            textSize: TextSize.medium,
           ),
-          const SizedBox(
-            height: 36,
+          DefaultRow(
+            title: 'Entradas',
+            value: 'R\$ 1.000',
+            textSize: TextSize.medium,
           ),
-          Select(
-            data: const [
-              SelectData(value: 'day', label: 'Dia'),
-              SelectData(value: 'month', label: 'Mês'),
-              SelectData(value: 'year', label: 'Ano'),
-            ],
-            onPressed: (selected) {
-              setState(() {
-                if (selectedValue == selected) {
-                  selectedValue = '';
-                } else {
-                  selectedValue = selected;
-                }
-              });
-            },
-            selectedValue: selectedValue,
-          ),
-          const SizedBox(height: 30),
-          Row(
-            children: const [
-              Expanded(
-                child: Input(
-                  label: 'From',
-                ),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Expanded(
-                child: Input(
-                  label: 'To',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 28),
-          DefaultButton(
-            onPressed: () {},
-            title: const Text(
-              'Aplicar',
-            ),
+          DefaultRow(
+            title: 'Investimentos',
+            value: 'R\$ 100,00',
+            textSize: TextSize.medium,
           ),
         ],
       ),
@@ -296,49 +175,54 @@ class _BalanceModalState extends State<BalanceModal> {
   }
 }
 
-class ExpandableRow extends StatelessWidget {
-  final String title;
-  final String value;
-  final TextSize textSize;
-  const ExpandableRow({
-    Key? key,
-    required this.title,
-    required this.value,
-    required this.textSize,
-  }) : super(key: key);
+class BalanceChart extends StatelessWidget {
+  const BalanceChart({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final typography = context.typography;
-
-    TextStyle getTypography(TextSize size) {
-      switch (size) {
-        case TextSize.small:
-          return typography.regular.small;
-        case TextSize.medium:
-          return typography.regular.medium;
-        default:
-          return typography.regular.small;
-      }
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Text(
-            title,
-            style: getTypography(textSize),
-          ),
-          const Spacer(),
-          Text(
-            value,
-            style: getTypography(textSize),
-          ),
-        ],
-      ),
+    return Chart(
+      sections: [
+        ChartSection(
+          value: 50,
+          title: 'Ações',
+          icon: const Icon(Icons.airplanemode_active),
+          color: Colors.red,
+        ),
+        ChartSection(
+          value: 50,
+          title: 'Alimentos',
+          icon: const Icon(Icons.food_bank),
+          color: Colors.blue,
+        ),
+      ],
     );
   }
 }
 
-enum TextSize { small, medium }
+class PeriodRow extends StatelessWidget {
+  const PeriodRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_left,
+          ),
+        ),
+        const Text('Julho - 2023'),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.arrow_right),
+        ),
+      ],
+    );
+  }
+}

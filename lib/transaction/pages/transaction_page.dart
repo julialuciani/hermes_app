@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
-import 'package:hermes_app/shared/models/nullable.dart';
+import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
