@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/home/balance/balance_modal.dart';
+import 'package:hermes_app/home/balance/balance_filters_modal.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class BalancePeriodButton extends StatelessWidget {
@@ -15,7 +15,7 @@ class BalancePeriodButton extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => const BalanceModal(),
+            builder: (context) => const BalanceFiltersModal(),
           );
         },
         child: Container(

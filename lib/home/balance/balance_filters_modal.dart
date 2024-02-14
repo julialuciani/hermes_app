@@ -5,16 +5,16 @@ import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/modal/modal.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
 
-class BalanceModal extends StatefulWidget {
-  const BalanceModal({
+class BalanceFiltersModal extends StatefulWidget {
+  const BalanceFiltersModal({
     super.key,
   });
 
   @override
-  State<BalanceModal> createState() => _BalanceModalState();
+  State<BalanceFiltersModal> createState() => _BalanceFiltersModalState();
 }
 
-class _BalanceModalState extends State<BalanceModal> {
+class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
   String selectedValue = '';
   @override
   Widget build(BuildContext context) {
