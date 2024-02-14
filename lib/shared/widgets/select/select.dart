@@ -46,7 +46,7 @@ class _SelectState extends State<Select> with SelectMixin {
           const SizedBox(height: 8),
         ],
         SizedBox(
-          height: 36,
+          height: 30,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: widget.data.length,
@@ -63,7 +63,7 @@ class _SelectState extends State<Select> with SelectMixin {
                   key: key,
                   duration: const Duration(milliseconds: 100),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 6),
                   decoration: BoxDecoration(
                     color: getBackgroundColor(isSelected),
                     border: Border.all(color: AppColors.black),

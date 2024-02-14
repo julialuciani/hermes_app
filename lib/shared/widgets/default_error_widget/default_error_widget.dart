@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/shared/entities/failure_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
-import 'package:hermes_app/shared/models/failure.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';

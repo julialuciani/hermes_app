@@ -44,6 +44,7 @@ class _ExpandableBoxState extends State<ExpandableBox> {
       decoration: BoxDecoration(
         border: Border.all(
           color: AppColors.black,
+          width: 0.7,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -52,7 +53,7 @@ class _ExpandableBoxState extends State<ExpandableBox> {
       child: ExpansionTile(
         onExpansionChanged: (val) => setState(() => isExpanded = val),
         controlAffinity: ListTileControlAffinity.trailing,
-        childrenPadding: const EdgeInsets.all(8),
+        childrenPadding: const EdgeInsets.all(16),
         initiallyExpanded: widget.initiallyExpanded ?? false,
         title: DefaultTextStyle(
           style: typography.regular.medium,
@@ -65,7 +66,7 @@ class _ExpandableBoxState extends State<ExpandableBox> {
               )
             : null,
         trailing: Icon(
-          isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+          isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           color: AppColors.black,
           size: 30,
         ),

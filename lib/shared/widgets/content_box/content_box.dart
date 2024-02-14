@@ -36,9 +36,9 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
         if (outsideLabel != null) ...[
           Text(
             outsideLabel!,
-            style: typography.regular.medium,
+            style: typography.bold.medium,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 18),
         ],
         GestureDetector(
           key: const Key("content_box_key"),
@@ -50,10 +50,10 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: getBorderColor(borderColor),
-                width: 0.5,
+                width: 0.7,
               ),
             ),
-            child: UnconstrainedBox(child: child),
+            child: child,
           ),
         ),
       ],
