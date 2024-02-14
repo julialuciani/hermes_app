@@ -19,7 +19,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     String? description,
     Nullable<int?>? categoryId,
   }) {
-    if (typeId?.value != transaction.typeId) {
+    if (typeId != null && typeId.value != transaction.typeId) {
       categoryId = Nullable(null);
     }
 
