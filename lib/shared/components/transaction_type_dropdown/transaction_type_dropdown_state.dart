@@ -1,4 +1,4 @@
-import 'package:hermes_app/shared/models/failure.dart';
+import 'package:hermes_app/shared/entities/failure_model.dart';
 import 'package:hermes_app/shared/widgets/dropdown/dropdown_item.dart';
 
 abstract class TransactionTypeDropdownState {}

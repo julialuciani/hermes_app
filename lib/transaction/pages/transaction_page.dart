@@ -5,7 +5,7 @@ import 'package:hermes_app/shared/components/category_selector_box/category_sele
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown.dart';
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
-import 'package:hermes_app/shared/models/nullable.dart';
+import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';

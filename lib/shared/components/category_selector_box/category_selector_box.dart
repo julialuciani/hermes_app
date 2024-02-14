@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
-import 'package:hermes_app/shared/entities/category.dart';
+import 'package:hermes_app/shared/entities/category_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
@@ -117,7 +117,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
 }
 
 class CategoryIcon extends StatelessWidget {
-  final Category category;
+  final CategoryModel category;
   final bool isSelected;
   final void Function(int categoryId) onChange;
 

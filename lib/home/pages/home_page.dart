@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/balance/balance_screen.dart';
+import 'package:hermes_app/home/expenses/expenses_screen.dart';
+import 'package:hermes_app/home/income/income_screen.dart';
+import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
@@ -11,17 +15,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
+
+  final List<Widget> pages = [
+    const BalanceScreen(),
+    const ExpensesScreen(),
+    const IncomeScreen(),
+    const InvestmentsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SizedBox(),
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
+        currentIndex: _selectedIndex,
         onTap: (newIndex) {
           setState(() {
-            _currentIndex = newIndex;
+            _selectedIndex = newIndex;
           });
         },
       ),

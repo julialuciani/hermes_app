@@ -12,7 +12,10 @@ class Modal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(
+        vertical: 12,
+        horizontal: 30,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

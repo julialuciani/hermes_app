@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/entities/unmapped_entities/base_model.dart';
-import 'package:hermes_app/shared/models/nullable.dart';
 
-class Transaction extends BaseModel<Transaction> {
+class TransactionModel extends BaseModel<TransactionModel> {
   final String? description;
   final double? value;
   final int? typeId;
@@ -11,7 +11,7 @@ class Transaction extends BaseModel<Transaction> {
   final DateTime? date;
   final Uint8List? image;
 
-  const Transaction({
+  const TransactionModel({
     int? id,
     this.description,
     this.value,
@@ -33,7 +33,7 @@ class Transaction extends BaseModel<Transaction> {
     };
   }
 
-  Transaction copyWith({
+  TransactionModel copyWith({
     String? description,
     double? value,
     Nullable<int?>? typeId,
@@ -41,7 +41,7 @@ class Transaction extends BaseModel<Transaction> {
     DateTime? date,
     Uint8List? image,
   }) {
-    return Transaction(
+    return TransactionModel(
       description: description ?? this.description,
       value: value ?? this.value,
       typeId: typeId != null ? typeId.value : this.typeId,

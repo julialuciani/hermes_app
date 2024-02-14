@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hermes_app/shared/entities/transaction.dart';
-import 'package:hermes_app/shared/models/nullable.dart';
+import 'package:hermes_app/shared/entities/nullable_model.dart';
+import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_state.dart';
 
 class TransactionFormCubit extends Cubit<TransactionFormState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Transaction transaction = const Transaction();
+  TransactionModel transaction = const TransactionModel();
   TextEditingController valueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
