@@ -3,7 +3,7 @@ import 'package:hermes_app/home/home_module.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/repositories/category_repository.dart';
 import 'package:hermes_app/shared/repositories/transaction_type_repository.dart';
-import 'package:hermes_app/shared/usecases/get_transaction_types_to_dropdown_usecase.dart';
+import 'package:hermes_app/shared/usecases/get_transaction_types_to_dropdown_use_case.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 import 'package:hermes_app/transaction/transaction_module.dart';
 
@@ -26,8 +26,8 @@ class AppModule extends Module {
     ),
 
     //Usecases
-    Bind.factory<GetTransactionTypesToDropdownUsecase>(
-      (i) => GetTransactionTypesToDropdownUsecase(i()),
+    Bind.factory<GetTransactionTypesToDropdownUseCase>(
+      (i) => GetTransactionTypesToDropdownUseCase(i()),
     ),
 
     //Cubits
@@ -36,7 +36,7 @@ class AppModule extends Module {
     ),
     Bind.lazySingleton<TransactionTypeDropdownCubit>(
       (i) => TransactionTypeDropdownCubit(i()),
-    )
+    ),
   ];
 
   @override
