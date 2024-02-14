@@ -53,7 +53,7 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
                 width: 0.7,
               ),
             ),
-            child: Expanded(child: child),
+            child: child,
           ),
         ),
       ],
