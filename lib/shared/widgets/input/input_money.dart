@@ -9,7 +9,7 @@ class InputMoney extends StatefulWidget {
   /// [label] it's used to show a text above the [InputMoney] widget. Indicates what should be the typed
   final String? label;
 
-  /// [validator] it's used to validate the input of the user and allows to show a error text below the [InputMoney]
+  /// [validator] it's used to validate the input of the user and allows to show an error text below the [InputMoney]
   final String? Function(String? value)? validator;
 
   /// [onChanged] will be called everytime that the value changes
