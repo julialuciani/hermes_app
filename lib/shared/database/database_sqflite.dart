@@ -31,7 +31,12 @@ class DatabaseSqflite {
 
   Future<void> _onOpen(Database db) async {
     final seeds = Seeds.getSeeds();
-    await db.rawQuery(seeds);
+
+    final queries = SqlUtils.getMigrationQueries(seeds);
+
+    for (String query in queries) {
+      await db.rawQuery(query);
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {

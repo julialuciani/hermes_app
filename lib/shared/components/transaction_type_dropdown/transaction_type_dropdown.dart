@@ -9,10 +9,12 @@ import 'package:hermes_app/shared/widgets/dropdown/dropdown_item.dart';
 class TransactionTypeDropdown extends StatefulWidget {
   final int? value;
   final void Function(int?) onChanged;
+  final String? Function(int?)? validator;
   const TransactionTypeDropdown({
     super.key,
     this.value,
     required this.onChanged,
+    this.validator,
   });
 
   @override
@@ -36,10 +38,11 @@ class _TransactionTypeDropdownState extends State<TransactionTypeDropdown> {
         }
 
         return Dropdown(
-          label: "Tipo",
+          label: "Tipo *",
           items: items,
           onChanged: widget.onChanged,
           value: widget.value,
+          validator: widget.validator,
         );
       },
     );
