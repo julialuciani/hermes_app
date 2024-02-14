@@ -15,7 +15,7 @@ class InputMoney extends StatefulWidget {
   /// [onChanged] will be called everytime that the value changes
   final void Function(String? value)? onChanged;
 
-  /// [onFieldSubmitted] will be called when the user finish typing and click done on its keyboard
+  /// [onFieldSubmitted] will be called when the user finishes typing and clicks done on his keyboard
   final void Function(String)? onFieldSubmitted;
 
   /// [enabled] if not enabled, many of the functions of the input will not be called and its style will be different
