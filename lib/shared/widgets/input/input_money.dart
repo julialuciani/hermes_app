@@ -6,16 +6,16 @@ import 'package:hermes_app/shared/widgets/input/input.dart';
 class InputMoney extends StatefulWidget {
   final TextEditingController? controller;
 
-  /// [label] it's used to show a text above the [InputMoney] widget. Indicates what should be the typed
+  /// [label] it's used to show a text above the [InputMoney] widget. Indicates what should be typed
   final String? label;
 
-  /// [validator] it's used to validate the input of the user and allows to show a error text below the [InputMoney]
+  /// [validator] it's used to validate the input of the user and allows to show an error text below the [InputMoney]
   final String? Function(String? value)? validator;
 
   /// [onChanged] will be called everytime that the value changes
   final void Function(String? value)? onChanged;
 
-  /// [onFieldSubmitted] will be called when the user finish typing and click done on its keyboard
+  /// [onFieldSubmitted] will be called when the user finishes typing and clicks done on his keyboard
   final void Function(String)? onFieldSubmitted;
 
   /// [enabled] if not enabled, many of the functions of the input will not be called and its style will be different

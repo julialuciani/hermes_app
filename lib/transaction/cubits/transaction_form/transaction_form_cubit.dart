@@ -32,7 +32,6 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       value = value.replaceAll(",", "").replaceAll("R\$ ", "");
       formattedValue = double.tryParse(value);
     }
-
     return formattedValue;
   }
 
