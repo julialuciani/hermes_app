@@ -47,6 +47,7 @@ class CategoryIcon extends StatelessWidget {
               child: Icon(
                 IconUtils.getIconByName(category.icon),
                 color: AppColors.white,
+                size: 32,
               ),
             ),
           ),
