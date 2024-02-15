@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
-import 'package:hermes_app/shared/entities/category_model.dart';
+import 'package:hermes_app/shared/components/category_selector_box/widgets/category_icon.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
-import 'package:hermes_app/shared/utils/icon_utils.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 
@@ -67,8 +66,9 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
           }
 
           if (state is CategorySelectorBoxSuccess) {
-            final categories = state.categories.take(7);
+            final categories = state.categories.take(5);
             return Wrap(
+              alignment: WrapAlignment.spaceBetween,
               spacing: 16,
               runSpacing: 8,
               children: [
@@ -81,27 +81,33 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                     },
                   );
                 }),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        //TODO: open select others categories page
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: AppColors.lightGrey,
-                          borderRadius: BorderRadius.circular(100),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          //TODO: open select others categories page
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGrey,
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: const Icon(Icons.add),
                         ),
-                        child: const Icon(Icons.add),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "Outros",
-                      style: typography.regular.small.copyWith(),
-                    ),
-                  ],
+                      const SizedBox(height: 4),
+                      Text(
+                        "Outros",
+                        style: typography.regular.small.copyWith(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             );
@@ -111,55 +117,6 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
             child: Text("Selecione um tipo de transação"),
           );
         },
-      ),
-    );
-  }
-}
-
-class CategoryIcon extends StatelessWidget {
-  final CategoryModel category;
-  final bool isSelected;
-  final void Function(int categoryId) onChange;
-
-  const CategoryIcon({
-    super.key,
-    required this.category,
-    required this.isSelected,
-    required this.onChange,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final typography = context.typography;
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: isSelected ? AppColors.lightGrey : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              onChange(category.id!);
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: category.color,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Icon(
-                IconUtils.getIconByName(category.icon),
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            category.name,
-            style: typography.regular.small.copyWith(),
-          ),
-        ],
       ),
     );
   }
