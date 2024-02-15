@@ -9,7 +9,9 @@ import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
+import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
+import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_cubit.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_state.dart';
 import 'package:hermes_app/transaction/widgets/transaction_photo_widget.dart';
@@ -42,7 +44,6 @@ class _TransactionPageState extends State<TransactionPage> {
             child: Scaffold(
               body: Form(
                 key: transactionFormCubit.formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -76,6 +77,24 @@ class _TransactionPageState extends State<TransactionPage> {
                         controller: transactionFormCubit.descriptionController,
                         onChanged: (value) {
                           transactionFormCubit.change(description: value);
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      InputDate(
+                        label: "Data *",
+                        controller: transactionFormCubit.dateController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Campo obrigatório";
+                          }
+                          if (!DateValidator.validate(value)) {
+                            return "Formato de data inválido";
+                          }
+
+                          return null;
+                        },
+                        onChanged: (date) {
+                          transactionFormCubit.change(date: date);
                         },
                       ),
                       const SizedBox(height: 20),

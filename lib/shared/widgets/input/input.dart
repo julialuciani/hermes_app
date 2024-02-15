@@ -58,7 +58,7 @@ class _InputState extends State<Input> with InputMixin {
         if (widget.label != null) ...[
           Text(
             widget.label!,
-            style: typography.regular.medium,
+            style: typography.bold.medium,
           ),
           const SizedBox(height: 6),
         ],
