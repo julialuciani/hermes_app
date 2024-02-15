@@ -26,6 +26,8 @@ class Input extends StatefulWidget {
 
   final TextInputType? keyboardType;
 
+  final Widget? suffixIcon;
+
   /// [Input] is a widget used to allow user to insert data of any type into the app
   const Input({
     Key? key,
@@ -37,6 +39,7 @@ class Input extends StatefulWidget {
     this.enabled = true,
     this.inputFormatters,
     this.keyboardType,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -78,6 +81,7 @@ class _InputState extends State<Input> with InputMixin {
           onFieldSubmitted: widget.onFieldSubmitted,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
+              suffixIcon: widget.suffixIcon,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               fillColor: getInputFillColor(widget.enabled),

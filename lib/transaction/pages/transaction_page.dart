@@ -79,22 +79,6 @@ class _TransactionPageState extends State<TransactionPage> {
                         },
                       ),
                       const SizedBox(height: 20),
-                      Input(
-                        label: "Data *",
-                        controller: transactionFormCubit.dateController,
-                        onChanged: (value) {
-                          transactionFormCubit.change(description: value);
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Campo obrigatório";
-                          }
-                          final date = DateTime.tryParse(value);
-                          if (date == null) return "Formato de data inválido";
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
                       CategorySelectorBox(
                         onChange: (categoryId) {
                           transactionFormCubit.change(

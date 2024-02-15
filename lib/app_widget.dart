@@ -10,6 +10,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
+      localizationsDelegates: const [],
       theme: ThemeData(
         bottomSheetTheme: const BottomSheetThemeData(
           shape: RoundedRectangleBorder(

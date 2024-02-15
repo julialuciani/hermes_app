@@ -17,6 +17,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     Nullable<int?>? typeId,
     String? value,
     String? description,
+    DateTime? date,
     Nullable<int?>? categoryId,
   }) {
     if (typeId != null && typeId.value != transaction.typeId) {
@@ -28,6 +29,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       value: _formatValueToDouble(value),
       description: description,
       categoryId: categoryId,
+      date: date,
     );
 
     emit(TransactionFormSuccessChangeFields());
