@@ -45,6 +45,7 @@ class _TransactionPageState extends State<TransactionPage> {
             child: Scaffold(
               body: Form(
                 key: transactionFormCubit.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -134,7 +135,10 @@ class _TransactionPageState extends State<TransactionPage> {
                 height: 100,
                 padding: const EdgeInsets.all(20),
                 child: DefaultButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (transactionFormCubit.formKey.currentState?.validate() ??
+                        false == false) {}
+                  },
                   title: const Text("Confirmar"),
                 ),
               ),
