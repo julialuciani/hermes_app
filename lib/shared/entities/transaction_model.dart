@@ -35,7 +35,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
 
   TransactionModel copyWith({
     String? description,
-    double? value,
+    Nullable<double?>? value,
     Nullable<int?>? typeId,
     Nullable<int?>? categoryId,
     Nullable<DateTime?>? date,
@@ -43,7 +43,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
   }) {
     return TransactionModel(
       description: description ?? this.description,
-      value: value ?? this.value,
+      value: value != null ? value.value : this.value,
       typeId: typeId != null ? typeId.value : this.typeId,
       categoryId: categoryId != null ? categoryId.value : this.categoryId,
       date: date != null ? date.value : this.date,

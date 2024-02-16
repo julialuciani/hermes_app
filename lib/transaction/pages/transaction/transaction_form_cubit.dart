@@ -48,13 +48,14 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     return transaction.validate();
   }
 
-  double? _formatValueToDouble(String? value) {
+  Nullable<double?>? _formatValueToDouble(String? value) {
     double? formattedValue;
-    if (value != null) {
-      value = value.replaceAll(",", "").replaceAll("R\$ ", "");
-      formattedValue = double.tryParse(value);
-    }
-    return formattedValue;
+    if (value == null) return null;
+
+    value = value.replaceAll(",", "").replaceAll("R\$ ", "");
+    formattedValue = double.tryParse(value);
+
+    return Nullable(formattedValue);
   }
 
   void takePictureAndAdd() async {

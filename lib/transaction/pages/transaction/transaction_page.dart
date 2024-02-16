@@ -9,7 +9,6 @@ import 'package:hermes_app/shared/components/transaction_type_dropdown/transacti
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
-import 'package:hermes_app/shared/validators/transaction_validator.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/dialogs/confirmation_dialog.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
@@ -18,6 +17,7 @@ import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 import 'package:hermes_app/transaction/pages/transaction/transaction_form_cubit.dart';
 import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
+import 'package:hermes_app/transaction/pages/transaction/utils/transaction_page_message_selectors_mixin.dart';
 import 'package:hermes_app/transaction/pages/transaction/widgets/transaction_photo_widget.dart';
 
 class TransactionPage extends StatefulWidget {
@@ -29,7 +29,8 @@ class TransactionPage extends StatefulWidget {
   State<TransactionPage> createState() => _TransactionPageState();
 }
 
-class _TransactionPageState extends State<TransactionPage> {
+class _TransactionPageState extends State<TransactionPage>
+    with TransactionPageMessageSelectorsMixin {
   final transactionTypesCubit = Modular.get<TransactionTypeDropdownCubit>();
   final transactionFormCubit = Modular.get<TransactionFormCubit>();
 
@@ -94,22 +95,10 @@ class _TransactionPageState extends State<TransactionPage> {
                             return "Campo obrigatório";
                           }
                           final validatorResult = DateValidator.validate(value);
-                          String? message;
-                          if (validatorResult != DateValidatorResult.correct) {
-                            switch (validatorResult) {
-                              case DateValidatorResult.correct:
-                                break;
-                              case DateValidatorResult.formatError:
-                                message = "Formato de data inválido";
-                                break;
-                              case DateValidatorResult.isBefore2000:
-                                message = "Data não pode ser antes de 2000";
-                                break;
-                              case DateValidatorResult.isAfterNow:
-                                message = "Data não pode ser depois de hoje";
-                                break;
-                            }
-                          }
+                          String? message =
+                              getValidatorMessageByDateValidatorResult(
+                            dateValidatorResult: validatorResult,
+                          );
 
                           if (message != null) {
                             transactionFormCubit.change(
@@ -162,23 +151,9 @@ class _TransactionPageState extends State<TransactionPage> {
                 child: DefaultButton(
                   onPressed: () {
                     final validateResult = transactionFormCubit.validate();
-                    String? message;
-                    switch (validateResult) {
-                      case TransactionValidatorResult.success:
-                        break;
-                      case TransactionValidatorResult.typeCantBeNull:
-                        message = "Selecione um valor no campo tipo";
-                        break;
-                      case TransactionValidatorResult.valueCantBeNull:
-                        message = "Preencha o campo valor";
-                        break;
-                      case TransactionValidatorResult.dateCantBeNull:
-                        message = "Defina uma data válida";
-                        break;
-                      case TransactionValidatorResult.categoryCantBeNull:
-                        message = "Escolha uma categoria";
-                        break;
-                    }
+                    final message = getErrorMessageByTransactionValidatorResult(
+                      result: validateResult,
+                    );
 
                     if (message != null) {
                       CherryToast.error(
