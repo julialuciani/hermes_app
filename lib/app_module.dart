@@ -3,6 +3,7 @@ import 'package:hermes_app/home/home_module.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/repositories/category_repository.dart';
+import 'package:hermes_app/shared/repositories/transaction_repository.dart';
 import 'package:hermes_app/shared/repositories/transaction_type_repository.dart';
 import 'package:hermes_app/shared/usecases/get_categories_by_transaction_type_id_use_case.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
@@ -26,6 +27,9 @@ class AppModule extends Module {
     ),
     Bind.factory<TransactionTypeRepository>(
       (i) => TransactionTypeRepository(i()),
+    ),
+    Bind.factory<TransactionRepository>(
+      (i) => TransactionRepository(i()),
     ),
 
     //Usecases

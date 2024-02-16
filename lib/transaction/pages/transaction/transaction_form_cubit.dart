@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/entities/transaction_model.dart';
+import 'package:hermes_app/shared/entities/unknown_error.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
 import 'package:hermes_app/shared/validators/transaction_validator.dart';
+import 'package:hermes_app/transaction/pages/transaction/save_transaction_usecase.dart';
 import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
 
 class TransactionFormCubit extends Cubit<TransactionFormState> {
@@ -15,9 +17,11 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   TextEditingController dateController = TextEditingController();
 
   final GetPictureFromCameraUseCase _getPictureFromCameraUseCase;
+  final SaveTransactionUsecase _saveTransactionUsecase;
 
   TransactionFormCubit(
     this._getPictureFromCameraUseCase,
+    this._saveTransactionUsecase,
   ) : super(TransactionFormInitial());
 
   void change({
@@ -42,6 +46,20 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     );
 
     emit(TransactionFormSuccessChangeFields());
+  }
+
+  Future<void> save() async {
+    try {
+      await _saveTransactionUsecase(transaction);
+      emit(TransactionFormSuccessSave());
+    } catch (exception, stackTrace) {
+      final unknownError = UnknownError(
+        error: exception,
+        stackTrace: stackTrace,
+      );
+
+      emit(TransactionFormErrorSave(unknownError));
+    }
   }
 
   TransactionValidatorResult validate() {

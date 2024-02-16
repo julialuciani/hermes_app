@@ -10,6 +10,7 @@ import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
+import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 import 'package:hermes_app/shared/widgets/dialogs/confirmation_dialog.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_date.dart';
@@ -33,6 +34,7 @@ class _TransactionPageState extends State<TransactionPage>
     with TransactionPageMessageSelectorsMixin {
   final transactionTypesCubit = Modular.get<TransactionTypeDropdownCubit>();
   final transactionFormCubit = Modular.get<TransactionFormCubit>();
+  final registerErrorCubit = Modular.get<RegisterErrorCubit>();
 
   @override
   void initState() {
@@ -43,8 +45,29 @@ class _TransactionPageState extends State<TransactionPage>
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
-    return BlocBuilder<TransactionFormCubit, TransactionFormState>(
+
+    return BlocConsumer<TransactionFormCubit, TransactionFormState>(
         bloc: transactionFormCubit,
+        listener: (context, state) {
+          if (state is TransactionFormSuccessSave) {
+            CherryToast.success(
+              title: Text(
+                "Transação salva com sucesso",
+                style: typography.regular.medium,
+              ),
+            ).show(context);
+            Modular.to.pop();
+          }
+          if (state is TransactionFormErrorSave) {
+            registerErrorCubit.registerError(state.failure);
+            CherryToast.error(
+              title: Text(
+                "Ocorreu um erro ao salvar a transação",
+                style: typography.regular.medium,
+              ),
+            ).show(context);
+          }
+        },
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
@@ -164,7 +187,7 @@ class _TransactionPageState extends State<TransactionPage>
                       ).show(context);
                     }
 
-                    //TODO: add save call method here
+                    transactionFormCubit.save();
                   },
                   title: const Text("Confirmar"),
                 ),
