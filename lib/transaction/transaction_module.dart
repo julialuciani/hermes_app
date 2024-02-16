@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_cubit.dart';
-import 'package:hermes_app/transaction/pages/transaction_page.dart';
+import 'package:hermes_app/transaction/pages/transaction/transaction_form_cubit.dart';
+import 'package:hermes_app/transaction/pages/transaction/transaction_page.dart';
 
 class TransactionModule extends Module {
   @override

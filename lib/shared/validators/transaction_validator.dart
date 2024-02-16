@@ -6,10 +6,10 @@ extension TransactionValidator on TransactionModel {
       return TransactionValidatorResult.typeCantBeNull;
     } else if (value == null) {
       return TransactionValidatorResult.valueCantBeNull;
-    } else if (categoryId == null) {
-      return TransactionValidatorResult.categoryCantBeNull;
     } else if (date == null) {
       return TransactionValidatorResult.dateCantBeNull;
+    } else if (categoryId == null) {
+      return TransactionValidatorResult.categoryCantBeNull;
     }
     return TransactionValidatorResult.success;
   }

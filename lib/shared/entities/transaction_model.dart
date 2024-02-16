@@ -38,7 +38,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
     double? value,
     Nullable<int?>? typeId,
     Nullable<int?>? categoryId,
-    DateTime? date,
+    Nullable<DateTime?>? date,
     Nullable<Uint8List?>? image,
   }) {
     return TransactionModel(
@@ -46,7 +46,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
       value: value ?? this.value,
       typeId: typeId != null ? typeId.value : this.typeId,
       categoryId: categoryId != null ? categoryId.value : this.categoryId,
-      date: date ?? this.date,
+      date: date != null ? date.value : this.date,
       image: image != null ? image.value : this.image,
     );
   }

@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
-import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_state.dart';
+import 'package:hermes_app/shared/validators/transaction_validator.dart';
+import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
 
 class TransactionFormCubit extends Cubit<TransactionFormState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TransactionModel transaction = const TransactionModel();
+  TransactionModel transaction = TransactionModel(date: DateTime.now());
   TextEditingController valueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -23,7 +24,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     Nullable<int?>? typeId,
     String? value,
     String? description,
-    DateTime? date,
+    Nullable<DateTime?>? date,
     Nullable<int?>? categoryId,
     Nullable<Uint8List?>? image,
   }) {
@@ -41,6 +42,10 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     );
 
     emit(TransactionFormSuccessChangeFields());
+  }
+
+  TransactionValidatorResult validate() {
+    return transaction.validate();
   }
 
   double? _formatValueToDouble(String? value) {
