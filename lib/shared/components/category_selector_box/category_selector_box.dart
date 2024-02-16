@@ -47,6 +47,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
   @override
   void dispose() {
     eventListener?.cancel();
+    categorySelectorBoxCubit.reset();
     super.dispose();
   }
 

@@ -185,9 +185,9 @@ class _TransactionPageState extends State<TransactionPage>
                           style: typography.regular.medium,
                         ),
                       ).show(context);
+                    } else {
+                      transactionFormCubit.save();
                     }
-
-                    transactionFormCubit.save();
                   },
                   title: const Text("Confirmar"),
                 ),

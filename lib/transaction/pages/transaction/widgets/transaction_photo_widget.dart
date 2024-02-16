@@ -42,14 +42,13 @@ class _TransactionPhotoWidgetState extends State<TransactionPhotoWidget> {
               ),
             ),
             const SizedBox(height: 8),
-          ],
-          widget.image != null
-              ? _PhotoWidget(
-                  image: widget.image!,
-                )
-              : _EmptyPhotoWidget(
-                  onTap: widget.onTap,
-                ),
+            _PhotoWidget(
+              image: widget.image!,
+            )
+          ] else
+            _EmptyPhotoWidget(
+              onTap: widget.onTap,
+            ),
         ],
       ),
     );

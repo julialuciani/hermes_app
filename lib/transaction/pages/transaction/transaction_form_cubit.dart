@@ -24,6 +24,10 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     this._saveTransactionUsecase,
   ) : super(TransactionFormInitial());
 
+  void reset() {
+    transaction = TransactionModel(date: DateTime.now());
+  }
+
   void change({
     Nullable<int?>? typeId,
     String? value,
