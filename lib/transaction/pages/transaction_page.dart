@@ -89,8 +89,18 @@ class _TransactionPageState extends State<TransactionPage> {
                           if (value == null || value.isEmpty) {
                             return "Campo obrigatório";
                           }
-                          if (!DateValidator.validate(value)) {
-                            return "Formato de data inválido";
+                          final validatorResult = DateValidator.validate(value);
+                          if (validatorResult != DateValidatorResult.correct) {
+                            switch (validatorResult) {
+                              case DateValidatorResult.correct:
+                                break;
+                              case DateValidatorResult.formatError:
+                                return "Formato de data inválido";
+                              case DateValidatorResult.isBefore2000:
+                                return "Data não pode ser antes de 2000";
+                              case DateValidatorResult.isAfterNow:
+                                return "Data não pode ser depois de hoje";
+                            }
                           }
 
                           return null;
