@@ -8,6 +8,7 @@ import 'package:hermes_app/shared/components/transaction_type_dropdown/transacti
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
+import 'package:hermes_app/shared/widgets/dialogs/confirmation_dialog.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
@@ -108,7 +109,22 @@ class _TransactionPageState extends State<TransactionPage> {
                             transactionFormCubit.transaction.categoryId,
                       ),
                       const SizedBox(height: 20),
-                      const TransactionPhotoWidget(),
+                      TransactionPhotoWidget(
+                        image: transactionFormCubit.transaction.image,
+                        onRemove: () async {
+                          const ConfirmationDialog(
+                            title: "Deseja remover a foto?",
+                          ).show(context).then((isConfirmed) {
+                            if (isConfirmed) {
+                              transactionFormCubit.change(
+                                  image: Nullable(null));
+                            }
+                          });
+                        },
+                        onTap: () {
+                          transactionFormCubit.takePictureAndAdd();
+                        },
+                      ),
                       const SizedBox(height: 100),
                     ],
                   ),

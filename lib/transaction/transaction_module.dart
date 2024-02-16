@@ -7,7 +7,7 @@ class TransactionModule extends Module {
   List<Bind<Object>> get binds => [
         //Cubits
         Bind.lazySingleton(
-          (i) => TransactionFormCubit(),
+          (i) => TransactionFormCubit(i()),
         ),
       ];
 

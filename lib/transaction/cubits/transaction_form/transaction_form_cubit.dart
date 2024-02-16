@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/entities/transaction_model.dart';
+import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
 import 'package:hermes_app/transaction/cubits/transaction_form/transaction_form_state.dart';
 
 class TransactionFormCubit extends Cubit<TransactionFormState> {
@@ -11,7 +13,11 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
-  TransactionFormCubit() : super(TransactionFormInitial());
+  final GetPictureFromCameraUseCase _getPictureFromCameraUseCase;
+
+  TransactionFormCubit(
+    this._getPictureFromCameraUseCase,
+  ) : super(TransactionFormInitial());
 
   void change({
     Nullable<int?>? typeId,
@@ -19,6 +25,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     String? description,
     DateTime? date,
     Nullable<int?>? categoryId,
+    Nullable<Uint8List?>? image,
   }) {
     if (typeId != null && typeId.value != transaction.typeId) {
       categoryId = Nullable(null);
@@ -30,6 +37,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       description: description,
       categoryId: categoryId,
       date: date,
+      image: image,
     );
 
     emit(TransactionFormSuccessChangeFields());
@@ -42,6 +50,16 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       formattedValue = double.tryParse(value);
     }
     return formattedValue;
+  }
+
+  void takePictureAndAdd() async {
+    final picture = await _getPictureFromCameraUseCase();
+
+    if (picture == null) return;
+
+    final bytes = await picture.readAsBytes();
+
+    change(image: Nullable(bytes));
   }
 
   @override
