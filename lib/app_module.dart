@@ -29,6 +29,9 @@ class AppModule extends Module {
     Bind.factory<GetTransactionTypesToDropdownUseCase>(
       (i) => GetTransactionTypesToDropdownUseCase(i()),
     ),
+    // Bind.factory<GetAllTransactionsByPeriodUseCase>(
+    //   (i) => GetAllTransactionsByPeriodUseCase(i()),
+    // ),
 
     //Cubits
     Bind.factory<RegisterErrorCubit>(
