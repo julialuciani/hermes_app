@@ -13,7 +13,7 @@ void main() {
   });
 
   test(
-    "WHEN call for get error message THEN verify if return is expected",
+    'WHEN call for get error message THEN verify if return is expected',
     () {
       //ACT
       final successMessage = sut.getErrorMessageByTransactionValidatorResult(
@@ -38,15 +38,15 @@ void main() {
 
       //ASSERT
       expect(successMessage, isNull);
-      expect(categoryCantBeNullMessage, "Escolha uma categoria");
-      expect(dateCantBeNullMessage, "Defina uma data válida");
-      expect(typeCantBeNullMessage, "Selecione um valor no campo tipo");
-      expect(valueCantBeNullMessage, "Preencha o campo valor");
+      expect(categoryCantBeNullMessage, 'Escolha uma categoria');
+      expect(dateCantBeNullMessage, 'Defina uma data válida');
+      expect(typeCantBeNullMessage, 'Selecione um valor no campo tipo');
+      expect(valueCantBeNullMessage, 'Preencha o campo valor');
     },
   );
 
   test(
-    "WHEN call for get validate message by date validator THEN verify if return is expected",
+    'WHEN call for get validate message by date validator THEN verify if return is expected',
     () {
       //ACT
       final correctMessage = sut.getValidatorMessageByDateValidatorResult(
@@ -64,9 +64,9 @@ void main() {
 
       //ASSERT
       expect(correctMessage, isNull);
-      expect(formatErrorMessage, "Formato de data inválido");
-      expect(isAfterNowMessage, "Data não pode ser depois de hoje");
-      expect(isBefore2000Message, "Data não pode ser antes de 2000");
+      expect(formatErrorMessage, 'Formato de data inválido');
+      expect(isAfterNowMessage, 'Data não pode ser depois de hoje');
+      expect(isBefore2000Message, 'Data não pode ser antes de 2000');
     },
   );
 }
