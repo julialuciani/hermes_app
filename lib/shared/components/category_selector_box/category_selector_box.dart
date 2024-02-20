@@ -75,6 +75,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
               children: [
                 ...categories.map((category) {
                   return CategoryIcon(
+                    key: Key(category.name),
                     category: category,
                     isSelected: widget.selectedCategory == category.id,
                     onChange: (categoryId) {

@@ -79,6 +79,7 @@ class _TransactionPageState extends State<TransactionPage>
                   child: Column(
                     children: [
                       TransactionTypeDropdown(
+                        key: const Key('transaction_type_dropdown'),
                         onChanged: (value) {
                           eventBus.fire(ChangeTransactionTypeEvent(value));
                           transactionFormCubit.change(typeId: Nullable(value));
@@ -91,6 +92,7 @@ class _TransactionPageState extends State<TransactionPage>
                       ),
                       const SizedBox(height: 20),
                       InputMoney(
+                        key: const Key("value_input"),
                         label: 'Valor *',
                         controller: transactionFormCubit.valueController,
                         onChanged: (value) {
@@ -103,6 +105,7 @@ class _TransactionPageState extends State<TransactionPage>
                       ),
                       const SizedBox(height: 20),
                       Input(
+                        key: const Key('description_input'),
                         label: 'Descrição',
                         controller: transactionFormCubit.descriptionController,
                         onChanged: (value) {
@@ -172,6 +175,7 @@ class _TransactionPageState extends State<TransactionPage>
                 height: 100,
                 padding: const EdgeInsets.all(20),
                 child: DefaultButton(
+                  key: const Key('btn_save_transaction'),
                   onPressed: () {
                     final validateResult = transactionFormCubit.validate();
                     final message = getErrorMessageByTransactionValidatorResult(
