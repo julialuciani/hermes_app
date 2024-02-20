@@ -52,7 +52,7 @@ class _TransactionPageState extends State<TransactionPage>
           if (state is TransactionFormSuccessSave) {
             CherryToast.success(
               title: Text(
-                "Transação salva com sucesso",
+                'Transação salva com sucesso',
                 style: typography.regular.medium,
               ),
             ).show(context);
@@ -62,7 +62,7 @@ class _TransactionPageState extends State<TransactionPage>
             registerErrorCubit.registerError(state.failure);
             CherryToast.error(
               title: Text(
-                "Ocorreu um erro ao salvar a transação",
+                'Ocorreu um erro ao salvar a transação',
                 style: typography.regular.medium,
               ),
             ).show(context);
@@ -86,24 +86,24 @@ class _TransactionPageState extends State<TransactionPage>
                         value: transactionFormCubit.transaction.typeId,
                         validator: (value) {
                           if (value != null) return null;
-                          return "Campo obrigatório";
+                          return 'Campo obrigatório';
                         },
                       ),
                       const SizedBox(height: 20),
                       InputMoney(
-                        label: "Valor *",
+                        label: 'Valor *',
                         controller: transactionFormCubit.valueController,
                         onChanged: (value) {
                           transactionFormCubit.change(value: value);
                         },
                         validator: (value) {
                           if (value != null && value.isNotEmpty) return null;
-                          return "Campo obrigatório";
+                          return 'Campo obrigatório';
                         },
                       ),
                       const SizedBox(height: 20),
                       Input(
-                        label: "Descrição",
+                        label: 'Descrição',
                         controller: transactionFormCubit.descriptionController,
                         onChanged: (value) {
                           transactionFormCubit.change(description: value);
@@ -111,11 +111,11 @@ class _TransactionPageState extends State<TransactionPage>
                       ),
                       const SizedBox(height: 20),
                       InputDate(
-                        label: "Data *",
+                        label: 'Data *',
                         controller: transactionFormCubit.dateController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Campo obrigatório";
+                            return 'Campo obrigatório';
                           }
                           final validatorResult = DateValidator.validate(value);
                           String? message =
@@ -150,7 +150,7 @@ class _TransactionPageState extends State<TransactionPage>
                         image: transactionFormCubit.transaction.image,
                         onRemove: () async {
                           final isConfirmed = await const ConfirmationDialog(
-                            title: "Deseja remover a foto?",
+                            title: 'Deseja remover a foto?',
                           ).show(context);
 
                           if (isConfirmed) {
@@ -189,7 +189,7 @@ class _TransactionPageState extends State<TransactionPage>
                       transactionFormCubit.save();
                     }
                   },
-                  title: const Text("Confirmar"),
+                  title: const Text('Confirmar'),
                 ),
               ),
             ),

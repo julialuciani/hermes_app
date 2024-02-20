@@ -19,7 +19,6 @@ class ConfirmationDialog extends StatelessWidget {
         return this;
       },
     );
-
     return isConfirmed ?? false;
   }
 
