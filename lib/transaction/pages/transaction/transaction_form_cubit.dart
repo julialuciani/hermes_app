@@ -6,7 +6,7 @@ import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/shared/entities/unknown_error.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
 import 'package:hermes_app/shared/validators/transaction_validator.dart';
-import 'package:hermes_app/transaction/pages/transaction/save_transaction_usecase.dart';
+import 'package:hermes_app/transaction/pages/transaction/save_transaction_use_case.dart';
 import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
 
 class TransactionFormCubit extends Cubit<TransactionFormState> {
@@ -17,7 +17,7 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   TextEditingController dateController = TextEditingController();
 
   final GetPictureFromCameraUseCase _getPictureFromCameraUseCase;
-  final SaveTransactionUsecase _saveTransactionUsecase;
+  final SaveTransactionUseCase _saveTransactionUsecase;
 
   TransactionFormCubit(
     this._getPictureFromCameraUseCase,
@@ -73,8 +73,9 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
   Nullable<double?>? _formatValueToDouble(String? value) {
     double? formattedValue;
     if (value == null) return null;
-
-    value = value.replaceAll(",", "").replaceAll("R\$ ", "");
+    //Value format comes as R$  #.###,##
+    value =
+        value.replaceAll(".", "").replaceAll(",", ".").replaceAll("R\$ ", "");
     formattedValue = double.tryParse(value);
 
     return Nullable(formattedValue);
