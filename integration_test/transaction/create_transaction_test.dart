@@ -14,7 +14,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('transaction_type_dropdown')));
       await tester.pumpAndSettle(const Duration(seconds: 1));
-      // Isso é um caso específico do dropdown, ele de certa forma identifica dois componentes como o mesmo item, por isso devemos selecionar o segundo
+      // This is a specific case of the dropdown, it somehow identifies two components as the same item, so we must select the second one
       await tester.tap(find.text('Entrada').last);
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
@@ -57,7 +57,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('transaction_type_dropdown')));
       await tester.pumpAndSettle(const Duration(seconds: 1));
-      // Isso é um caso específico do dropdown, ele de certa forma identifica dois componentes como o mesmo item, por isso devemos selecionar o segundo
+      // This is a specific case of the dropdown, it somehow identifies two components as the same item, so we must select the second one
       await tester.tap(find.text('Entrada').last);
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
