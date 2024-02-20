@@ -1,10 +1,11 @@
+
 import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/shared/repositories/transaction_repository.dart';
 
-class SaveTransactionUsecase {
+class SaveTransactionUseCase {
   final TransactionRepository _repository;
 
-  SaveTransactionUsecase(
+  SaveTransactionUseCase(
     this._repository,
   );
 
