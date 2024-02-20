@@ -12,7 +12,6 @@ class GetCategoriesByTransactionTypeIdUseCase {
     final categories = await _repository.getByTransactionTypeId(
       transactionTypeId,
     );
-
     return categories;
   }
 }
