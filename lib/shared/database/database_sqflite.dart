@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hermes_app/shared/database/seeds.dart';
 import 'package:hermes_app/shared/utils/sql_utils.dart';
@@ -30,6 +31,8 @@ class DatabaseSqflite {
   }
 
   Future<void> _onOpen(Database db) async {
+    if (!kDebugMode) return;
+
     final seeds = Seeds.getSeeds();
 
     final queries = SqlUtils.getMigrationQueries(seeds);

@@ -31,4 +31,17 @@ class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
       transactions: map['transactions'] as List<TransactionModel>,
     );
   }
+
+  TransactionTypeModel copyWith({
+    String? name,
+    String? totalValue,
+    List<TransactionModel>? transactions,
+  }) {
+    return TransactionTypeModel(
+      id: id,
+      name: name ?? this.name,
+      totalValue: totalValue ?? this.totalValue,
+      transactions: transactions ?? this.transactions,
+    );
+  }
 }
