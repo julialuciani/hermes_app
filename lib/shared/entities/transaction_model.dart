@@ -35,19 +35,19 @@ class TransactionModel extends BaseModel<TransactionModel> {
 
   TransactionModel copyWith({
     String? description,
-    double? value,
+    Nullable<double?>? value,
     Nullable<int?>? typeId,
-    int? categoryId,
-    DateTime? date,
-    Uint8List? image,
+    Nullable<int?>? categoryId,
+    Nullable<DateTime?>? date,
+    Nullable<Uint8List?>? image,
   }) {
     return TransactionModel(
       description: description ?? this.description,
-      value: value ?? this.value,
+      value: value != null ? value.value : this.value,
       typeId: typeId != null ? typeId.value : this.typeId,
-      categoryId: categoryId ?? this.categoryId,
-      date: date ?? this.date,
-      image: image ?? this.image,
+      categoryId: categoryId != null ? categoryId.value : this.categoryId,
+      date: date != null ? date.value : this.date,
+      image: image != null ? image.value : this.image,
     );
   }
 }
