@@ -72,7 +72,11 @@ void main() {
     () {
       //ARRANGE
       final transaction = TransactionModel(
-          typeId: 1, value: 20.00, date: DateTime.now(), categoryId: 1);
+        typeId: 1,
+        value: 20.00,
+        date: DateTime.now(),
+        categoryId: 1,
+      );
 
       //ACT
       final validationResult = transaction.validate();
