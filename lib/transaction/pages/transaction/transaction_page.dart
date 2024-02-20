@@ -92,7 +92,7 @@ class _TransactionPageState extends State<TransactionPage>
                       ),
                       const SizedBox(height: 20),
                       InputMoney(
-                        key: const Key("value_input"),
+                        key: const Key('value_input'),
                         label: 'Valor *',
                         controller: transactionFormCubit.valueController,
                         onChanged: (value) {

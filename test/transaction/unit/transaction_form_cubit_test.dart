@@ -25,7 +25,7 @@ void main() {
   );
 
   test(
-    "WHEN instantiate cubit THEN transaction should only have date",
+    'WHEN instantiate cubit THEN transaction should only have date',
     () {
       //ARRANGE
       final cubit = TransactionFormCubit(
@@ -48,7 +48,7 @@ void main() {
   );
 
   test(
-    "WHEN change typeId THEN category should be set to null",
+    'WHEN change typeId THEN category should be set to null',
     () {
       //ARRANGE
       final cubit = TransactionFormCubit(
@@ -69,7 +69,7 @@ void main() {
   );
 
   test(
-    "WHEN reset THEN transaction should only have date",
+    'WHEN reset THEN transaction should only have date',
     () {
       //ARRANGE
       final cubit = TransactionFormCubit(
@@ -81,13 +81,13 @@ void main() {
       //ACT
       cubit.change(typeId: Nullable(1));
       cubit.change(categoryId: Nullable(2));
-      cubit.change(description: "Mock Description");
+      cubit.change(description: 'Mock Description');
       cubit.change(image: Nullable(mockImage));
-      cubit.change(value: "R\$  20,00");
+      cubit.change(value: 'R\$  20,00');
 
       expect(cubit.transaction.categoryId, 2);
       expect(cubit.transaction.typeId, 1);
-      expect(cubit.transaction.description, "Mock Description");
+      expect(cubit.transaction.description, 'Mock Description');
       expect(cubit.transaction.image, mockImage);
       expect(cubit.transaction.value, 20.00);
 
@@ -107,7 +107,7 @@ void main() {
   );
 
   test(
-    "WHEN change value THEN value be represented as double in the correct value",
+    'WHEN change value THEN value be represented as double in the correct value',
     () {
       //ARRANGE
       final cubit = TransactionFormCubit(
@@ -116,7 +116,7 @@ void main() {
       );
 
       //ACT
-      cubit.change(value: "R\$  2.345,21");
+      cubit.change(value: 'R\$  2.345,21');
 
       //ASSERT
       expect(cubit.transaction.value, 2345.21);
