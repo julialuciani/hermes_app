@@ -15,10 +15,12 @@ import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cu
 class CategorySelectorBox extends StatefulWidget {
   final void Function(int categoryId) onChange;
   final int? selectedCategory;
+  final VoidCallback onTapOthers;
   const CategorySelectorBox({
     super.key,
     required this.onChange,
     required this.selectedCategory,
+    required this.onTapOthers,
   });
 
   @override
@@ -90,9 +92,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          //TODO: open select others categories page
-                        },
+                        onTap: widget.onTapOthers,
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
