@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: GestureDetector(
+        key: const Key('create_new_transaction_fab'),
         onTap: () {
           Modular.to.pushNamed('/transaction/').then((result) {
             //TODO: figure it out what to do when come back, probably reload the page
