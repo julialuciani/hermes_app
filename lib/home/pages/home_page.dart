@@ -30,11 +30,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    db.rawQuery(
-      '''SELECT * FROM ${Tables.transaction}
-      JOIN ${Tables.category} ON transaction.categoryId = category.id
-      WHERE category.transactionTypeId = 1''',
-    );
+    db.rawQuery('''SELECT * FROM ${Tables.transaction} AS t
+      JOIN ${Tables.category} ON t.categoryId = category.id
+      WHERE category.transactionTypeId = 1''').then(print);
 
     return Scaffold(
       body: pages[_selectedIndex],
