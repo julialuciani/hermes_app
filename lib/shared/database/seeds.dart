@@ -38,7 +38,7 @@ INSERT OR IGNORE INTO `category` VALUES
 (34, 'Alimentação', 2, 'food', 234, 22, 22),
 (35, 'Alimentação', 2, 'food', 234, 22, 22),
 (36, 'Alimentação', 2, 'food', 234, 22, 22),
-(37, 'Alimentação', 2, 'food', 234, 22, 22),
+(37, 'Academia', 2, 'barbell', 234, 22, 22),
 (38, 'Alimentação', 2, 'food', 234, 22, 22);
 ''';
   }

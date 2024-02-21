@@ -14,6 +14,8 @@ class IconUtils {
         return Ionicons.bar_chart;
       case "salario":
         return Ionicons.cash;
+      case "barbell":
+        return Icons.fitness_center;
       default:
         return Icons.abc;
     }

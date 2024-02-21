@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
+import 'package:hermes_app/shared/components/category_selector_box/utils/get_categories_to_show.dart';
 import 'package:hermes_app/shared/components/category_selector_box/widgets/category_icon.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -70,15 +71,19 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
           }
 
           if (state is CategorySelectorBoxSuccess) {
-            final categories = state.categories.take(5).toList();
+            final categoriesToShow = GetCategoriesToShow.get(
+              state.categories,
+              widget.selectedCategory,
+            );
+
             return Wrap(
               alignment: WrapAlignment.spaceBetween,
               spacing: 16,
               runSpacing: 8,
               children: [
-                ...categories.map((category) {
+                ...categoriesToShow.map((category) {
                   return CategoryIcon(
-                    key: ValueKey(categories.indexOf(category)),
+                    key: ValueKey(categoriesToShow.indexOf(category)),
                     category: category,
                     isSelected: widget.selectedCategory == category.id,
                     onChange: (categoryId) {
