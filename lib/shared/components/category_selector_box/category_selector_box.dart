@@ -54,6 +54,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
+    final screenWidth = MediaQuery.of(context).size.width;
     return ContentBox(
       outsideLabel: "Categoria *",
       child: BlocBuilder<CategorySelectorBoxCubit, CategorySelectorBoxState>(
@@ -83,11 +84,9 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                     },
                   );
                 }),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                Container(
+                  width: screenWidth * 0.22,
+                  padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -100,13 +99,16 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                             color: AppColors.lightGrey,
                             borderRadius: BorderRadius.circular(100),
                           ),
-                          child: const Icon(Icons.add),
+                          child: const Icon(
+                            Icons.add,
+                            size: 32,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         "Outros",
-                        style: typography.regular.small.copyWith(),
+                        style: typography.regular.small.copyWith(fontSize: 14),
                       ),
                     ],
                   ),
