@@ -67,7 +67,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
           }
 
           if (state is CategorySelectorBoxSuccess) {
-            final categories = state.categories.take(5);
+            final categories = state.categories.take(5).toList();
             return Wrap(
               alignment: WrapAlignment.spaceBetween,
               spacing: 16,
@@ -75,7 +75,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
               children: [
                 ...categories.map((category) {
                   return CategoryIcon(
-                    key: Key(category.name),
+                    key: ValueKey(categories.indexOf(category)),
                     category: category,
                     isSelected: widget.selectedCategory == category.id,
                     onChange: (categoryId) {
