@@ -3,7 +3,7 @@ class Seeds {
     return '''
 INSERT OR IGNORE INTO `category` VALUES
 (1, 'Alimentação', 2, 'food', 234, 22, 22),
-(2, 'Transporte', 2, 'car', 234, 22, 22),
+(2, 'Transporte', 2, 'bus', 234, 22, 22),
 (3, 'Aluguel', 2, 'home', 234, 22, 22),
 (4, 'Renda fixa', 3, 'renda_fixa', 21, 50, 236),
 (5, 'Salário', 1, 'salario', 97, 165, 86),
@@ -39,7 +39,9 @@ INSERT OR IGNORE INTO `category` VALUES
 (35, 'Alimentação', 2, 'food', 234, 22, 22),
 (36, 'Alimentação', 2, 'food', 234, 22, 22),
 (37, 'Academia', 2, 'barbell', 234, 22, 22),
-(38, 'Alimentação', 2, 'food', 234, 22, 22);
+(38, 'Alimentação', 2, 'food', 234, 22, 22),
+(39, 'Mercado', 2, 'shopping_cart', 234, 22, 22),
+(40, 'Eletrônicos', 2, 'eletronics', 234, 22, 22);
 ''';
   }
 }
