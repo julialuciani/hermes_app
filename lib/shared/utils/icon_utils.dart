@@ -6,7 +6,7 @@ class IconUtils {
     switch (iconName) {
       case "food":
         return Ionicons.fast_food_outline;
-      case "car":
+      case "bus":
         return Ionicons.bus;
       case "home":
         return Ionicons.home;
@@ -14,6 +14,12 @@ class IconUtils {
         return Ionicons.bar_chart;
       case "salario":
         return Ionicons.cash;
+      case "barbell":
+        return Icons.fitness_center;
+      case "shopping_cart":
+        return Ionicons.cart_outline;
+      case "eletronics":
+        return Ionicons.desktop_outline;
       default:
         return Icons.abc;
     }
