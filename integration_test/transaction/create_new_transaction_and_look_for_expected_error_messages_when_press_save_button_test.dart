@@ -4,7 +4,7 @@ import 'package:hermes_app/main.dart' as app;
 
 void main() {
   testWidgets(
-    'Create new valid transaction and Save',
+    'Create new transaction and look for expected error messages WHEN press save button',
     (tester) async {
       app.main();
       await tester.pumpAndSettle(const Duration(seconds: 3));
@@ -12,11 +12,23 @@ void main() {
       await tester.tap(find.byKey(const Key('create_new_transaction_fab')));
       await tester.pumpAndSettle();
 
+      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.text('Selecione um valor no campo tipo'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 5));
+
       await tester.tap(find.byKey(const Key('transaction_type_dropdown')));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       // This is a specific case of the dropdown, it somehow identifies two components as the same item, so we must select the second one
       await tester.tap(find.text('Entrada').last);
       await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.text('Preencha o campo valor'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
 
       await tester.enterText(find.byKey(const Key('value_input')), '2000');
       FocusManager.instance.primaryFocus?.unfocus();
@@ -28,6 +40,12 @@ void main() {
       );
       FocusManager.instance.primaryFocus?.unfocus();
       await tester.pump(const Duration(seconds: 1));
+
+      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.text('Escolha uma categoria'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
 
       await tester.tap(find.byKey(const ValueKey(0)));
       await tester.pump(const Duration(seconds: 1));

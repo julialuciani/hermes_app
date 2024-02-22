@@ -8,6 +8,7 @@ import 'package:hermes_app/shared/components/transaction_type_dropdown/transacti
 import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
@@ -55,6 +56,7 @@ class _TransactionPageState extends State<TransactionPage>
                 'Transação salva com sucesso',
                 style: typography.regular.medium,
               ),
+              toastDuration: const Duration(seconds: 2),
             ).show(context);
             Modular.to.pop();
           }
@@ -65,12 +67,36 @@ class _TransactionPageState extends State<TransactionPage>
                 'Ocorreu um erro ao salvar a transação',
                 style: typography.regular.medium,
               ),
+              toastDuration: const Duration(seconds: 2),
             ).show(context);
           }
         },
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: AppColors.black,
+                  ),
+                ),
+                title: Text(
+                  'Transação',
+                  style: typography.bold.extraLarge,
+                ),
+                backgroundColor: AppColors.white,
+                elevation: 2,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                )),
+              ),
               body: Form(
                 key: transactionFormCubit.formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -188,6 +214,7 @@ class _TransactionPageState extends State<TransactionPage>
                           message,
                           style: typography.regular.medium,
                         ),
+                        toastDuration: const Duration(seconds: 2),
                       ).show(context);
                     } else {
                       transactionFormCubit.save();
