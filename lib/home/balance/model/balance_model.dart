@@ -10,3 +10,22 @@ class BalanceModel {
     required this.investments,
   });
 }
+
+class PeriodExtractModel {
+  final String title;
+  final BalanceModel balance;
+  PeriodExtractModel({
+    required this.title,
+    required this.balance,
+  });
+
+  PeriodExtractModel copyWith({
+    String? title,
+    BalanceModel? balance,
+  }) {
+    return PeriodExtractModel(
+      title: title ?? this.title,
+      balance: balance ?? this.balance,
+    );
+  }
+}

@@ -5,7 +5,6 @@ import 'package:hermes_app/home/expenses/expenses_screen.dart';
 import 'package:hermes_app/home/income/income_screen.dart';
 import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
-import 'package:hermes_app/shared/constants/tables.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
@@ -30,9 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    db.rawQuery('''SELECT * FROM ${Tables.transaction} AS t
-      JOIN ${Tables.category} ON t.categoryId = category.id
-      WHERE category.transactionTypeId = 1''').then(print);
+    // db.rawQuery('''SELECT * FROM ${Tables.transaction} AS t
+    //   JOIN ${Tables.category} ON t.categoryId = category.id
+    //   WHERE category.transactionTypeId = 1''').then(print);
 
     return Scaffold(
       body: pages[_selectedIndex],

@@ -1,16 +1,18 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/shared/entities/unmapped_entities/base_model.dart';
+import 'package:intl/intl.dart';
 
 class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
   final String name;
-  final String totalValue;
+  final String? totalValue;
   final List<TransactionModel> transactions;
 
   const TransactionTypeModel({
     required int? id,
     required this.name,
-    required this.totalValue,
-    required this.transactions,
+    this.totalValue,
+    this.transactions = const [],
   }) : super(id: id);
 
   @override
@@ -18,8 +20,6 @@ class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'total_value': totalValue,
-      'transactions': transactions,
     };
   }
 
@@ -27,8 +27,7 @@ class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
     return TransactionTypeModel(
       id: map['id'] as int?,
       name: map['name'] as String,
-      totalValue: map['total_value'] as String,
-      transactions: map['transactions'] as List<TransactionModel>,
+      totalValue: map['total_value'] as String?,
     );
   }
 
@@ -43,5 +42,17 @@ class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
       totalValue: totalValue ?? this.totalValue,
       transactions: transactions ?? this.transactions,
     );
+  }
+
+  String get getSumOfAllTransactions {
+    double sum = 0;
+    for (var transaction in transactions) {
+      sum += transaction.value ?? 0.0;
+    }
+
+    final locale = Intl.systemLocale;
+    final formatter = CurrencyTextInputFormatter(locale: locale);
+
+    return formatter.formatDouble(sum);
   }
 }

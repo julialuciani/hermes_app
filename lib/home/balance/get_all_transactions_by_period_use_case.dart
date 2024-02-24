@@ -18,6 +18,46 @@ class GetAllTransactionsByPeriodUseCase {
     return result;
   }
 
+  List<PeriodExtractModel> _groupTransactionsByPeriod(
+    List<TransactionModel> nonGroupedTransactions,
+    Period period,
+  ) {
+    switch (period) {
+      case Period.day:
+      case Period.week:
+      case Period.month:
+        //TODO: add function to groupTransactionsByDay
+        break;
+      case Period.year:
+        //TODO: add function to groupTransactionByMonth
+        break;
+    }
+  }
+
+  List<PeriodExtractModel> groupTransactionsByDay(
+    List<TransactionModel> nonGroupedTransactions,
+  ) {
+    List<PeriodExtractModel> extract = [];
+
+    //1 - Agrupar as listas de transações com base no dia
+    //2 - Passar por cada lista agrupada e realizar as transformações para ter o balance model
+    //3 - Juntar o balance model com a lista de transações e adicionar na lista extract como um PeriodExtractModel
+
+    Map<int, List<TransactionModel>> groupedTransactions = {};
+
+    for (var transaction in nonGroupedTransactions) {
+      if (groupedTransactions.containsKey(transaction.date!.day)) {
+        groupedTransactions[transaction.date!.day]!.add(transaction);
+      } else {
+        groupedTransactions[transaction.date!.day] = [transaction];
+      }
+    }
+  }
+
+  // List<PeriodExtractModel> groupTransactionByMonth(
+  //   List<TransactionModel> nonGroupedTransactions,
+  // ) {}
+
   Future<BalanceModel> call() async {
     final TransactionTypeModel expenses = await getTransactionType(
       'expenses',
@@ -52,3 +92,5 @@ class GetAllTransactionsByPeriodUseCase {
     return result;
   }
 }
+
+enum Period { day, week, month, year }
