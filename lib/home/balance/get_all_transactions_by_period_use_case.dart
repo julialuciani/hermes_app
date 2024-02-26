@@ -24,10 +24,11 @@ class GetAllTransactionsByPeriodUseCase {
   ) {
     switch (period) {
       case Period.day:
+        return groupTransactionsByDay(nonGroupedTransactions);
       case Period.week:
+        return groupTransactionsByDay(nonGroupedTransactions);
       case Period.month:
-        //TODO: add function to groupTransactionsByDay
-        break;
+        return groupTransactionsByDay(nonGroupedTransactions);
       case Period.year:
         //TODO: add function to groupTransactionByMonth
         break;
@@ -52,11 +53,27 @@ class GetAllTransactionsByPeriodUseCase {
         groupedTransactions[transaction.date!.day] = [transaction];
       }
     }
-  }
 
-  // List<PeriodExtractModel> groupTransactionByMonth(
-  //   List<TransactionModel> nonGroupedTransactions,
-  // ) {}
+    groupedTransactions.forEach((key, value) {
+      extract.add(
+        PeriodExtractModel(
+          title: key.toString(),
+          balance: BalanceModel(
+            income:
+                value.where((element) => element.typeName == 'income').toList(),
+            expenses: value
+                .where((element) => element.typeName == 'expenses')
+                .toList(),
+            investments: value
+                .where((element) => element.typeName == 'investments')
+                .toList(),
+          ),
+        ),
+      );
+    });
+
+    return extract;
+  }
 
   Future<BalanceModel> call() async {
     final TransactionTypeModel expenses = await getTransactionType(
@@ -78,10 +95,10 @@ class GetAllTransactionsByPeriodUseCase {
     final List<TransactionModel> investmentTransactions =
         await getTransactionsByType(investments.id);
 
-    BalanceModel model = BalanceModel(
-      expenses: expenses.copyWith(transactions: expensesTransactions),
-      income: income.copyWith(transactions: incomeTransactions),
-      investments: investments.copyWith(transactions: investmentTransactions),
+    final model = BalanceModel(
+      expenses: expensesTransactions,
+      income: incomeTransactions,
+      investments: investmentTransactions,
     );
 
     return model;

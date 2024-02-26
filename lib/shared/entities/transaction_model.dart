@@ -10,6 +10,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
   final int? categoryId;
   final DateTime? date;
   final Uint8List? image;
+  final String? typeName;
 
   const TransactionModel({
     int? id,
@@ -19,6 +20,7 @@ class TransactionModel extends BaseModel<TransactionModel> {
     this.categoryId,
     this.date,
     this.image,
+    this.typeName,
   }) : super(id: id);
 
   @override
