@@ -2,6 +2,7 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/movement/movement_routes.dart';
 import 'package:hermes_app/movement/pages/movement/movement_form_cubit.dart';
 import 'package:hermes_app/movement/pages/movement/movement_form_state.dart';
 import 'package:hermes_app/movement/pages/movement/utils/movement_page_message_selectors_mixin.dart';
@@ -21,7 +22,6 @@ import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
-import 'package:hermes_app/transaction/transaction_routes.dart';
 
 class MovementPage extends StatefulWidget {
   const MovementPage({

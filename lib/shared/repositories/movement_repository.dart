@@ -37,7 +37,6 @@ class MovementRepository extends BaseRepository<MovementModel> {
     ''';
 
     final result = await _db.rawQuery(query);
-    print(result);
 
     final movementTypes = result.map((e) => MovementModel.fromMap(e)).toList();
 
