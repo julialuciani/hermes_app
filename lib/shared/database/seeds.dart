@@ -1,6 +1,13 @@
 class Seeds {
   static String getSeeds() {
     return '''
+INSERT OR IGNORE INTO `movement_type` VALUES
+(1, 'income'),
+(2, 'expenses'),
+(3, 'investments');
+
+--SPLIT--
+
 INSERT OR IGNORE INTO `category` VALUES
 (1, 'Alimentação', 2, 'food', 234, 22, 22),
 (2, 'Transporte', 2, 'bus', 234, 22, 22),
