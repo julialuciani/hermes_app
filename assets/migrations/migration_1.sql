@@ -25,3 +25,11 @@ CREATE TABLE `movement` (
     `image` BLOB NULL,
     CONSTRAINT `category_FK` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+--SPLIT--
+INSERT
+    OR IGNORE INTO `transaction_type`
+VALUES
+    (1, 'income'),
+    (2, 'expenses'),
+    (3, 'investments');

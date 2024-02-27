@@ -13,6 +13,7 @@ import 'package:hermes_app/shared/components/movement_type_dropdown/movement_typ
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
+import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 import 'package:hermes_app/shared/widgets/dialogs/confirmation_dialog.dart';
@@ -20,6 +21,7 @@ import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
+import 'package:hermes_app/transaction/transaction_routes.dart';
 
 class MovementPage extends StatefulWidget {
   const MovementPage({
@@ -55,6 +57,7 @@ class _MovementPageState extends State<MovementPage>
                 'Transação salva com sucesso',
                 style: typography.regular.medium,
               ),
+              toastDuration: const Duration(seconds: 2),
             ).show(context);
             Modular.to.pop();
           }
@@ -65,135 +68,143 @@ class _MovementPageState extends State<MovementPage>
                 'Ocorreu um erro ao salvar a transação',
                 style: typography.regular.medium,
               ),
+              toastDuration: const Duration(seconds: 2),
             ).show(context);
           }
         },
         builder: (context, state) {
-          return SafeArea(
-            child: Scaffold(
-              body: Form(
-                key: movementFormCubit.formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      MovementTypeDropdown(
-                        key: const Key('movement_type_dropdown'),
-                        onChanged: (value) {
-                          eventBus.fire(ChangeMovementTypeEvent(value));
-                          movementFormCubit.change(typeId: Nullable(value));
-                        },
-                        value: movementFormCubit.movement.typeId,
-                        validator: (value) {
-                          if (value != null) return null;
+          return Scaffold(
+            appBar: const DefaultAppBar(
+              title: 'Transação',
+            ),
+            body: Form(
+              key: movementFormCubit.formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    MovementTypeDropdown(
+                      key: const Key('movement_type_dropdown'),
+                      onChanged: (value) {
+                        eventBus.fire(ChangeMovementTypeEvent(value));
+                        movementFormCubit.change(typeId: Nullable(value));
+                      },
+                      value: movementFormCubit.movement.typeId,
+                      validator: (value) {
+                        if (value != null) return null;
+                        return 'Campo obrigatório';
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    InputMoney(
+                      key: const Key('value_input'),
+                      label: 'Valor *',
+                      controller: movementFormCubit.valueController,
+                      onChanged: (value) {
+                        movementFormCubit.change(value: value);
+                      },
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) return null;
+                        return 'Campo obrigatório';
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Input(
+                      key: const Key('description_input'),
+                      label: 'Descrição',
+                      controller: movementFormCubit.descriptionController,
+                      onChanged: (value) {
+                        movementFormCubit.change(description: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    InputDate(
+                      label: 'Data *',
+                      controller: movementFormCubit.dateController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Campo obrigatório';
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      InputMoney(
-                        key: const Key('value_input'),
-                        label: 'Valor *',
-                        controller: movementFormCubit.valueController,
-                        onChanged: (value) {
-                          movementFormCubit.change(value: value);
-                        },
-                        validator: (value) {
-                          if (value != null && value.isNotEmpty) return null;
-                          return 'Campo obrigatório';
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Input(
-                        key: const Key('description_input'),
-                        label: 'Descrição',
-                        controller: movementFormCubit.descriptionController,
-                        onChanged: (value) {
-                          movementFormCubit.change(description: value);
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      InputDate(
-                        label: 'Data *',
-                        controller: movementFormCubit.dateController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Campo obrigatório';
-                          }
-                          final validatorResult = DateValidator.validate(value);
-                          String? message =
-                              getValidatorMessageByDateValidatorResult(
-                            dateValidatorResult: validatorResult,
-                          );
+                        }
+                        final validatorResult = DateValidator.validate(value);
+                        String? message =
+                            getValidatorMessageByDateValidatorResult(
+                          dateValidatorResult: validatorResult,
+                        );
 
-                          if (message != null) {
-                            movementFormCubit.change(
-                              date: Nullable(null),
-                            );
-                          }
-
-                          return message;
-                        },
-                        onChanged: (date) {
-                          movementFormCubit.change(date: Nullable(date));
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      CategorySelectorBox(
-                        onChange: (categoryId) {
+                        if (message != null) {
                           movementFormCubit.change(
-                            categoryId: Nullable(categoryId),
+                            date: Nullable(null),
                           );
-                        },
-                        selectedCategory: movementFormCubit.movement.categoryId,
-                      ),
-                      const SizedBox(height: 20),
-                      MovementPhotoWidget(
-                        image: movementFormCubit.movement.image,
-                        onRemove: () async {
-                          final isConfirmed = await const ConfirmationDialog(
-                            title: 'Deseja remover a foto?',
-                          ).show(context);
+                        }
 
-                          if (isConfirmed) {
-                            movementFormCubit.change(
-                              image: Nullable(null),
-                            );
-                          }
-                        },
-                        onTap: () {
-                          movementFormCubit.takePictureAndAdd();
-                        },
-                      ),
-                      const SizedBox(height: 100),
-                    ],
-                  ),
+                        return message;
+                      },
+                      onChanged: (date) {
+                        movementFormCubit.change(date: Nullable(date));
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    CategorySelectorBox(
+                      onChange: (categoryId) {
+                        movementFormCubit.change(
+                          categoryId: Nullable(categoryId),
+                        );
+                      },
+                      selectedCategory: movementFormCubit.movement.categoryId,
+                      onTapOthers: () {
+                        Modular.to.pushNamed(
+                          MovementRoutes.movementCategorySelector,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    MovementPhotoWidget(
+                      image: movementFormCubit.movement.image,
+                      onRemove: () async {
+                        final isConfirmed = await const ConfirmationDialog(
+                          title: 'Deseja remover a foto?',
+                        ).show(context);
+
+                        if (isConfirmed) {
+                          movementFormCubit.change(
+                            image: Nullable(null),
+                          );
+                        }
+                      },
+                      onTap: () {
+                        movementFormCubit.takePictureAndAdd();
+                      },
+                    ),
+                    const SizedBox(height: 100),
+                  ],
                 ),
               ),
-              bottomSheet: Container(
-                height: 100,
-                padding: const EdgeInsets.all(20),
-                child: DefaultButton(
-                  key: const Key('btn_save_movement'),
-                  onPressed: () {
-                    final validateResult = movementFormCubit.validate();
-                    final message = getErrorMessageByMovementValidatorResult(
-                      result: validateResult,
-                    );
+            ),
+            bottomSheet: Container(
+              height: 100,
+              padding: const EdgeInsets.all(20),
+              child: DefaultButton(
+                key: const Key('btn_save_movement'),
+                onPressed: () {
+                  final validateResult = movementFormCubit.validate();
+                  final message = getErrorMessageByMovementValidatorResult(
+                    result: validateResult,
+                  );
 
-                    if (message != null) {
-                      CherryToast.error(
-                        title: Text(
-                          message,
-                          style: typography.regular.medium,
-                        ),
-                      ).show(context);
-                    } else {
-                      movementFormCubit.save();
-                    }
-                  },
-                  title: const Text('Confirmar'),
-                ),
+                  if (message != null) {
+                    CherryToast.error(
+                      title: Text(
+                        message,
+                        style: typography.regular.medium,
+                      ),
+                      toastDuration: const Duration(seconds: 2),
+                    ).show(context);
+                  } else {
+                    movementFormCubit.save();
+                  }
+                },
+                title: const Text('Confirmar'),
               ),
             ),
           );

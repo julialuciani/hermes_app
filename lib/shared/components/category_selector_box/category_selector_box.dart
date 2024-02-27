@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
+import 'package:hermes_app/shared/components/category_selector_box/utils/get_categories_to_show.dart';
 import 'package:hermes_app/shared/components/category_selector_box/widgets/category_icon.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -15,10 +16,12 @@ import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cu
 class CategorySelectorBox extends StatefulWidget {
   final void Function(int categoryId) onChange;
   final int? selectedCategory;
+  final VoidCallback onTapOthers;
   const CategorySelectorBox({
     super.key,
     required this.onChange,
     required this.selectedCategory,
+    required this.onTapOthers,
   });
 
   @override
@@ -54,6 +57,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
+    final screenWidth = MediaQuery.of(context).size.width;
     return ContentBox(
       outsideLabel: "Categoria *",
       child: BlocBuilder<CategorySelectorBoxCubit, CategorySelectorBoxState>(
@@ -67,15 +71,19 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
           }
 
           if (state is CategorySelectorBoxSuccess) {
-            final categories = state.categories.take(5);
+            final categoriesToShow = GetCategoriesToShow.get(
+              state.categories,
+              widget.selectedCategory,
+            );
+
             return Wrap(
               alignment: WrapAlignment.spaceBetween,
               spacing: 16,
               runSpacing: 8,
               children: [
-                ...categories.map((category) {
+                ...categoriesToShow.map((category) {
                   return CategoryIcon(
-                    key: Key(category.name),
+                    key: ValueKey(categoriesToShow.indexOf(category)),
                     category: category,
                     isSelected: widget.selectedCategory == category.id,
                     onChange: (categoryId) {
@@ -83,30 +91,29 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                     },
                   );
                 }),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                Container(
+                  width: screenWidth * 0.22,
+                  padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          //TODO: open select others categories page
-                        },
+                        onTap: widget.onTapOthers,
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: AppColors.lightGrey,
                             borderRadius: BorderRadius.circular(100),
                           ),
-                          child: const Icon(Icons.add),
+                          child: const Icon(
+                            Icons.add,
+                            size: 32,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         "Outros",
-                        style: typography.regular.small.copyWith(),
+                        style: typography.regular.small.copyWith(fontSize: 14),
                       ),
                     ],
                   ),

@@ -7,6 +7,7 @@ import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/transaction/transaction_routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: GestureDetector(
         key: const Key('create_new_movement_fab'),
         onTap: () {
-          Modular.to.pushNamed('/movement/').then((result) {
+          Modular.to.pushNamed(MovementRoutes.movement).then((result) {
             //TODO: figure it out what to do when come back, probably reload the page
           });
         },
