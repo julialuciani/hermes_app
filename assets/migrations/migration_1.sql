@@ -28,7 +28,7 @@ CREATE TABLE `movement` (
 
 --SPLIT--
 INSERT
-    OR IGNORE INTO `transaction_type`
+    OR IGNORE INTO `movement_type`
 VALUES
     (1, 'income'),
     (2, 'expenses'),

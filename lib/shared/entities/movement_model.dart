@@ -35,7 +35,6 @@ class MovementModel extends BaseModel<MovementModel> {
       "categoryId": categoryId,
       "date": date?.millisecondsSinceEpoch,
       "image": image,
-      "category_color": categoryColor,
     };
   }
 

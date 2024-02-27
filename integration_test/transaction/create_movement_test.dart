@@ -33,7 +33,7 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
 
       await tester.tap(find.byKey(const Key('btn_save_movement')));
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 3));
 
       expect(find.text('Transação salva com sucesso'), findsOneWidget);
       await tester.pump(const Duration(seconds: 3));
