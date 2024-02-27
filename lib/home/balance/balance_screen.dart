@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_period_button.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -8,11 +9,20 @@ import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
-class BalanceScreen extends StatelessWidget {
+import 'get_all_movement_by_period_use_case.dart';
+
+class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
 
   @override
+  State<BalanceScreen> createState() => _BalanceScreenState();
+}
+
+class _BalanceScreenState extends State<BalanceScreen> {
+  final useCase = Modular.get<GetAllMovementByPeriodUseCase>();
+  @override
   Widget build(BuildContext context) {
+    useCase(Period.week);
     return Scaffold(
       drawer: const Drawer(
         child: Icon(

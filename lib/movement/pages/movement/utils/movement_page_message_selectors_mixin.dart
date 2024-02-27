@@ -1,24 +1,24 @@
-import 'package:hermes_app/shared/validators/transaction_validator.dart';
+import 'package:hermes_app/shared/validators/movement_validator.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 
-mixin TransactionPageMessageSelectorsMixin {
-  String? getErrorMessageByTransactionValidatorResult({
-    required TransactionValidatorResult result,
+mixin MovementPageMessageSelectorsMixin {
+  String? getErrorMessageByMovementValidatorResult({
+    required MovementValidatorResult result,
   }) {
     String? message;
     switch (result) {
-      case TransactionValidatorResult.success:
+      case MovementValidatorResult.success:
         break;
-      case TransactionValidatorResult.typeCantBeNull:
+      case MovementValidatorResult.typeCantBeNull:
         message = "Selecione um valor no campo tipo";
         break;
-      case TransactionValidatorResult.valueCantBeNull:
+      case MovementValidatorResult.valueCantBeNull:
         message = "Preencha o campo valor";
         break;
-      case TransactionValidatorResult.dateCantBeNull:
+      case MovementValidatorResult.dateCantBeNull:
         message = "Defina uma data válida";
         break;
-      case TransactionValidatorResult.categoryCantBeNull:
+      case MovementValidatorResult.categoryCantBeNull:
         message = "Escolha uma categoria";
         break;
     }

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
-class TransactionPhotoWidget extends StatefulWidget {
+class MovementPhotoWidget extends StatefulWidget {
   final Uint8List? image;
   final VoidCallback onRemove;
   final VoidCallback onTap;
-  const TransactionPhotoWidget({
+  const MovementPhotoWidget({
     super.key,
     required this.image,
     required this.onRemove,
@@ -16,10 +16,10 @@ class TransactionPhotoWidget extends StatefulWidget {
   });
 
   @override
-  State<TransactionPhotoWidget> createState() => _TransactionPhotoWidgetState();
+  State<MovementPhotoWidget> createState() => _MovementPhotoWidgetState();
 }
 
-class _TransactionPhotoWidgetState extends State<TransactionPhotoWidget> {
+class _MovementPhotoWidgetState extends State<MovementPhotoWidget> {
   @override
   Widget build(BuildContext context) {
     return DottedBorder(

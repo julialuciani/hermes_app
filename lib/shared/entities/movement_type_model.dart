@@ -1,18 +1,18 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:hermes_app/shared/entities/transaction_model.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/unmapped_entities/base_model.dart';
 import 'package:intl/intl.dart';
 
-class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
+class MovementTypeModel extends BaseModel<MovementTypeModel> {
   final String name;
   final String? totalValue;
-  final List<TransactionModel> transactions;
+  final List<MovementModel> movements;
 
-  const TransactionTypeModel({
+  const MovementTypeModel({
     required int? id,
     required this.name,
     this.totalValue,
-    this.transactions = const [],
+    this.movements = const [],
   }) : super(id: id);
 
   @override
@@ -23,31 +23,31 @@ class TransactionTypeModel extends BaseModel<TransactionTypeModel> {
     };
   }
 
-  factory TransactionTypeModel.fromMap(Map<String, dynamic> map) {
-    return TransactionTypeModel(
+  factory MovementTypeModel.fromMap(Map<String, dynamic> map) {
+    return MovementTypeModel(
       id: map['id'] as int?,
       name: map['name'] as String,
       totalValue: map['total_value'] as String?,
     );
   }
 
-  TransactionTypeModel copyWith({
+  MovementTypeModel copyWith({
     String? name,
     String? totalValue,
-    List<TransactionModel>? transactions,
+    List<MovementModel>? movements,
   }) {
-    return TransactionTypeModel(
+    return MovementTypeModel(
       id: id,
       name: name ?? this.name,
       totalValue: totalValue ?? this.totalValue,
-      transactions: transactions ?? this.transactions,
+      movements: movements ?? this.movements,
     );
   }
 
-  String get getSumOfAllTransactions {
+  String get getSumOfAllmovements {
     double sum = 0;
-    for (var transaction in transactions) {
-      sum += transaction.value ?? 0.0;
+    for (var movement in movements) {
+      sum += movement.value ?? 0.0;
     }
 
     final locale = Intl.systemLocale;

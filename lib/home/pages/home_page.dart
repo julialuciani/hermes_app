@@ -29,9 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // db.rawQuery('''SELECT * FROM ${Tables.transaction} AS t
+    // db.rawQuery('''SELECT * FROM ${Tables.movement} AS t
     //   JOIN ${Tables.category} ON t.categoryId = category.id
-    //   WHERE category.transactionTypeId = 1''').then(print);
+    //   WHERE category.movementTypeId = 1''').then(print);
 
     return Scaffold(
       body: pages[_selectedIndex],
@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: GestureDetector(
-        key: const Key('create_new_transaction_fab'),
+        key: const Key('create_new_movement_fab'),
         onTap: () {
-          Modular.to.pushNamed('/transaction/').then((result) {
+          Modular.to.pushNamed('/movement/').then((result) {
             //TODO: figure it out what to do when come back, probably reload the page
           });
         },

@@ -4,15 +4,15 @@ import 'package:hermes_app/main.dart' as app;
 
 void main() {
   testWidgets(
-    'Create new valid transaction and Save',
+    'Create new valid movement and Save',
     (tester) async {
       app.main();
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
-      await tester.tap(find.byKey(const Key('create_new_transaction_fab')));
+      await tester.tap(find.byKey(const Key('create_new_movement_fab')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('transaction_type_dropdown')));
+      await tester.tap(find.byKey(const Key('movement_type_dropdown')));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       // This is a specific case of the dropdown, it somehow identifies two components as the same item, so we must select the second one
       await tester.tap(find.text('Entrada').last);
@@ -32,7 +32,7 @@ void main() {
       await tester.tap(find.byKey(const Key('Salário')));
       await tester.pump(const Duration(seconds: 1));
 
-      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.tap(find.byKey(const Key('btn_save_movement')));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('Transação salva com sucesso'), findsOneWidget);
@@ -41,27 +41,27 @@ void main() {
   );
 
   testWidgets(
-    'Create new transaction and look for expected error messages WHEN press save button',
+    'Create new movement and look for expected error messages WHEN press save button',
     (tester) async {
       app.main();
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
-      await tester.tap(find.byKey(const Key('create_new_transaction_fab')));
+      await tester.tap(find.byKey(const Key('create_new_movement_fab')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.tap(find.byKey(const Key('btn_save_movement')));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('Selecione um valor no campo tipo'), findsOneWidget);
       await tester.pump(const Duration(seconds: 5));
 
-      await tester.tap(find.byKey(const Key('transaction_type_dropdown')));
+      await tester.tap(find.byKey(const Key('movement_type_dropdown')));
       await tester.pumpAndSettle(const Duration(seconds: 1));
       // This is a specific case of the dropdown, it somehow identifies two components as the same item, so we must select the second one
       await tester.tap(find.text('Entrada').last);
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.tap(find.byKey(const Key('btn_save_movement')));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('Preencha o campo valor'), findsOneWidget);
@@ -78,7 +78,7 @@ void main() {
       FocusManager.instance.primaryFocus?.unfocus();
       await tester.pump(const Duration(seconds: 1));
 
-      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.tap(find.byKey(const Key('btn_save_movement')));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('Escolha uma categoria'), findsOneWidget);
@@ -87,7 +87,7 @@ void main() {
       await tester.tap(find.byKey(const Key('Salário')));
       await tester.pump(const Duration(seconds: 1));
 
-      await tester.tap(find.byKey(const Key('btn_save_transaction')));
+      await tester.tap(find.byKey(const Key('btn_save_movement')));
       await tester.pump(const Duration(seconds: 1));
 
       expect(find.text('Transação salva com sucesso'), findsOneWidget);

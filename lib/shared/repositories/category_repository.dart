@@ -9,12 +9,11 @@ class CategoryRepository extends BaseRepository<CategoryModel> {
 
   CategoryRepository(this._db) : super(_db, Tables.category);
 
-  Future<List<CategoryModel>> getByTransactionTypeId(
-      int transactionTypeId) async {
+  Future<List<CategoryModel>> getByMovementTypeId(int movementTypeId) async {
     final result = await _db.getAll(
       Tables.category,
-      where: "transactionTypeId = ?",
-      whereArgs: [transactionTypeId],
+      where: "movementTypeId = ?",
+      whereArgs: [movementTypeId],
     );
 
     final categories =

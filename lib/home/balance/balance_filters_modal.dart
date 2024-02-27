@@ -16,14 +16,16 @@ class BalanceFiltersModal extends StatefulWidget {
 class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
   String selectedValue = 'week';
   bool isButtonEnabled = false;
+  bool isButtonLoading = false;
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
 
     return Modal(
       content: Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +52,9 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
                 setState(() {
                   if (selectedValue == selected) {
                     selectedValue = '';
+                    isButtonEnabled = false;
                   } else {
+                    isButtonEnabled = true;
                     selectedValue = selected;
                   }
                 });
@@ -58,27 +62,20 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
               selectedValue: selectedValue,
             ),
             const SizedBox(height: 30),
-            // Row(
-            //   children: const [
-            //     Expanded(
-            //       child: Input(
-            //         label: 'From',
-            //       ),
-            //     ),
-            //     SizedBox(
-            //       width: 30,
-            //     ),
-            //     Expanded(
-            //       child: Input(
-            //         label: 'To',
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 28),
             DefaultButton(
+              isLoading: isButtonLoading,
               enabled: isButtonEnabled,
-              onPressed: () {},
+              onPressed: () {
+                try {
+                  setState(() {
+                    isButtonLoading = true;
+                  });
+                } finally {
+                  setState(() {
+                    isButtonLoading = false;
+                  });
+                }
+              },
               title: const Text(
                 'Aplicar',
               ),

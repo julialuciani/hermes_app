@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hermes_app/shared/validators/transaction_validator.dart';
+import 'package:hermes_app/movement/pages/movement/utils/movement_page_message_selectors_mixin.dart';
+import 'package:hermes_app/shared/validators/movement_validator.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
-import 'package:hermes_app/transaction/pages/transaction/utils/transaction_page_message_selectors_mixin.dart';
 
-class _MockClass with TransactionPageMessageSelectorsMixin {}
+class _MockClass with MovementPageMessageSelectorsMixin {}
 
 void main() {
   late _MockClass sut;
@@ -16,24 +16,24 @@ void main() {
     'WHEN call for get error message THEN verify if return is expected',
     () {
       //ACT
-      final successMessage = sut.getErrorMessageByTransactionValidatorResult(
-        result: TransactionValidatorResult.success,
+      final successMessage = sut.getErrorMessageByMovementValidatorResult(
+        result: MovementValidatorResult.success,
       );
       final categoryCantBeNullMessage =
-          sut.getErrorMessageByTransactionValidatorResult(
-        result: TransactionValidatorResult.categoryCantBeNull,
+          sut.getErrorMessageByMovementValidatorResult(
+        result: MovementValidatorResult.categoryCantBeNull,
       );
       final dateCantBeNullMessage =
-          sut.getErrorMessageByTransactionValidatorResult(
-        result: TransactionValidatorResult.dateCantBeNull,
+          sut.getErrorMessageByMovementValidatorResult(
+        result: MovementValidatorResult.dateCantBeNull,
       );
       final typeCantBeNullMessage =
-          sut.getErrorMessageByTransactionValidatorResult(
-        result: TransactionValidatorResult.typeCantBeNull,
+          sut.getErrorMessageByMovementValidatorResult(
+        result: MovementValidatorResult.typeCantBeNull,
       );
       final valueCantBeNullMessage =
-          sut.getErrorMessageByTransactionValidatorResult(
-        result: TransactionValidatorResult.valueCantBeNull,
+          sut.getErrorMessageByMovementValidatorResult(
+        result: MovementValidatorResult.valueCantBeNull,
       );
 
       //ASSERT

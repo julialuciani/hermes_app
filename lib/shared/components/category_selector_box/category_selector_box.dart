@@ -28,16 +28,16 @@ class CategorySelectorBox extends StatefulWidget {
 class _CategorySelectorBoxState extends State<CategorySelectorBox> {
   final categorySelectorBoxCubit = Modular.get<CategorySelectorBoxCubit>();
   final registerErrorCubit = Modular.get<RegisterErrorCubit>();
-  StreamSubscription<ChangeTransactionTypeEvent>? eventListener;
+  StreamSubscription<ChangeMovementTypeEvent>? eventListener;
 
   @override
   void initState() {
-    eventListener = eventBus.on<ChangeTransactionTypeEvent>().listen(
+    eventListener = eventBus.on<ChangeMovementTypeEvent>().listen(
       (event) {
-        if (event.transactionTypeId == null) {
+        if (event.movementTypeId == null) {
           categorySelectorBoxCubit.reset();
         } else {
-          categorySelectorBoxCubit.fetch(event.transactionTypeId!);
+          categorySelectorBoxCubit.fetch(event.movementTypeId!);
         }
       },
     );

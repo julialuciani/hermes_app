@@ -1,7 +1,7 @@
 class Seeds {
   static String getSeeds() {
     return '''
-INSERT OR IGNORE INTO `transaction_type` VALUES
+INSERT OR IGNORE INTO `movement_type` VALUES
 (1, 'income'),
 (2, 'expenses'),
 (3, 'investments');

@@ -1,4 +1,4 @@
-CREATE TABLE `transaction_type` (
+CREATE TABLE `movement_type` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `name` TEXT NOT NULL
 );
@@ -7,16 +7,16 @@ CREATE TABLE `transaction_type` (
 CREATE TABLE `category` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `name` TEXT NOT NULL,
-    `transactionTypeId` INTEGER NOT NULL,
+    `movementTypeId` INTEGER NOT NULL,
     `icon` TEXT NOT NULL,
     `red` INTEGER NOT NULL,
     `green` INTEGER NOT NULL,
     `blue` INTEGER NOT NULL,
-    CONSTRAINT `category_FK` FOREIGN KEY (`transactionTypeId`) REFERENCES `transaction_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `category_FK` FOREIGN KEY (`movementTypeId`) REFERENCES `movement_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 --SPLIT--
-CREATE TABLE `transaction` (
+CREATE TABLE `movement` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `description` TEXT NULL,
     `value` REAL NOT NULL,

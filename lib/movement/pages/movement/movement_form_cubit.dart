@@ -1,31 +1,31 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hermes_app/movement/pages/movement/movement_form_state.dart';
+import 'package:hermes_app/movement/pages/movement/save_movement_use_case.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
-import 'package:hermes_app/shared/entities/transaction_model.dart';
 import 'package:hermes_app/shared/entities/unknown_error.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
-import 'package:hermes_app/shared/validators/transaction_validator.dart';
-import 'package:hermes_app/transaction/pages/transaction/save_transaction_use_case.dart';
-import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
+import 'package:hermes_app/shared/validators/movement_validator.dart';
 
-class TransactionFormCubit extends Cubit<TransactionFormState> {
+class MovementFormCubit extends Cubit<MovementFormState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TransactionModel transaction = TransactionModel(date: DateTime.now());
+  MovementModel movement = MovementModel(date: DateTime.now());
   TextEditingController valueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
   final GetPictureFromCameraUseCase _getPictureFromCameraUseCase;
-  final SaveTransactionUseCase _saveTransactionUsecase;
+  final SaveMovementUseCase _saveMovementUsecase;
 
-  TransactionFormCubit(
+  MovementFormCubit(
     this._getPictureFromCameraUseCase,
-    this._saveTransactionUsecase,
-  ) : super(TransactionFormInitial());
+    this._saveMovementUsecase,
+  ) : super(MovementFormInitial());
 
   void reset() {
-    transaction = TransactionModel(date: DateTime.now());
+    movement = MovementModel(date: DateTime.now());
   }
 
   void change({
@@ -36,11 +36,11 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
     Nullable<int?>? categoryId,
     Nullable<Uint8List?>? image,
   }) {
-    if (typeId != null && typeId.value != transaction.typeId) {
+    if (typeId != null && typeId.value != movement.typeId) {
       categoryId = Nullable(null);
     }
 
-    transaction = transaction.copyWith(
+    movement = movement.copyWith(
       typeId: typeId,
       value: _formatValueToDouble(value),
       description: description,
@@ -49,31 +49,31 @@ class TransactionFormCubit extends Cubit<TransactionFormState> {
       image: image,
     );
 
-    emit(TransactionFormSuccessChangeFields());
+    emit(MovementFormSuccessChangeFields());
   }
 
   Future<void> save() async {
     try {
-      await _saveTransactionUsecase(transaction);
-      emit(TransactionFormSuccessSave());
+      await _saveMovementUsecase(movement);
+      emit(MovementFormSuccessSave());
     } catch (exception, stackTrace) {
       final unknownError = UnknownError(
         error: exception,
         stackTrace: stackTrace,
       );
 
-      emit(TransactionFormErrorSave(unknownError));
+      emit(MovementFormErrorSave(unknownError));
     }
   }
 
-  TransactionValidatorResult validate() {
-    return transaction.validate();
+  MovementValidatorResult validate() {
+    return movement.validate();
   }
 
   Nullable<double?>? _formatValueToDouble(String? value) {
     double? formattedValue;
     if (value == null) return null;
-    //Value format comes as R$  #.###,##
+    //Value format comes as R$  #.###,
     value =
         value.replaceAll(".", "").replaceAll(",", ".").replaceAll("R\$ ", "");
     formattedValue = double.tryParse(value);

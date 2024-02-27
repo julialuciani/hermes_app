@@ -2,10 +2,14 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/movement/pages/movement/movement_form_cubit.dart';
+import 'package:hermes_app/movement/pages/movement/movement_form_state.dart';
+import 'package:hermes_app/movement/pages/movement/utils/movement_page_message_selectors_mixin.dart';
+import 'package:hermes_app/movement/pages/movement/widgets/movement_photo_widget.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
-import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown.dart';
-import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_cubit.dart';
+import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
+import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
@@ -16,29 +20,25 @@ import 'package:hermes_app/shared/widgets/input/input.dart';
 import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
-import 'package:hermes_app/transaction/pages/transaction/transaction_form_cubit.dart';
-import 'package:hermes_app/transaction/pages/transaction/transaction_form_state.dart';
-import 'package:hermes_app/transaction/pages/transaction/utils/transaction_page_message_selectors_mixin.dart';
-import 'package:hermes_app/transaction/pages/transaction/widgets/transaction_photo_widget.dart';
 
-class TransactionPage extends StatefulWidget {
-  const TransactionPage({
+class MovementPage extends StatefulWidget {
+  const MovementPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<TransactionPage> createState() => _TransactionPageState();
+  State<MovementPage> createState() => _MovementPageState();
 }
 
-class _TransactionPageState extends State<TransactionPage>
-    with TransactionPageMessageSelectorsMixin {
-  final transactionTypesCubit = Modular.get<TransactionTypeDropdownCubit>();
-  final transactionFormCubit = Modular.get<TransactionFormCubit>();
+class _MovementPageState extends State<MovementPage>
+    with MovementPageMessageSelectorsMixin {
+  final movementTypesCubit = Modular.get<MovementTypeDropdownCubit>();
+  final movementFormCubit = Modular.get<MovementFormCubit>();
   final registerErrorCubit = Modular.get<RegisterErrorCubit>();
 
   @override
   void initState() {
-    transactionTypesCubit.fetch();
+    movementTypesCubit.fetch();
     super.initState();
   }
 
@@ -46,10 +46,10 @@ class _TransactionPageState extends State<TransactionPage>
   Widget build(BuildContext context) {
     final typography = context.typography;
 
-    return BlocConsumer<TransactionFormCubit, TransactionFormState>(
-        bloc: transactionFormCubit,
+    return BlocConsumer<MovementFormCubit, MovementFormState>(
+        bloc: movementFormCubit,
         listener: (context, state) {
-          if (state is TransactionFormSuccessSave) {
+          if (state is MovementFormSuccessSave) {
             CherryToast.success(
               title: Text(
                 'Transação salva com sucesso',
@@ -58,7 +58,7 @@ class _TransactionPageState extends State<TransactionPage>
             ).show(context);
             Modular.to.pop();
           }
-          if (state is TransactionFormErrorSave) {
+          if (state is MovementFormErrorSave) {
             registerErrorCubit.registerError(state.failure);
             CherryToast.error(
               title: Text(
@@ -72,19 +72,19 @@ class _TransactionPageState extends State<TransactionPage>
           return SafeArea(
             child: Scaffold(
               body: Form(
-                key: transactionFormCubit.formKey,
+                key: movementFormCubit.formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      TransactionTypeDropdown(
-                        key: const Key('transaction_type_dropdown'),
+                      MovementTypeDropdown(
+                        key: const Key('movement_type_dropdown'),
                         onChanged: (value) {
-                          eventBus.fire(ChangeTransactionTypeEvent(value));
-                          transactionFormCubit.change(typeId: Nullable(value));
+                          eventBus.fire(ChangeMovementTypeEvent(value));
+                          movementFormCubit.change(typeId: Nullable(value));
                         },
-                        value: transactionFormCubit.transaction.typeId,
+                        value: movementFormCubit.movement.typeId,
                         validator: (value) {
                           if (value != null) return null;
                           return 'Campo obrigatório';
@@ -94,9 +94,9 @@ class _TransactionPageState extends State<TransactionPage>
                       InputMoney(
                         key: const Key('value_input'),
                         label: 'Valor *',
-                        controller: transactionFormCubit.valueController,
+                        controller: movementFormCubit.valueController,
                         onChanged: (value) {
-                          transactionFormCubit.change(value: value);
+                          movementFormCubit.change(value: value);
                         },
                         validator: (value) {
                           if (value != null && value.isNotEmpty) return null;
@@ -107,15 +107,15 @@ class _TransactionPageState extends State<TransactionPage>
                       Input(
                         key: const Key('description_input'),
                         label: 'Descrição',
-                        controller: transactionFormCubit.descriptionController,
+                        controller: movementFormCubit.descriptionController,
                         onChanged: (value) {
-                          transactionFormCubit.change(description: value);
+                          movementFormCubit.change(description: value);
                         },
                       ),
                       const SizedBox(height: 20),
                       InputDate(
                         label: 'Data *',
-                        controller: transactionFormCubit.dateController,
+                        controller: movementFormCubit.dateController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Campo obrigatório';
@@ -127,7 +127,7 @@ class _TransactionPageState extends State<TransactionPage>
                           );
 
                           if (message != null) {
-                            transactionFormCubit.change(
+                            movementFormCubit.change(
                               date: Nullable(null),
                             );
                           }
@@ -135,35 +135,34 @@ class _TransactionPageState extends State<TransactionPage>
                           return message;
                         },
                         onChanged: (date) {
-                          transactionFormCubit.change(date: Nullable(date));
+                          movementFormCubit.change(date: Nullable(date));
                         },
                       ),
                       const SizedBox(height: 20),
                       CategorySelectorBox(
                         onChange: (categoryId) {
-                          transactionFormCubit.change(
+                          movementFormCubit.change(
                             categoryId: Nullable(categoryId),
                           );
                         },
-                        selectedCategory:
-                            transactionFormCubit.transaction.categoryId,
+                        selectedCategory: movementFormCubit.movement.categoryId,
                       ),
                       const SizedBox(height: 20),
-                      TransactionPhotoWidget(
-                        image: transactionFormCubit.transaction.image,
+                      MovementPhotoWidget(
+                        image: movementFormCubit.movement.image,
                         onRemove: () async {
                           final isConfirmed = await const ConfirmationDialog(
                             title: 'Deseja remover a foto?',
                           ).show(context);
 
                           if (isConfirmed) {
-                            transactionFormCubit.change(
+                            movementFormCubit.change(
                               image: Nullable(null),
                             );
                           }
                         },
                         onTap: () {
-                          transactionFormCubit.takePictureAndAdd();
+                          movementFormCubit.takePictureAndAdd();
                         },
                       ),
                       const SizedBox(height: 100),
@@ -175,10 +174,10 @@ class _TransactionPageState extends State<TransactionPage>
                 height: 100,
                 padding: const EdgeInsets.all(20),
                 child: DefaultButton(
-                  key: const Key('btn_save_transaction'),
+                  key: const Key('btn_save_movement'),
                   onPressed: () {
-                    final validateResult = transactionFormCubit.validate();
-                    final message = getErrorMessageByTransactionValidatorResult(
+                    final validateResult = movementFormCubit.validate();
+                    final message = getErrorMessageByMovementValidatorResult(
                       result: validateResult,
                     );
 
@@ -190,7 +189,7 @@ class _TransactionPageState extends State<TransactionPage>
                         ),
                       ).show(context);
                     } else {
-                      transactionFormCubit.save();
+                      movementFormCubit.save();
                     }
                   },
                   title: const Text('Confirmar'),

@@ -1,1 +1,1 @@
-enum TransactionTypeEnum { expenses, income, investments }
+enum MovementTypeEnum { expenses, income, investments }

@@ -1,25 +1,25 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hermes_app/shared/components/transaction_type_dropdown/transaction_type_dropdown_state.dart';
+import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_state.dart';
 import 'package:hermes_app/shared/entities/unknown_error.dart';
-import 'package:hermes_app/shared/usecases/get_transaction_types_to_dropdown_use_case.dart';
+import 'package:hermes_app/shared/usecases/get_movement_types_to_dropdown_use_case.dart';
 import 'package:hermes_app/shared/widgets/dropdown/dropdown_item.dart';
 
-class TransactionTypeDropdownCubit extends Cubit<TransactionTypeDropdownState> {
-  final GetTransactionTypesToDropdownUseCase _usecase;
-  TransactionTypeDropdownCubit(
+class MovementTypeDropdownCubit extends Cubit<MovementTypeDropdownState> {
+  final GetMovementTypesToDropdownUseCase _usecase;
+  MovementTypeDropdownCubit(
     this._usecase,
-  ) : super(TransactionTypeDropdownLoading());
+  ) : super(MovementTypeDropdownLoading());
 
   void fetch() async {
-    emit(TransactionTypeDropdownLoading());
+    emit(MovementTypeDropdownLoading());
     try {
       final List<DropdownItem> items = await _usecase();
 
-      emit(TransactionTypeDropdownSuccess(items.translate()));
+      emit(MovementTypeDropdownSuccess(items.translate()));
     } catch (exception, stackTrace) {
       final unknownError =
           UnknownError(error: exception, stackTrace: stackTrace);
-      emit(TransactionTypeDropdownError(unknownError));
+      emit(MovementTypeDropdownError(unknownError));
     }
   }
 }

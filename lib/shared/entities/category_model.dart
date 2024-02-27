@@ -3,13 +3,13 @@ import 'package:hermes_app/shared/entities/unmapped_entities/base_model.dart';
 
 class CategoryModel extends BaseModel<CategoryModel> {
   final String name;
-  final int transactionTypeId;
+  final int movementTypeId;
   final String icon;
   final Color color;
   const CategoryModel({
     required int? id,
     required this.name,
-    required this.transactionTypeId,
+    required this.movementTypeId,
     required this.icon,
     required this.color,
   }) : super(id: id);
@@ -19,7 +19,7 @@ class CategoryModel extends BaseModel<CategoryModel> {
     return {
       "id": id,
       "name": name,
-      "transactionTypeId": transactionTypeId,
+      "movementTypeId": movementTypeId,
       "icon": icon,
       "red": color.red,
       "green": color.green,
@@ -38,7 +38,7 @@ class CategoryModel extends BaseModel<CategoryModel> {
     return CategoryModel(
       id: map['id'],
       name: map['name'],
-      transactionTypeId: map['transactionTypeId'],
+      movementTypeId: map['movementTypeId'],
       icon: map['icon'],
       color: color,
     );

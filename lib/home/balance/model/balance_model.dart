@@ -1,31 +1,37 @@
-import 'package:hermes_app/shared/entities/transaction_model.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 
 class BalanceModel {
-  final List<TransactionModel> income;
-  final List<TransactionModel> expenses;
-  final List<TransactionModel> investments;
+  final List<PeriodExtractModel> extract;
+  final String currentFilter;
   BalanceModel({
-    required this.income,
-    required this.expenses,
-    required this.investments,
+    required this.extract,
+    required this.currentFilter,
   });
 }
 
 class PeriodExtractModel {
   final String title;
-  final BalanceModel balance;
+  final List<MovementModel> income;
+  final List<MovementModel> expenses;
+  final List<MovementModel> investments;
   PeriodExtractModel({
     required this.title,
-    required this.balance,
+    required this.income,
+    required this.expenses,
+    required this.investments,
   });
 
   PeriodExtractModel copyWith({
     String? title,
-    BalanceModel? balance,
+    List<MovementModel>? income,
+    List<MovementModel>? expenses,
+    List<MovementModel>? investments,
   }) {
     return PeriodExtractModel(
       title: title ?? this.title,
-      balance: balance ?? this.balance,
+      income: income ?? this.income,
+      expenses: expenses ?? this.expenses,
+      investments: investments ?? this.investments,
     );
   }
 }
