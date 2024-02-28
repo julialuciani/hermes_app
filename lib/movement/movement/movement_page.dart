@@ -74,6 +74,7 @@ class _MovementPageState extends State<MovementPage>
         },
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: const DefaultAppBar(
               title: 'Transação',
             ),
