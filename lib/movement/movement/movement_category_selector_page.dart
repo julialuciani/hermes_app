@@ -100,17 +100,11 @@ class _MovementCategorySelectorPageState
       floatingActionButton: GestureDetector(
         key: const Key('create_new_movement_fab'),
         onTap: () {
-          Modular.to
-              .pushNamed(
-            CategoryRoutes.category,
-          )
-              .then(
-            (value) {
-              final typeId = formCubit.movement.typeId;
-              if (typeId == null) return;
-              categorySelectorBoxCubit.fetch(typeId);
-            },
-          );
+          Modular.to.pushNamed(CategoryRoutes.category).then((_) {
+            final typeId = formCubit.movement.typeId;
+            if (typeId == null) return;
+            categorySelectorBoxCubit.fetch(typeId);
+          });
         },
         child: Container(
           height: 60,
