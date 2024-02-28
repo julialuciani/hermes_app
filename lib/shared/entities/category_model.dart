@@ -28,11 +28,11 @@ class CategoryModel extends BaseModel<CategoryModel> {
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
-    final color = Color.fromRGBO(
+    final color = Color.fromARGB(
+      map['alpha'],
       map['red'],
       map['green'],
       map['blue'],
-      1,
     );
 
     return CategoryModel(

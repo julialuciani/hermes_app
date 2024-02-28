@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
@@ -47,9 +48,30 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
               child: Center(child: Text('oi')),
             ),
             const SizedBox(height: 20),
-            const ContentBox(
+            ContentBox(
               outsideLabel: 'Cor *',
-              child: Center(child: Text('oi')),
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 8,
+                children: [
+                  ...AppColors.colorsToHighlight.map(
+                    (color) {
+                      return CircleAvatar(
+                        backgroundColor: color,
+                        radius: 20,
+                      );
+                    },
+                  ),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: AppColors.grey,
+                    child: Icon(
+                      Icons.add,
+                      color: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 120),
           ],
