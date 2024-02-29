@@ -52,25 +52,16 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
               outsideLabel: 'Cor *',
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
-                spacing: 8,
-                children: [
-                  ...AppColors.colorsToHighlight.map(
-                    (color) {
-                      return CircleAvatar(
-                        backgroundColor: color,
-                        radius: 20,
-                      );
-                    },
-                  ),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: AppColors.grey,
-                    child: Icon(
-                      Icons.add,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ],
+                spacing: 16,
+                runSpacing: 8,
+                children: AppColors.colorsToHighlight.map(
+                  (color) {
+                    return CircleAvatar(
+                      backgroundColor: color,
+                      radius: 36,
+                    );
+                  },
+                ).toList(),
               ),
             ),
             const SizedBox(height: 120),
