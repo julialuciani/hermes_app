@@ -19,13 +19,14 @@ class ColorSelectorBox extends StatelessWidget {
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
         runSpacing: 8,
+        spacing: 4,
         children: AppColors.colorsToHighlight.map(
           (color) {
             return Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: currentColor == color ? AppColors.lightGrey : null,
+                color: currentColor == color ? AppColors.grey : null,
               ),
               child: GestureDetector(
                 onTap: () {
@@ -37,7 +38,7 @@ class ColorSelectorBox extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   backgroundColor: color,
-                  radius: 36,
+                  radius: 32,
                 ),
               ),
             );

@@ -9,6 +9,21 @@ class AppIcons {
   static const String lineChart = "assets/icons/line_chart.svg";
 
   //Category Icons
+
+  static List<IconData> highlightIcons = [
+    cart,
+    restaurant,
+    bus,
+    car,
+    house,
+    receipt,
+    cash,
+    savings,
+    fitness,
+    pills,
+    desktop,
+  ];
+
   static const IconData fastFood = FontAwesomeIcons.burger;
   static const IconData cart = FontAwesomeIcons.cartShopping;
   static const IconData pizza = FontAwesomeIcons.pizzaSlice;
