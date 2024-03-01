@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/category/category/category_form_cubit.dart';
+import 'package:hermes_app/category/category/widgets/category_header.dart';
 import 'package:hermes_app/category/category/widgets/color_selector_box.dart';
 import 'package:hermes_app/category/category/widgets/icon_selector_box.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
-import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/input/input.dart';
@@ -48,26 +48,8 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: [
-                    Center(
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor:
-                                formCubit.category.color ?? AppColors.grey,
-                            child: Icon(
-                              formCubit.category.icon ?? Icons.abc,
-                              size: 48,
-                              color: AppColors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            formCubit.category.name ?? '',
-                            style: typography.regular.medium,
-                          ),
-                        ],
-                      ),
+                    CategoryHeader(
+                      category: formCubit.category,
                     ),
                     const SizedBox(height: 20),
                     MovementTypeDropdown(
@@ -101,7 +83,9 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                       onChange: (icon) {
                         formCubit.change(icon: Nullable(icon));
                       },
-                      onTapOthers: () {},
+                      onTapOthers: () {
+                        //TODO: navigate to select others icons page
+                      },
                     ),
                     const SizedBox(height: 20),
                     ColorSelectorBox(
