@@ -48,7 +48,7 @@ INSERT OR IGNORE INTO `category` VALUES
 (37, 'Academia', 2, 'barbell', 255, 234, 22, 22),
 (38, 'Alimentação', 2, 'food', 255, 234, 22, 22),
 (39, 'Mercado', 2, 'shopping_cart', 255, 234, 22, 22),
-(40, 'Eletrônicos', 2, 'eletronics', 255, 234, 22, 22);
+(40, 'Eletrônicos', 2, 'electronics', 255, 234, 22, 22);
 ''';
   }
 }
