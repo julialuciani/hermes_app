@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/category/category/widgets/color_selector_box.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -48,21 +49,9 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
               child: Center(child: Text('oi')),
             ),
             const SizedBox(height: 20),
-            ContentBox(
-              outsideLabel: 'Cor *',
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 16,
-                runSpacing: 8,
-                children: AppColors.colorsToHighlight.map(
-                  (color) {
-                    return CircleAvatar(
-                      backgroundColor: color,
-                      radius: 36,
-                    );
-                  },
-                ).toList(),
-              ),
+            ColorSelectorBox(
+              currentColor: AppColors.basicOrange,
+              onChange: (color) {},
             ),
             const SizedBox(height: 120),
           ],
