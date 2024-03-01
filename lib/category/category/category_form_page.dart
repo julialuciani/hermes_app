@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/category/category/category_form_cubit.dart';
 import 'package:hermes_app/category/category/widgets/color_selector_box.dart';
@@ -6,6 +7,7 @@ import 'package:hermes_app/category/category/widgets/icon_selector_box.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
@@ -30,47 +32,90 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const DefaultAppBar(
         title: 'Categoria',
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: formCubit.formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: [
-              MovementTypeDropdown(
-                onChanged: (typeId) {
-                  formCubit.change(movementTypeId: Nullable(typeId));
-                },
-                value: formCubit.category.movementTypeId,
-                validator: (typeId) {
-                  if (typeId == null) return 'Campo obrigatório';
-                  return null;
-                },
+      body: BlocBuilder(
+          bloc: formCubit,
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: formCubit.formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor:
+                                formCubit.category.color ?? AppColors.grey,
+                            child: Icon(
+                              formCubit.category.icon ?? Icons.abc,
+                              size: 48,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            formCubit.category.name ?? '',
+                            style: typography.regular.medium,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    MovementTypeDropdown(
+                      onChanged: (typeId) {
+                        formCubit.change(movementTypeId: Nullable(typeId));
+                      },
+                      value: formCubit.category.movementTypeId,
+                      validator: (typeId) {
+                        if (typeId == null) return 'Campo obrigatório';
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Input(
+                      label: 'Nome *',
+                      controller: formCubit.nameController,
+                      onChanged: (value) {
+                        formCubit.change(name: value);
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    IconSelectorBox(
+                      selectedColor: formCubit.category.color,
+                      selectedIcon: formCubit.category.icon,
+                      onChange: (icon) {
+                        formCubit.change(icon: Nullable(icon));
+                      },
+                      onTapOthers: () {},
+                    ),
+                    const SizedBox(height: 20),
+                    ColorSelectorBox(
+                      currentColor: formCubit.category.color,
+                      onChange: (color) {
+                        formCubit.change(color: Nullable(color));
+                      },
+                    ),
+                    const SizedBox(height: 120),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              const Input(
-                label: 'Nome *',
-              ),
-              const SizedBox(height: 20),
-              IconSelectorBox(
-                onChange: (icon) {},
-                onTapOthers: () {},
-              ),
-              const SizedBox(height: 20),
-              ColorSelectorBox(
-                currentColor: AppColors.basicOrange,
-                onChange: (color) {},
-              ),
-              const SizedBox(height: 120),
-            ],
-          ),
-        ),
-      ),
+            );
+          }),
       bottomSheet: Container(
         padding: const EdgeInsets.all(20),
         height: 100,

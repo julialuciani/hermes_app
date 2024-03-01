@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 
 class ColorSelectorBox extends StatelessWidget {
   final Color? currentColor;
-  final void Function(Nullable<Color?> color) onChange;
+  final void Function(Color? color) onChange;
   const ColorSelectorBox({
     super.key,
     this.currentColor,
@@ -31,9 +30,9 @@ class ColorSelectorBox extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (currentColor == color) {
-                    onChange(Nullable(null));
+                    onChange(null);
                   } else {
-                    onChange(Nullable(color));
+                    onChange(color);
                   }
                 },
                 child: CircleAvatar(

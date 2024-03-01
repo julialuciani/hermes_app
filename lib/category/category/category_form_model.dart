@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 
@@ -6,7 +5,7 @@ class CategoryFormModel {
   final int? id;
   final String? name;
   final int? movementTypeId;
-  final String? icon;
+  final IconData? icon;
   final Color? color;
   const CategoryFormModel({
     this.id,
@@ -20,7 +19,7 @@ class CategoryFormModel {
     int? id,
     String? name,
     Nullable<int?>? movementTypeId,
-    Nullable<String?>? icon,
+    Nullable<IconData?>? icon,
     Nullable<Color?>? color,
   }) {
     return CategoryFormModel(

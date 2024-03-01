@@ -26,18 +26,23 @@ class IconSelectorBox extends StatelessWidget {
         spacing: 4,
         children: [
           ...AppIcons.highlightIcons.map((IconData icon) {
-            return Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: selectedIcon == icon ? AppColors.grey : null,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: CircleAvatar(
-                radius: 32,
-                backgroundColor: selectedColor ?? AppColors.grey,
-                child: Icon(
-                  icon,
-                  color: AppColors.white,
+            return GestureDetector(
+              onTap: () {
+                onChange(icon);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: selectedIcon == icon ? AppColors.grey : null,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: CircleAvatar(
+                  radius: 32,
+                  backgroundColor: selectedColor ?? AppColors.grey,
+                  child: Icon(
+                    icon,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             );

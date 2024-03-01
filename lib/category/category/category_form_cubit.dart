@@ -11,13 +11,21 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
 
+  final nameController = TextEditingController();
+
   CategoryFormCubit() : super(CategoryFormInitial());
 
   void change({
     Nullable<int?>? movementTypeId,
+    String? name,
+    Nullable<IconData?>? icon,
+    Nullable<Color?>? color,
   }) {
     _category = _category.copyWith(
       movementTypeId: movementTypeId,
+      name: name,
+      icon: icon,
+      color: color,
     );
 
     emit(CategoryFormSuccessChangeFields());
