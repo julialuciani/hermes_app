@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/category/category/category_form_model.dart';
+import 'package:hermes_app/category/category/models/category_form_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 

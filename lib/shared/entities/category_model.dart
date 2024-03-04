@@ -21,6 +21,7 @@ class CategoryModel extends BaseModel<CategoryModel> {
       "name": name,
       "movementTypeId": movementTypeId,
       "icon": icon,
+      "alpha": color.alpha,
       "red": color.red,
       "green": color.green,
       "blue": color.blue,

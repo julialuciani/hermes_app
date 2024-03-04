@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hermes_app/category/category/category_form_model.dart';
 import 'package:hermes_app/category/category/category_form_state.dart';
+import 'package:hermes_app/category/category/errors/save_category_error.dart';
+import 'package:hermes_app/category/category/models/category_form_model.dart';
+import 'package:hermes_app/category/category/models/utils/category_form_model_transformer.dart';
+import 'package:hermes_app/category/category/models/utils/category_form_model_validator.dart';
+import 'package:hermes_app/category/category/save_category_use_case.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 
 class CategoryFormCubit extends Cubit<CategoryFormState> {
@@ -13,7 +17,15 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
 
   final nameController = TextEditingController();
 
-  CategoryFormCubit() : super(CategoryFormInitial());
+  final SaveCategoryUseCase _saveCategoryUseCase;
+
+  CategoryFormCubit(
+    this._saveCategoryUseCase,
+  ) : super(CategoryFormInitial());
+
+  CategoryFormValidationResult validateForm() {
+    return category.validate();
+  }
 
   void change({
     Nullable<int?>? movementTypeId,
@@ -29,5 +41,21 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
     );
 
     emit(CategoryFormSuccessChangeFields());
+  }
+
+  void save() async {
+    final categoryModel = category.toCategoryModel();
+
+    try {
+      await _saveCategoryUseCase(categoryModel);
+      emit(CategoryFormSuccessSave());
+    } catch (error, stackTrace) {
+      final saveCategoryException = SaveCategoryError(
+        error: error,
+        stackTrace: stackTrace,
+      );
+
+      emit(CategoryFormErrorSave(saveCategoryException));
+    }
   }
 }
