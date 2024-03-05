@@ -32,7 +32,7 @@ class AppModule extends Module {
       (i) => MovementRepository(i()),
     ),
 
-    //Usecases
+    //UseCases
     Bind.factory<GetMovementTypesToDropdownUseCase>(
       (i) => GetMovementTypesToDropdownUseCase(i()),
     ),

@@ -3,6 +3,7 @@ import 'package:hermes_app/shared/entities/movement_model.dart';
 class BalanceModel {
   final List<PeriodExtractModel> extract;
   final String currentFilter;
+
   BalanceModel({
     required this.extract,
     required this.currentFilter,

@@ -6,7 +6,6 @@ import 'package:hermes_app/home/income/income_screen.dart';
 import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
-import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,8 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final db = Modular.get<IDatabase>();
-
   int _selectedIndex = 0;
 
   final List<Widget> pages = [
@@ -30,10 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // db.rawQuery('''SELECT * FROM ${Tables.movement} AS t
-    //   JOIN ${Tables.category} ON t.categoryId = category.id
-    //   WHERE category.movementTypeId = 1''').then(print);
-
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavBar(
