@@ -8,6 +8,7 @@ import 'package:hermes_app/category/category/models/utils/category_form_model_va
 import 'package:hermes_app/category/category/widgets/category_header.dart';
 import 'package:hermes_app/category/category/widgets/color_selector_box.dart';
 import 'package:hermes_app/category/category/widgets/icon_selector_box.dart';
+import 'package:hermes_app/category/category_routes.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
@@ -139,7 +140,9 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                         formCubit.change(icon: Nullable(icon));
                       },
                       onTapOthers: () {
-                        //TODO: navigate to select others icons page
+                        Modular.to.pushNamed(
+                          CategoryRoutes.categoryIconSelector,
+                        );
                       },
                     ),
                     const SizedBox(height: 20),

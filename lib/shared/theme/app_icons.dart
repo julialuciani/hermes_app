@@ -133,4 +133,13 @@ class AppIcons {
     headset,
     mouse,
   ];
+
+  static Map<String, List<IconData>> iconsSegmentsDictionary = {
+    'bill': AppIcons.billIcons,
+    'food': AppIcons.foodIcons,
+    'tech': AppIcons.techIcons,
+    'health': AppIcons.healthIcons,
+    'transport': AppIcons.transportIcons,
+    'investmentAndIncome': AppIcons.investmentsAndIncomeIcons,
+  };
 }
