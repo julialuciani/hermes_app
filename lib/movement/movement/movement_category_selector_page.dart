@@ -2,6 +2,7 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/category/category_routes.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
 import 'package:hermes_app/shared/components/category_selector_box/widgets/category_icon.dart';
@@ -99,7 +100,11 @@ class _MovementCategorySelectorPageState
       floatingActionButton: GestureDetector(
         key: const Key('create_new_movement_fab'),
         onTap: () {
-          //TODO: navigate to create category page when it is created
+          Modular.to.pushNamed(CategoryRoutes.category).then((_) {
+            final typeId = formCubit.movement.typeId;
+            if (typeId == null) return;
+            categorySelectorBoxCubit.fetch(typeId);
+          });
         },
         child: Container(
           height: 60,

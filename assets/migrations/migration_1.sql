@@ -9,6 +9,7 @@ CREATE TABLE `category` (
     `name` TEXT NOT NULL,
     `movementTypeId` INTEGER NOT NULL,
     `icon` TEXT NOT NULL,
+    `alpha` INTEGER NOT NULL,
     `red` INTEGER NOT NULL,
     `green` INTEGER NOT NULL,
     `blue` INTEGER NOT NULL,

@@ -20,21 +20,17 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           Navigator.pop(context);
         },
         icon: Icon(
-          Icons.arrow_back,
-          color: AppColors.black,
+          Icons.arrow_back_ios,
+          color: AppColors.darkGrey,
+          size: 20,
         ),
       ),
       title: Text(
         title,
-        style: typography.bold.extraLarge,
+        style: typography.regular.medium,
       ),
-      backgroundColor: AppColors.white,
-      elevation: 2,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(16),
-        bottomRight: Radius.circular(16),
-      )),
+      backgroundColor: Colors.white12,
+      elevation: 0,
     );
   }
 

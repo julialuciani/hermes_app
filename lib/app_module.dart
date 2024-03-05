@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/category/category_module.dart';
 import 'package:hermes_app/home/home_module.dart';
 import 'package:hermes_app/movement/movement_module.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
@@ -64,6 +65,10 @@ class AppModule extends Module {
     ModuleRoute(
       '/movement',
       module: MovementModule(),
+    ),
+    ModuleRoute(
+      '/category',
+      module: CategoryModule(),
     ),
   ];
 }
