@@ -41,8 +41,16 @@ class MovementModel extends BaseModel<MovementModel> {
   factory MovementModel.fromMap(Map<String, dynamic> map) {
     Color? color;
 
-    if (map['red'] != null && map['green'] != null && map['blue'] != null) {
-      color = Color.fromARGB(1, map['red'], map['green'], map['blue']);
+    if (map['red'] != null &&
+        map['green'] != null &&
+        map['blue'] != null &&
+        map['alpha'] != null) {
+      color = Color.fromARGB(
+        map['alpha'],
+        map['red'],
+        map['green'],
+        map['blue'],
+      );
     }
     return MovementModel(
       id: map['id'] as int?,

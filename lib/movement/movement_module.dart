@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/movement/pages/movement/movement_category_selector_page.dart';
-import 'package:hermes_app/movement/pages/movement/movement_form_cubit.dart';
-import 'package:hermes_app/movement/pages/movement/movement_page.dart';
-import 'package:hermes_app/movement/pages/movement/save_movement_use_case.dart';
+import 'package:hermes_app/movement/movement/movement_category_selector_page.dart';
+import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
+import 'package:hermes_app/movement/movement/movement_page.dart';
+import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
 
 class MovementModule extends Module {
   @override

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hermes_app/movement/pages/movement/movement_form_cubit.dart';
-import 'package:hermes_app/movement/pages/movement/save_movement_use_case.dart';
+import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
+import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
 import 'package:mockito/mockito.dart';

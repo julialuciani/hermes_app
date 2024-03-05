@@ -52,6 +52,7 @@ class _InputState extends State<Input> with InputMixin {
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
+    final viewInsetsBottom = MediaQuery.of(context).viewInsets.bottom;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -80,6 +81,9 @@ class _InputState extends State<Input> with InputMixin {
           },
           onFieldSubmitted: widget.onFieldSubmitted,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          scrollPadding: EdgeInsets.only(
+            bottom: viewInsetsBottom + 40,
+          ),
           decoration: InputDecoration(
               suffixIcon: widget.suffixIcon,
               contentPadding:

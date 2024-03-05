@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hermes_app/movement/pages/movement/movement_form_state.dart';
-import 'package:hermes_app/movement/pages/movement/save_movement_use_case.dart';
+import 'package:hermes_app/movement/movement/movement_form_state.dart';
+import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/entities/unknown_error.dart';

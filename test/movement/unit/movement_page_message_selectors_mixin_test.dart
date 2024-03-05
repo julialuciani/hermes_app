@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hermes_app/movement/pages/movement/utils/movement_page_message_selectors_mixin.dart';
+import 'package:hermes_app/movement/movement/utils/movement_page_message_selectors_mixin.dart';
 import 'package:hermes_app/shared/validators/movement_validator.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 

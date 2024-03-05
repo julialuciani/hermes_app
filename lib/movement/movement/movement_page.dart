@@ -2,11 +2,11 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
+import 'package:hermes_app/movement/movement/movement_form_state.dart';
+import 'package:hermes_app/movement/movement/utils/movement_page_message_selectors_mixin.dart';
+import 'package:hermes_app/movement/movement/widgets/movement_photo_widget.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
-import 'package:hermes_app/movement/pages/movement/movement_form_cubit.dart';
-import 'package:hermes_app/movement/pages/movement/movement_form_state.dart';
-import 'package:hermes_app/movement/pages/movement/utils/movement_page_message_selectors_mixin.dart';
-import 'package:hermes_app/movement/pages/movement/widgets/movement_photo_widget.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
@@ -74,6 +74,7 @@ class _MovementPageState extends State<MovementPage>
         },
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: const DefaultAppBar(
               title: 'Transação',
             ),
