@@ -97,6 +97,7 @@ class _CategorySelectorBoxState extends State<CategorySelectorBox> {
                   child: Column(
                     children: [
                       GestureDetector(
+                        key: const Key('btn_others'),
                         onTap: widget.onTapOthers,
                         child: Container(
                           padding: const EdgeInsets.all(16),

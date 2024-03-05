@@ -28,6 +28,7 @@ class ColorSelectorBox extends StatelessWidget {
                 color: currentColor == color ? AppColors.grey : null,
               ),
               child: GestureDetector(
+                key: ValueKey(color),
                 onTap: () {
                   if (currentColor == color) {
                     onChange(null);

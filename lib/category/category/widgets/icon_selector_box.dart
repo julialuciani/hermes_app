@@ -27,6 +27,7 @@ class IconSelectorBox extends StatelessWidget {
         children: [
           ...AppIcons.highlightIcons.map((IconData icon) {
             return GestureDetector(
+              key: ValueKey(icon),
               onTap: () {
                 onChange(icon);
               },
