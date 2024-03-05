@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/category/category/category_form_cubit.dart';
 import 'package:hermes_app/category/category/category_icon_selector/category_icon_selector_cubit.dart';
 import 'package:hermes_app/category/category/category_icon_selector/category_icon_selector_state.dart';
+import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
@@ -75,15 +76,28 @@ class _CategoryIconSelectorPageState extends State<CategoryIconSelectorPage> {
                     const SizedBox(height: 8),
                     Wrap(
                       runSpacing: 8,
-                      spacing: 16,
                       children: iconSegment.icons.map((icon) {
-                        return CircleAvatar(
-                          radius: 36,
-                          backgroundColor:
-                              formCubit.category.color ?? AppColors.lightGrey,
-                          child: Icon(
-                            icon,
-                            color: AppColors.white,
+                        final isSelected = formCubit.category.icon == icon;
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: isSelected ? AppColors.grey : null,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: GestureDetector(
+                            onTap: () {
+                              formCubit.change(icon: Nullable(icon));
+                              Modular.to.pop();
+                            },
+                            child: CircleAvatar(
+                              radius: 36,
+                              backgroundColor: formCubit.category.color ??
+                                  AppColors.lightGrey,
+                              child: Icon(
+                                icon,
+                                color: AppColors.white,
+                              ),
+                            ),
                           ),
                         );
                       }).toList(),

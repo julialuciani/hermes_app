@@ -46,6 +46,7 @@ class IconUtils {
     AppIcons.tv: 'tv',
     AppIcons.headset: 'headset',
     AppIcons.mouse: 'mouse',
+    AppIcons.realState: 'realState',
   };
 
   static IconData getIconByName(String iconName) {
