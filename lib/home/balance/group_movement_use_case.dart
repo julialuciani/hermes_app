@@ -37,7 +37,7 @@ class GroupMovementUseCase {
     groupedMovement.forEach((key, value) {
       extract.add(
         PeriodExtractModel(
-            title: key.toString(),
+            title: key.toString(), //formatar
             income:
                 value.where((element) => element.typeName == 'income').toList(),
             expenses: value

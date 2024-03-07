@@ -60,7 +60,7 @@ class MovementModel extends BaseModel<MovementModel> {
       date: map['date'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['date'])
           : null,
-      typeName: map['type_name'] as String?,
+      typeName: map['typeName'] as String?,
       image: map['image'] as Uint8List?,
       categoryColor: color,
     );

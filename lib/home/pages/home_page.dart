@@ -7,6 +7,7 @@ import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/utils/event_bus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         key: const Key('create_new_movement_fab'),
         onTap: () {
           Modular.to.pushNamed(MovementRoutes.movement).then((result) {
-            //TODO: figure it out what to do when come back, probably reload the page
+            eventBus.fire(CreateTransaction());
           });
         },
         child: Container(

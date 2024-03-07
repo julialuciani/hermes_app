@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -7,11 +9,13 @@ import 'package:hermes_app/shared/entities/movement_type_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/chart/chart.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
+import 'package:hermes_app/shared/widgets/default_title/default_title.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
 import 'balance_period_button.dart';
@@ -26,11 +30,21 @@ class BalanceScreen extends StatefulWidget {
 
 class _BalanceScreenState extends State<BalanceScreen> {
   final balanceCubit = Modular.get<BalanceScreenCubit>();
+  StreamSubscription<CreateTransaction>? subscription;
 
   @override
   void initState() {
+    subscription = eventBus.on<CreateTransaction>().listen((event) {
+      balanceCubit.fetch(Period.week);
+    });
     balanceCubit.fetch(Period.week);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -43,8 +57,6 @@ class _BalanceScreenState extends State<BalanceScreen> {
         }
 
         if (state is BalanceScreenError) {
-          print(state.failure.error);
-          print(state.failure.stackTrace);
           return DefaultErrorWidget(
             buttonLabel: 'Tentar novamente',
             description: 'Ocorreu um erro durante sua requisição',
@@ -55,8 +67,6 @@ class _BalanceScreenState extends State<BalanceScreen> {
         }
 
         if (state is BalanceScreenSucess) {
-          print(state.balance.currentFilter);
-          print(state.balance.extract.);
           return Scaffold(
             drawer: const Drawer(
               child: Icon(
@@ -101,6 +111,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                         (extract) => ExpandableBox(
                           title: Text(extract.title),
                           children: [
+                            if (extract.expenses.isNotEmpty)
+                              const DefaultTitle(
+                                title: 'Gastos',
+                                textSize: TextSize.medium,
+                              ),
                             ...extract.expenses.map(
                               (e) => DefaultRow(
                                 title: e.description ?? '',
@@ -108,6 +123,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 value: e.value.toString(),
                               ),
                             ),
+                            if (extract.income.isNotEmpty)
+                              const DefaultTitle(
+                                title: 'Entradas',
+                                textSize: TextSize.medium,
+                              ),
                             ...extract.income.map(
                               (e) => DefaultRow(
                                 title: e.description ?? '',
@@ -115,6 +135,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 value: e.value.toString(),
                               ),
                             ),
+                            if (extract.investments.isNotEmpty)
+                              const DefaultTitle(
+                                title: 'Investimentos',
+                                textSize: TextSize.medium,
+                              ),
                             ...extract.investments.map(
                               (e) => DefaultRow(
                                 title: e.description ?? '',
