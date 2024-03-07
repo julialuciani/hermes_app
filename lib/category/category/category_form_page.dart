@@ -97,6 +97,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
           },
           builder: (context, state) {
             return SingleChildScrollView(
+              key: const Key('scroll_category_form'),
               padding: const EdgeInsets.all(20),
               child: Form(
                 key: formCubit.formKey,
@@ -108,6 +109,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                     ),
                     const SizedBox(height: 20),
                     MovementTypeDropdown(
+                      key: const Key('movement_type_dropdown'),
                       onChanged: (typeId) {
                         formCubit.change(movementTypeId: Nullable(typeId));
                       },
@@ -119,6 +121,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                     ),
                     const SizedBox(height: 20),
                     Input(
+                      key: const Key('input_name'),
                       label: 'Nome *',
                       controller: formCubit.nameController,
                       onChanged: (value) {
@@ -159,6 +162,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
         padding: const EdgeInsets.all(20),
         height: 100,
         child: DefaultButton(
+          key: const Key('bnt_save_category'),
           onPressed: () {
             final validateFormResult = formCubit.validateForm();
             if (validateFormResult != CategoryFormValidationResult.success) {
