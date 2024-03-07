@@ -70,6 +70,7 @@ class IconAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: ValueKey(icon),
       onTap: () {
         onChange(icon);
       },

@@ -8,6 +8,7 @@ import 'package:hermes_app/category/category/models/utils/category_form_model_va
 import 'package:hermes_app/category/category/widgets/category_header.dart';
 import 'package:hermes_app/category/category/widgets/color_selector_box.dart';
 import 'package:hermes_app/category/category/widgets/icon_selector_box.dart';
+import 'package:hermes_app/category/category_routes.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
@@ -97,6 +98,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
           },
           builder: (context, state) {
             return SingleChildScrollView(
+              key: const Key('scroll_category_form'),
               padding: const EdgeInsets.all(20),
               child: Form(
                 key: formCubit.formKey,
@@ -108,6 +110,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                     ),
                     const SizedBox(height: 20),
                     MovementTypeDropdown(
+                      key: const Key('movement_type_dropdown'),
                       onChanged: (typeId) {
                         formCubit.change(movementTypeId: Nullable(typeId));
                       },
@@ -119,6 +122,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                     ),
                     const SizedBox(height: 20),
                     Input(
+                      key: const Key('input_name'),
                       label: 'Nome *',
                       controller: formCubit.nameController,
                       onChanged: (value) {
@@ -139,7 +143,9 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
                         formCubit.change(icon: Nullable(icon));
                       },
                       onTapOthers: () {
-                        //TODO: navigate to select others icons page
+                        Modular.to.pushNamed(
+                          CategoryRoutes.categoryIconSelector,
+                        );
                       },
                     ),
                     const SizedBox(height: 20),
@@ -159,6 +165,7 @@ class _CategoryFormPageState extends State<CategoryFormPage> {
         padding: const EdgeInsets.all(20),
         height: 100,
         child: DefaultButton(
+          key: const Key('bnt_save_category'),
           onPressed: () {
             final validateFormResult = formCubit.validateForm();
             if (validateFormResult != CategoryFormValidationResult.success) {

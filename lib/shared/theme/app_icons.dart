@@ -89,6 +89,7 @@ class AppIcons {
   static const IconData dollarSack = FontAwesomeIcons.sackDollar;
   static const IconData bitcoin = Icons.currency_bitcoin_outlined;
   static const IconData savings = Icons.savings_outlined;
+  static const IconData realState = FontAwesomeIcons.building;
 
   static List<IconData> investmentsAndIncomeIcons = [
     chartBar,
@@ -98,6 +99,7 @@ class AppIcons {
     chartLine,
     bitcoin,
     savings,
+    realState,
   ];
 
   static const IconData fitness = Icons.fitness_center;
@@ -133,4 +135,13 @@ class AppIcons {
     headset,
     mouse,
   ];
+
+  static Map<String, List<IconData>> iconsSegmentsDictionary = {
+    'bill': AppIcons.billIcons,
+    'food': AppIcons.foodIcons,
+    'tech': AppIcons.techIcons,
+    'health': AppIcons.healthIcons,
+    'transport': AppIcons.transportIcons,
+    'investmentAndIncome': AppIcons.investmentsAndIncomeIcons,
+  };
 }
