@@ -107,7 +107,6 @@ class _CategoryIconSelectorPageState extends State<CategoryIconSelectorPage> {
               },
             );
           }
-
           return const SizedBox.shrink();
         },
       ),
