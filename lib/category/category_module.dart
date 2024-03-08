@@ -5,6 +5,7 @@ import 'package:hermes_app/category/category/category_icon_selector/category_ico
 import 'package:hermes_app/category/category/category_icon_selector/category_icon_selector_page.dart';
 import 'package:hermes_app/category/category/category_icon_selector/get_icons_segments_use_case.dart';
 import 'package:hermes_app/category/category/save_category_use_case.dart';
+import 'package:hermes_app/category/category_listing/category_listing_cubit.dart';
 import 'package:hermes_app/category/category_listing/category_listing_page.dart';
 
 class CategoryModule extends Module {
@@ -24,6 +25,9 @@ class CategoryModule extends Module {
     ),
     Bind.lazySingleton<CategoryIconSelectorCubit>(
       (i) => CategoryIconSelectorCubit(i()),
+    ),
+    Bind.lazySingleton<CategoryListingCubit>(
+      (i) => CategoryListingCubit(),
     ),
   ];
 
