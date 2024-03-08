@@ -100,7 +100,7 @@ class _MovementCategorySelectorPageState
       floatingActionButton: GestureDetector(
         key: const Key('create_new_category_fab'),
         onTap: () {
-          Modular.to.pushNamed(CategoryRoutes.category).then((_) {
+          Modular.to.pushNamed(CategoryRoutes.categoryRegister).then((_) {
             final typeId = formCubit.movement.typeId;
             if (typeId == null) return;
             categorySelectorBoxCubit.fetch(typeId);
