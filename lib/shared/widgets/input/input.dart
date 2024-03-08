@@ -86,6 +86,7 @@ class _InputState extends State<Input> with InputMixin {
           ),
           decoration: InputDecoration(
               suffixIcon: widget.suffixIcon,
+              suffixIconColor: AppColors.darkGrey,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               fillColor: getInputFillColor(widget.enabled),
