@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:hermes_app/category/category_listing/get_categories_params.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 
 class CategoryListingFiltersState {
@@ -18,6 +18,15 @@ class CategoryListingFiltersState {
       search: search != null ? search.value : this.search,
       movementTypeId:
           movementTypeId != null ? movementTypeId.value : this.movementTypeId,
+    );
+  }
+}
+
+extension ToGetCategoriesParams on CategoryListingFiltersState {
+  GetCategoriesParams toParams() {
+    return GetCategoriesParams(
+      search: search,
+      movementTypeId: movementTypeId,
     );
   }
 }

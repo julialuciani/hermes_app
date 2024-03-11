@@ -8,6 +8,7 @@ import 'package:hermes_app/category/category/save_category_use_case.dart';
 import 'package:hermes_app/category/category_listing/category_listing_cubit.dart';
 import 'package:hermes_app/category/category_listing/category_listing_filter/category_listing__filters_cubit.dart';
 import 'package:hermes_app/category/category_listing/category_listing_page.dart';
+import 'package:hermes_app/category/category_listing/get_categories_use_case.dart';
 
 class CategoryModule extends Module {
   @override
@@ -19,6 +20,9 @@ class CategoryModule extends Module {
     Bind.factory<GetIconsSegmentsUseCase>(
       (i) => GetIconsSegmentsUseCase(),
     ),
+    Bind.factory<GetCategoriesUseCase>(
+      (i) => GetCategoriesUseCase(i()),
+    ),
 
     //Cubits
     Bind.lazySingleton<CategoryFormCubit>(
@@ -28,7 +32,7 @@ class CategoryModule extends Module {
       (i) => CategoryIconSelectorCubit(i()),
     ),
     Bind.lazySingleton<CategoryListingCubit>(
-      (i) => CategoryListingCubit(),
+      (i) => CategoryListingCubit(i()),
     ),
     Bind.lazySingleton<CategoryListingFiltersCubit>(
       (i) => CategoryListingFiltersCubit(),

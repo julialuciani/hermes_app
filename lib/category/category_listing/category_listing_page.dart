@@ -22,7 +22,7 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
 
   @override
   void initState() {
-    categoryListingCubit.fetch();
+    categoryListingCubit.fetch(filtersCubit.state.toParams());
     super.initState();
   }
 
@@ -34,42 +34,48 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
           CategoryListingFiltersState>(
         bloc: filtersCubit,
         listener: (context, state) {
-          //TODO: call fetch using new and changed filters here
+          categoryListingCubit.fetch(state.toParams());
         },
-        child: BlocBuilder<CategoryListingCubit, CategoryListingState>(
-            bloc: categoryListingCubit,
-            builder: (context, state) {
-              if (state is CategoryListingLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is CategoryListingError) {
-                return DefaultErrorWidget(
-                  title: 'Ocorreu um erro ao buscar as categorias',
-                  failure: state.failure,
-                  description: '',
-                  buttonLabel: 'Tentar novamente',
-                  onPressed: () async {
-                    //TODO: add reset and fetch function in here
-                  },
-                );
-              }
-              if (state is CategoryListingSuccess) {
-                return Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      const CategoryListingFilterRow(),
-                      ...state.categories.map((category) {
-                        return Text(category.name);
-                      }),
-                    ],
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            }),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const CategoryListingFilterRow(),
+              BlocBuilder(
+                bloc: categoryListingCubit,
+                builder: (context, state) {
+                  if (state is CategoryListingLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is CategoryListingError) {
+                    //TODO: needs to create a new widget to this case where it doesnt occupy the whole screen
+                    return DefaultErrorWidget(
+                      title: 'Ocorreu um erro ao buscar as categorias',
+                      failure: state.failure,
+                      description: '',
+                      buttonLabel: 'Tentar novamente',
+                      onPressed: () async => filtersCubit.reset(),
+                    );
+                  }
+                  if (state is CategoryListingSuccess) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: state.categories.length,
+                        itemBuilder: (context, index) {
+                          final category = state.categories[index];
+                          return Text(category.name);
+                        },
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

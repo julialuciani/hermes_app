@@ -18,4 +18,9 @@ class CategoryListingFiltersCubit extends Cubit<CategoryListingFiltersState> {
       movementTypeId: movementTypeId,
     ));
   }
+
+  void reset() {
+    _searchController.text = '';
+    emit(CategoryListingFiltersState());
+  }
 }

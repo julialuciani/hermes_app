@@ -1,15 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/category/category_listing/category_listing_state.dart';
+import 'package:hermes_app/category/category_listing/get_categories_params.dart';
+import 'package:hermes_app/category/category_listing/get_categories_use_case.dart';
 import 'package:hermes_app/shared/entities/failure_model.dart';
 import 'package:hermes_app/shared/entities/unknown_error.dart';
 
 class CategoryListingCubit extends Cubit<CategoryListingState> {
-  CategoryListingCubit() : super(CategoryListingInitial());
+  final GetCategoriesUseCase _getCategoriesUseCase;
 
-  void fetch() async {
+  CategoryListingCubit(
+    this._getCategoriesUseCase,
+  ) : super(CategoryListingInitial());
+
+  void fetch(GetCategoriesParams params) async {
     emit(CategoryListingLoading());
     try {
-      emit(CategoryListingSuccess(categories: []));
+      final categories = await _getCategoriesUseCase(params);
+      emit(CategoryListingSuccess(categories: categories));
     } on Failure catch (failure) {
       emit(CategoryListingError(failure: failure));
     } catch (exception, stackTrace) {
