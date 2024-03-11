@@ -83,6 +83,9 @@ class _InputState extends State<Input> with InputMixin {
             return null;
           },
           onFieldSubmitted: widget.onFieldSubmitted,
+          onTapOutside: (_) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           autovalidateMode: AutovalidateMode.onUserInteraction,
           scrollPadding: EdgeInsets.only(
             bottom: viewInsetsBottom + 40,
