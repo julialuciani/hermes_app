@@ -30,6 +30,19 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
     super.initState();
   }
 
+  String getMovementTypeName(String? movementTypeName) {
+    switch (movementTypeName) {
+      case 'expenses':
+        return 'Gastos';
+      case 'investments':
+        return 'Investimentos';
+      case 'income':
+        return 'Entradas';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
@@ -73,23 +86,44 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
                         itemBuilder: (context, index) {
                           final category = state.categories[index];
                           return ContentBox(
+                            borderWidth: 1,
+                            borderColor: category.color,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      radius: 16,
+                                      radius: 20,
                                       backgroundColor: category.color,
                                       child: Icon(
                                         IconUtils.getIconByName(category.icon),
                                         color: AppColors.white,
-                                        size: 16,
+                                        size: 20,
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    Text(
-                                      category.name,
-                                      style: typography.regular.large,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          category.name,
+                                          style: typography.regular.large,
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          getMovementTypeName(
+                                            category.movementTypeName,
+                                          ),
+                                          style: typography.regular.medium,
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Icon(
+                                      Icons.delete,
+                                      color: AppColors.darkGrey,
                                     ),
                                   ],
                                 ),

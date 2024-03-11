@@ -29,6 +29,7 @@ class _CategoryListingFilterRowState extends State<CategoryListingFilterRow> {
             onChanged: (search) {
               filtersCubit.change(search: Nullable(search));
             },
+            hint: 'Pesquisa',
           ),
         ),
         const SizedBox(width: 16),

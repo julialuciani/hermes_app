@@ -45,11 +45,9 @@ class CategoryRepository extends BaseRepository<CategoryModel> {
         category.`red`,
         category.`green`,
         category.`blue`,
-        movement_type.name AS movementTypeName,
-        COUNT(movement.id) as movementsAmount
+        movement_type.name AS movementTypeName
       FROM ${Tables.category}
       LEFT JOIN movement_type ON category.movementTypeId = movement_type.id
-      LEFT JOIN movement ON movement.categoryId = category.id
       $where
       GROUP BY category.id
     ''';
@@ -60,8 +58,7 @@ class CategoryRepository extends BaseRepository<CategoryModel> {
           List<CategoryModel>.from(queryResult.map(CategoryModel.fromMap));
 
       return categories;
-    } on DatabaseException catch (exception) {
-      print(exception);
+    } on DatabaseException {
       rethrow;
     }
   }
