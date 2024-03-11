@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
 import 'package:hermes_app/shared/entities/movement_type_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
@@ -57,6 +58,8 @@ class _BalanceScreenState extends State<BalanceScreen> {
         }
 
         if (state is BalanceScreenError) {
+          print(state.failure.error);
+          print(state.failure.stackTrace);
           return DefaultErrorWidget(
             buttonLabel: 'Tentar novamente',
             description: 'Ocorreu um erro durante sua requisição',
@@ -103,51 +106,59 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       ),
                     ),
                   ),
-                  const PeriodBalanceContentBox(typeModels: []),
+                  PeriodBalanceContentBox(
+                    typesWithValue: state.balance.movementTypesWithValue,
+                  ),
                   const SizedBox(height: 22),
                   const DailyExtractText(),
+                  const SizedBox(height: 17),
                   ...state.balance.extract
                       .map(
-                        (extract) => ExpandableBox(
-                          title: Text(extract.title),
-                          children: [
-                            if (extract.expenses.isNotEmpty)
-                              const DefaultTitle(
-                                title: 'Gastos',
-                                textSize: TextSize.medium,
+                        (extract) => Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 18,
+                          ),
+                          child: ExpandableBox(
+                            title: Text(extract.title),
+                            children: [
+                              if (extract.expenses.isNotEmpty)
+                                const DefaultTitle(
+                                  title: 'Gastos',
+                                  textSize: TextSize.medium,
+                                ),
+                              ...extract.expenses.map(
+                                (e) => DefaultRow(
+                                  title: e.description ?? '',
+                                  textSize: TextSize.medium,
+                                  value: e.value.toString(),
+                                ),
                               ),
-                            ...extract.expenses.map(
-                              (e) => DefaultRow(
-                                title: e.description ?? '',
-                                textSize: TextSize.medium,
-                                value: e.value.toString(),
+                              if (extract.income.isNotEmpty)
+                                const DefaultTitle(
+                                  title: 'Entradas',
+                                  textSize: TextSize.medium,
+                                ),
+                              ...extract.income.map(
+                                (e) => DefaultRow(
+                                  title: e.description ?? '',
+                                  textSize: TextSize.medium,
+                                  value: e.value.toString(),
+                                ),
                               ),
-                            ),
-                            if (extract.income.isNotEmpty)
-                              const DefaultTitle(
-                                title: 'Entradas',
-                                textSize: TextSize.medium,
+                              if (extract.investments.isNotEmpty)
+                                const DefaultTitle(
+                                  title: 'Investimentos',
+                                  textSize: TextSize.medium,
+                                ),
+                              ...extract.investments.map(
+                                (e) => DefaultRow(
+                                  title: e.description ?? '',
+                                  textSize: TextSize.medium,
+                                  value: e.value.toString(),
+                                ),
                               ),
-                            ...extract.income.map(
-                              (e) => DefaultRow(
-                                title: e.description ?? '',
-                                textSize: TextSize.medium,
-                                value: e.value.toString(),
-                              ),
-                            ),
-                            if (extract.investments.isNotEmpty)
-                              const DefaultTitle(
-                                title: 'Investimentos',
-                                textSize: TextSize.medium,
-                              ),
-                            ...extract.investments.map(
-                              (e) => DefaultRow(
-                                title: e.description ?? '',
-                                textSize: TextSize.medium,
-                                value: e.value.toString(),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       )
                       .toList()
@@ -179,10 +190,10 @@ class DailyExtractText extends StatelessWidget {
 }
 
 class PeriodBalanceContentBox extends StatelessWidget {
-  final List<MovementTypeModel> typeModels;
+  final TypesWithValue typesWithValue;
   const PeriodBalanceContentBox({
     Key? key,
-    required this.typeModels,
+    required this.typesWithValue,
   }) : super(key: key);
 
   @override
@@ -191,12 +202,20 @@ class PeriodBalanceContentBox extends StatelessWidget {
       outsideLabel: 'Total do período',
       child: Column(
         children: [
-          ...typeModels.map(
-            (e) => DefaultRow(
-              title: e.name,
-              value: e.getSumOfAllmovements,
-              textSize: TextSize.medium,
-            ),
+          DefaultRow(
+            title: typesWithValue.expenses.description,
+            value: typesWithValue.expenses.formattedValue,
+            textSize: TextSize.medium,
+          ),
+          DefaultRow(
+            title: typesWithValue.income.description,
+            value: typesWithValue.income.formattedValue,
+            textSize: TextSize.medium,
+          ),
+          DefaultRow(
+            title: typesWithValue.investments.description,
+            value: typesWithValue.investments.formattedValue,
+            textSize: TextSize.medium,
           ),
         ],
       ),
