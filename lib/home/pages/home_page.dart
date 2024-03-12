@@ -7,7 +7,7 @@ import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
-import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,26 +44,13 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      floatingActionButton: GestureDetector(
+      floatingActionButton: DefaultFab(
         key: const Key('create_new_movement_fab'),
         onTap: () {
           Modular.to.pushNamed(MovementRoutes.movement).then((result) {
             //TODO: figure it out what to do when come back, probably reload the page
           });
         },
-        child: Container(
-          height: 60,
-          width: 60,
-          margin: const EdgeInsets.only(bottom: 10),
-          decoration: BoxDecoration(
-            color: AppColors.red,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(
-            Icons.add,
-            color: AppColors.white,
-          ),
-        ),
       ),
     );
   }

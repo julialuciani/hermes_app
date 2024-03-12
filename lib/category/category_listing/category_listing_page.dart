@@ -7,8 +7,10 @@ import 'package:hermes_app/category/category_listing/category_listing_filter/cat
 import 'package:hermes_app/category/category_listing/category_listing_filter/category_listing_filters_state.dart';
 import 'package:hermes_app/category/category_listing/category_listing_state.dart';
 import 'package:hermes_app/category/category_listing/widgets/category_list_widget.dart';
+import 'package:hermes_app/category/category_routes.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
+import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';
 
 class CategoryListingPage extends StatefulWidget {
   const CategoryListingPage({super.key});
@@ -80,6 +82,12 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: DefaultFab(
+        key: const Key('create_category_fab'),
+        onTap: () {
+          Modular.to.pushNamed(CategoryRoutes.categoryRegister);
+        },
       ),
     );
   }

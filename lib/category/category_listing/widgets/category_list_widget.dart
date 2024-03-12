@@ -18,6 +18,7 @@ class CategoryListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: const EdgeInsets.only(bottom: 80),
       physics: const BouncingScrollPhysics(),
       itemCount: categories.length,
       separatorBuilder: (_, __) => const SizedBox(height: 16),
