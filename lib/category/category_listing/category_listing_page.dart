@@ -6,10 +6,8 @@ import 'package:hermes_app/category/category_listing/category_listing_filter/cat
 import 'package:hermes_app/category/category_listing/category_listing_filter/category_listing_filter_row.dart';
 import 'package:hermes_app/category/category_listing/category_listing_filter/category_listing_filters_state.dart';
 import 'package:hermes_app/category/category_listing/category_listing_state.dart';
+import 'package:hermes_app/category/category_listing/widgets/category_list_widget.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
-import 'package:hermes_app/shared/theme/app_colors.dart';
-import 'package:hermes_app/shared/utils/icon_utils.dart';
-import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 
@@ -28,19 +26,6 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
   void initState() {
     categoryListingCubit.fetch(filtersCubit.state.toParams());
     super.initState();
-  }
-
-  String getMovementTypeName(String? movementTypeName) {
-    switch (movementTypeName) {
-      case 'expenses':
-        return 'Gastos';
-      case 'investments':
-        return 'Investimentos';
-      case 'income':
-        return 'Entradas';
-      default:
-        return '';
-    }
   }
 
   @override
@@ -80,56 +65,13 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
                   }
                   if (state is CategoryListingSuccess) {
                     return Expanded(
-                      child: ListView.separated(
-                        itemCount: state.categories.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 16),
-                        itemBuilder: (context, index) {
-                          final category = state.categories[index];
-                          return ContentBox(
-                            borderWidth: 1,
-                            borderColor: category.color,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: category.color,
-                                      child: Icon(
-                                        IconUtils.getIconByName(category.icon),
-                                        color: AppColors.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          category.name,
-                                          style: typography.regular.large,
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Text(
-                                          getMovementTypeName(
-                                            category.movementTypeName,
-                                          ),
-                                          style: typography.regular.medium,
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      Icons.delete,
-                                      color: AppColors.darkGrey,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
+                      child: CategoryListWidget(
+                        categories: state.categories,
+                        onTap: (index) {
+                          //TODO: add navigation to category form page
+                        },
+                        onRemove: (index) {
+                          //TODO: show confirmation dialog and remove based on answer
                         },
                       ),
                     );
