@@ -86,7 +86,9 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
       floatingActionButton: DefaultFab(
         key: const Key('create_category_fab'),
         onTap: () {
-          Modular.to.pushNamed(CategoryRoutes.categoryRegister);
+          Modular.to
+              .pushNamed(CategoryRoutes.categoryRegister)
+              .then((_) => filtersCubit.change());
         },
       ),
     );
