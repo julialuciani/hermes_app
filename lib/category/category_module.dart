@@ -43,7 +43,9 @@ class CategoryModule extends Module {
   List<ModularRoute> routes = [
     ChildRoute(
       '/register/',
-      child: (context, args) => const CategoryFormPage(),
+      child: (context, args) => CategoryFormPage(
+        categoryId: int.tryParse(args.queryParams['categoryId'] ?? ''),
+      ),
       transition: TransitionType.rightToLeftWithFade,
       duration: const Duration(milliseconds: 300),
     ),

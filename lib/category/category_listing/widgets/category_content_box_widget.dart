@@ -6,10 +6,11 @@ import 'package:hermes_app/shared/utils/icon_utils.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 
 typedef OnAction = void Function(int index);
+typedef OnTapItem = void Function(CategoryModel category);
 
 class CategoryContentBoxWidget extends StatelessWidget {
   final CategoryModel category;
-  final OnAction onTap;
+  final OnTapItem onTap;
   final OnAction onRemove;
   final int index;
   const CategoryContentBoxWidget({
@@ -37,7 +38,7 @@ class CategoryContentBoxWidget extends StatelessWidget {
     }
 
     return ContentBox(
-      onTap: () => onTap(index),
+      onTap: () => onTap(category),
       borderWidth: 1,
       borderColor: category.color,
       child: Column(

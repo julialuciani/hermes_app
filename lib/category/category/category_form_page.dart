@@ -19,7 +19,11 @@ import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cu
 import 'package:hermes_app/shared/widgets/input/input.dart';
 
 class CategoryFormPage extends StatefulWidget {
-  const CategoryFormPage({super.key});
+  final int? categoryId;
+  const CategoryFormPage({
+    super.key,
+    this.categoryId,
+  });
 
   @override
   State<CategoryFormPage> createState() => _CategoryFormPageState();

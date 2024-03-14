@@ -67,8 +67,13 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
                     return Expanded(
                       child: CategoryListWidget(
                         categories: state.categories,
-                        onTap: (index) {
-                          //TODO: add navigation to category form page
+                        onTap: (category) {
+                          final route =
+                              "${CategoryRoutes.categoryRegister}?categoryId=${category.id}";
+
+                          Modular.to
+                              .pushNamed(route)
+                              .then((_) => filtersCubit.change());
                         },
                         onRemove: (index) {
                           //TODO: show confirmation dialog and remove based on answer
