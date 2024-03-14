@@ -1,4 +1,5 @@
 import 'package:hermes_app/category/category_listing/get_categories_params.dart';
+import 'package:hermes_app/shared/repositories/errors/category_repository_errors.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../constants/tables.dart';
@@ -61,5 +62,21 @@ class CategoryRepository extends BaseRepository<CategoryModel> {
     } on DatabaseException {
       rethrow;
     }
+  }
+
+  Future<CategoryModel> getById(int id) async {
+    final result = await _db.rawQuery(
+      '''
+      SELECT * FROM ${Tables.category}
+      WHERE id = ?
+      ''',
+      [id],
+    );
+
+    if (result.isEmpty) throw CategoryNotFoundError();
+
+    final category = CategoryModel.fromMap(result.first);
+
+    return category;
   }
 }

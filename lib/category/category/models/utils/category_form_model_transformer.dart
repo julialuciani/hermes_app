@@ -13,3 +13,15 @@ extension CategoryFormModelTransformer on CategoryFormModel {
     );
   }
 }
+
+extension CategoryModelTransfomer on CategoryModel {
+  CategoryFormModel toCategoryFormModel() {
+    return CategoryFormModel(
+      id: id,
+      name: name,
+      movementTypeId: movementTypeId,
+      icon: IconUtils.getIconByName(icon),
+      color: color,
+    );
+  }
+}

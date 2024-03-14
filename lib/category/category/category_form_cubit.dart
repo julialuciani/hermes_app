@@ -6,6 +6,7 @@ import 'package:hermes_app/category/category/models/category_form_model.dart';
 import 'package:hermes_app/category/category/models/utils/category_form_model_transformer.dart';
 import 'package:hermes_app/category/category/models/utils/category_form_model_validator.dart';
 import 'package:hermes_app/category/category/save_category_use_case.dart';
+import 'package:hermes_app/shared/entities/category_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 
 class CategoryFormCubit extends Cubit<CategoryFormState> {
@@ -57,5 +58,16 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
 
       emit(CategoryFormErrorSave(saveCategoryException));
     }
+  }
+
+  void setCategory(CategoryModel category) {
+    _category = category.toCategoryFormModel();
+    nameController.text = _category.name ?? '';
+    emit(CategoryFormSuccessChangeFields());
+  }
+
+  void reset() {
+    _category = const CategoryFormModel();
+    nameController.text = '';
   }
 }
