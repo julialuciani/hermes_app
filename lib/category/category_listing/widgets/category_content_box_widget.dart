@@ -5,12 +5,11 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/icon_utils.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 
-typedef OnAction = void Function(int index);
-typedef OnTapItem = void Function(CategoryModel category);
+typedef OnAction = void Function(CategoryModel category);
 
 class CategoryContentBoxWidget extends StatelessWidget {
   final CategoryModel category;
-  final OnTapItem onTap;
+  final OnAction onTap;
   final OnAction onRemove;
   final int index;
   const CategoryContentBoxWidget({
@@ -74,7 +73,7 @@ class CategoryContentBoxWidget extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () => onRemove(index),
+                onTap: () => onRemove(category),
                 child: Icon(
                   Icons.delete,
                   color: AppColors.darkGrey,

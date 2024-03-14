@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hermes_app/category/category_listing/widgets/category_content_box_widget.dart';
 import 'package:hermes_app/shared/entities/category_model.dart';
 
-typedef OnAction = void Function(int index);
-typedef OnTapItem = void Function(CategoryModel category);
+typedef OnAction = void Function(CategoryModel category);
 
 class CategoryListWidget extends StatelessWidget {
   final List<CategoryModel> categories;
-  final OnTapItem onTap;
+  final OnAction onTap;
   final OnAction onRemove;
   const CategoryListWidget({
     super.key,

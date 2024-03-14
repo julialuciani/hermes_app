@@ -1,3 +1,4 @@
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -8,9 +9,12 @@ import 'package:hermes_app/category/category_listing/category_listing_filter/cat
 import 'package:hermes_app/category/category_listing/category_listing_state.dart';
 import 'package:hermes_app/category/category_listing/widgets/category_list_widget.dart';
 import 'package:hermes_app/category/category_routes.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
+import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
 import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';
+import 'package:hermes_app/shared/widgets/dialogs/confirmation_dialog.dart';
 
 class CategoryListingPage extends StatefulWidget {
   const CategoryListingPage({super.key});
@@ -22,6 +26,7 @@ class CategoryListingPage extends StatefulWidget {
 class _CategoryListingPageState extends State<CategoryListingPage> {
   final categoryListingCubit = Modular.get<CategoryListingCubit>();
   final filtersCubit = Modular.get<CategoryListingFiltersCubit>();
+  final registerErrorCubit = Modular.get<RegisterErrorCubit>();
 
   @override
   void initState() {
@@ -31,6 +36,26 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
+    void showToastOnDelete(bool success) {
+      if (success) {
+        CherryToast.success(
+          title: Text(
+            'Categoria excluída com sucesso!',
+            style: typography.regular.medium,
+          ),
+        ).show(context);
+        filtersCubit.change();
+      } else {
+        CherryToast.error(
+          title: Text(
+            'Erro ao remover categoria',
+            style: typography.regular.medium,
+          ),
+        ).show(context);
+      }
+    }
+
     return Scaffold(
       appBar: const DefaultAppBar(title: 'Categorias'),
       body: BlocListener<CategoryListingFiltersCubit,
@@ -75,8 +100,21 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
                               .pushNamed(route)
                               .then((_) => filtersCubit.change());
                         },
-                        onRemove: (index) {
-                          //TODO: show confirmation dialog and remove based on answer
+                        onRemove: (category) async {
+                          final isConfirmed = await const ConfirmationDialog(
+                            title: 'Deseja excluir a categoria?',
+                            content:
+                                'Isso fará com que TODAS as movimentações atreladas a ela sejam excluídas',
+                          ).show(context);
+
+                          if (isConfirmed) {
+                            categoryListingCubit
+                                .deleteCategory(
+                                  category,
+                                  registerErrorCubit.registerError,
+                                )
+                                .then(showToastOnDelete);
+                          }
                         },
                       ),
                     );
