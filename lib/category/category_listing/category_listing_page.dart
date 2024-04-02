@@ -79,13 +79,14 @@ class _CategoryListingPageState extends State<CategoryListingPage> {
                     );
                   }
                   if (state is CategoryListingError) {
-                    //TODO: needs to create a new widget to this case where it doesnt occupy the whole screen
-                    return DefaultErrorWidget(
-                      title: 'Ocorreu um erro ao buscar as categorias',
-                      failure: state.failure,
-                      description: '',
-                      buttonLabel: 'Tentar novamente',
-                      onPressed: () async => filtersCubit.reset(),
+                    return Expanded(
+                      child: SmallDefaultErrorWidget(
+                        title: 'Ocorreu um erro ao buscar as categorias',
+                        failure: state.failure,
+                        description: '',
+                        buttonLabel: 'Tentar novamente',
+                        onPressed: () async => filtersCubit.reset(),
+                      ),
                     );
                   }
                   if (state is CategoryListingSuccess) {
