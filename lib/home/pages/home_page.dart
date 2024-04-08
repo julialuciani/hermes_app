@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         key: const Key('create_new_movement_fab'),
         onTap: () {
           Modular.to.pushNamed(MovementRoutes.movement).then((result) {
-            eventBus.fire(CreateTransaction());
+            eventBus.fire(CreateMovement());
           });
         },
         child: Container(

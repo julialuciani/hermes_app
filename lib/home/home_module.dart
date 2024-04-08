@@ -1,9 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/expenses/get_expenses_use_case.dart';
 import 'package:hermes_app/home/pages/home_page.dart';
 
 import 'balance/get_all_movement_by_period_use_case.dart';
 import 'balance/group_movement_use_case.dart';
+import 'expenses/expenses_cubit.dart';
+import 'expenses/expenses_screen_filters_cubit.dart';
 
 class HomeModule extends Module {
   @override
@@ -15,10 +18,19 @@ class HomeModule extends Module {
         Bind.factory<GetAllMovementByPeriodUseCase>(
           (i) => GetAllMovementByPeriodUseCase(i(), i()),
         ),
+        Bind.factory<GetExpensesUseCase>(
+          (i) => GetExpensesUseCase(i()),
+        ),
 
         //Cubits
         Bind.lazySingleton<BalanceScreenCubit>(
           (i) => BalanceScreenCubit(i()),
+        ),
+        Bind.lazySingleton<ExpensesCubit>(
+          (i) => ExpensesCubit(i()),
+        ),
+        Bind.lazySingleton<ExpensesScreenFiltersCubit>(
+          (i) => ExpensesScreenFiltersCubit(),
         ),
       ];
   @override

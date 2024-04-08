@@ -31,11 +31,11 @@ class BalanceScreen extends StatefulWidget {
 
 class _BalanceScreenState extends State<BalanceScreen> {
   final balanceCubit = Modular.get<BalanceScreenCubit>();
-  StreamSubscription<CreateTransaction>? subscription;
+  StreamSubscription<CreateMovement>? subscription;
 
   @override
   void initState() {
-    subscription = eventBus.on<CreateTransaction>().listen((event) {
+    subscription = eventBus.on<CreateMovement>().listen((event) {
       balanceCubit.fetch(Period.week);
     });
     balanceCubit.fetch(Period.week);
