@@ -49,18 +49,9 @@ class GetAllMovementByPeriodUseCase {
       }
     }
 
-    final investment = periods['investments']!.fold(
-      0.0,
-      (previousValue, element) => previousValue + element,
-    );
-    final expenses = periods['expenses']!.fold(
-      0.0,
-      (previousValue, element) => previousValue + element,
-    );
-    final income = periods['income']!.fold(
-      0.0,
-      (previousValue, element) => previousValue + element,
-    );
+    final investment = _sumEntries(periods['investments']);
+    final expenses = _sumEntries(periods['expenses']);
+    final income = _sumEntries(periods['income']);
 
     return TypesWithValue(
       expenses: ValueWithDescription(
@@ -73,6 +64,12 @@ class GetAllMovementByPeriodUseCase {
         formattedValue: formattAsCurrency(income),
       ),
     );
+  }
+
+  double _sumEntries(List<double>? entries) {
+    if (entries == null || entries.isEmpty == true) return 0.0;
+    return entries.fold(
+        0.0, (previousValue, element) => previousValue + element);
   }
 
   String formattAsCurrency(double value) =>
