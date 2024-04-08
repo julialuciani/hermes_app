@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  late PageController _pageController;
 
   final List<Widget> pages = [
     const BalanceScreen(),
@@ -27,15 +28,34 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (newIndex) {
+          setState(() {
+            _selectedIndex = newIndex;
+          });
+        },
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _selectedIndex,
         onTap: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
           });
+          _pageController.animateToPage(
+            newIndex,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
         },
       ),
       floatingActionButton: GestureDetector(
