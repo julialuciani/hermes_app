@@ -10,4 +10,6 @@ class ExpensesScreenFiltersCubit extends Cubit<FetchMovementsFilters> {
             movementTypeId: 2,
           ),
         );
+
+  void change(FetchMovementsFilters filters) => emit(filters);
 }

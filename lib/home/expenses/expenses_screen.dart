@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
-import 'package:hermes_app/home/expenses/expenses_screen_filters_cubit.dart';
+import 'package:hermes_app/home/expenses/filters/expenses_filters_button.dart';
+import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 
 class ExpensesScreen extends StatefulWidget {
@@ -42,7 +44,16 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Expenses'),
+        actions: [
+          ExpensesFiltersButton(
+            periodGroup: _expensesFiltersCubit.state.periodGroup,
+          ),
+        ],
+        iconTheme: IconThemeData(
+          color: AppColors.black,
+        ),
+        backgroundColor: Colors.white12,
+        elevation: 0,
       ),
       body: Container(),
     );

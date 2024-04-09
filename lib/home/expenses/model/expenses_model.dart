@@ -1,15 +1,9 @@
+import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
-
-enum ExpensePeriodGroup {
-  day,
-  week,
-  month,
-  year,
-}
 
 class ExpensesModel {
   final List<MovementModel> expenses;
-  final ExpensePeriodGroup periodGroup;
+  final PeriodGroup periodGroup;
 
   ExpensesModel({
     required this.expenses,

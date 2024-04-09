@@ -11,23 +11,7 @@ class GetExpensesUseCase {
     final expenses = await _repository.fetch(filters);
     return ExpensesModel(
       expenses: expenses,
-      periodGroup: _getPeriodGroupByDateDiff(
-        filters.dateStart,
-        filters.dateEnd,
-      ),
+      periodGroup: filters.periodGroup,
     );
-  }
-
-  ExpensePeriodGroup _getPeriodGroupByDateDiff(DateTime start, DateTime end) {
-    final diff = end.difference(start);
-    if (diff.inDays <= 1) {
-      return ExpensePeriodGroup.day;
-    } else if (diff.inDays <= 7) {
-      return ExpensePeriodGroup.week;
-    } else if (diff.inDays <= 30) {
-      return ExpensePeriodGroup.month;
-    } else {
-      return ExpensePeriodGroup.year;
-    }
   }
 }

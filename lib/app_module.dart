@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/category/category_module.dart';
 import 'package:hermes_app/home/home_module.dart';
 import 'package:hermes_app/movement/movement_module.dart';
+import 'package:hermes_app/shared/components/category_dropdown/category_dropdown_cubit.dart';
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/database/idatabase.dart';
 import 'package:hermes_app/shared/repositories/category_repository.dart';
@@ -53,6 +54,9 @@ class AppModule extends Module {
     ),
     Bind.lazySingleton<CategorySelectorBoxCubit>(
       (i) => CategorySelectorBoxCubit(i()),
+    ),
+    Bind.lazySingleton<CategoryDropdownCubit>(
+      (i) => CategoryDropdownCubit(i()),
     ),
   ];
 
