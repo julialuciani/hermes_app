@@ -44,18 +44,19 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          ExpensesFiltersButton(
-            periodGroup: _expensesFiltersCubit.state.periodGroup,
-          ),
-        ],
+        actions: const [ExpensesFiltersButton()],
         iconTheme: IconThemeData(
           color: AppColors.black,
         ),
         backgroundColor: Colors.white12,
         elevation: 0,
       ),
-      body: Container(),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: const [],
+        ),
+      ),
     );
   }
 }

@@ -65,7 +65,8 @@ class MovementRepository extends BaseRepository<MovementModel> {
       category.green,
       category.blue,
       movement.categoryId,
-      movement_type.name AS typeName
+      movement_type.name AS typeName,
+      category.name AS categoryName
     FROM ${Tables.movement}
     JOIN ${Tables.category} ON movement.categoryId = category.id
     JOIN ${Tables.movementType} ON category.movementTypeId = movement_type.id

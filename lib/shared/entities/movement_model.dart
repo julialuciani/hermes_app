@@ -13,18 +13,20 @@ class MovementModel extends BaseModel<MovementModel> {
   final Uint8List? image;
   final String? typeName;
   final Color? categoryColor;
+  final String? categoryName;
 
-  const MovementModel(
-      {int? id,
-      this.description,
-      this.value,
-      this.typeId,
-      this.categoryId,
-      this.date,
-      this.image,
-      this.typeName,
-      this.categoryColor})
-      : super(id: id);
+  const MovementModel({
+    int? id,
+    this.description,
+    this.value,
+    this.typeId,
+    this.categoryId,
+    this.date,
+    this.image,
+    this.typeName,
+    this.categoryColor,
+    this.categoryName,
+  }) : super(id: id);
 
   @override
   Map<String, dynamic> toMap() {
@@ -63,6 +65,7 @@ class MovementModel extends BaseModel<MovementModel> {
       typeName: map['typeName'] as String?,
       image: map['image'] as Uint8List?,
       categoryColor: color,
+      categoryName: map['categoryName'] as String?,
     );
   }
 
