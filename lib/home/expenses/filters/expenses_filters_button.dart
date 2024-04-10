@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_filters_modal.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 import 'expenses_screen_filters_cubit.dart';
@@ -19,6 +20,7 @@ class _ExpensesFiltersButtonState extends State<ExpensesFiltersButton> {
   final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return BlocBuilder<ExpensesScreenFiltersCubit, FetchMovementsFilters>(
         bloc: _expensesFiltersCubit,
         builder: (context, state) {
@@ -58,7 +60,12 @@ class _ExpensesFiltersButtonState extends State<ExpensesFiltersButton> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(width: 18),
-                    Text(getPeriodGroupText()),
+                    Text(
+                      getPeriodGroupText(),
+                      style: typography.regular.medium.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
                     Icon(
                       Icons.arrow_drop_down,
                       color: AppColors.white,
