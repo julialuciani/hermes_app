@@ -51,6 +51,7 @@ class _ExpensesPeriodRowState extends State<ExpensesPeriodRow> {
                 onPressed: () {},
                 icon: const Icon(
                   Icons.arrow_left,
+                  size: 28,
                 ),
               ),
               Text(
@@ -59,7 +60,10 @@ class _ExpensesPeriodRowState extends State<ExpensesPeriodRow> {
               ),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.arrow_right),
+                icon: const Icon(
+                  Icons.arrow_right,
+                  size: 28,
+                ),
               ),
             ],
           );
