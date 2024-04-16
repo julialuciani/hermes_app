@@ -22,6 +22,7 @@ class ExpensesScreen extends StatefulWidget {
 class _ExpensesScreenState extends State<ExpensesScreen> {
   final _expensesCubit = Modular.get<ExpensesCubit>();
   final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
+  late FetchMovementsFilters _currentFilters;
   StreamSubscription<FetchMovementsFilters>? _filtersChangeListener;
   StreamSubscription<CreateMovement>? _createMovementListener;
   @override
@@ -30,10 +31,14 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     _expensesCubit.fetch(_expensesFiltersCubit.state);
     _filtersChangeListener = _expensesFiltersCubit.stream.listen((filters) {
       _expensesCubit.fetch(filters);
+      setState(() {
+        _currentFilters = filters;
+      });
     });
     _createMovementListener = eventBus.on<CreateMovement>().listen((event) {
       _expensesCubit.fetch(_expensesFiltersCubit.state);
     });
+    _currentFilters = _expensesFiltersCubit.state;
   }
 
   @override
@@ -70,7 +75,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             const ExtractPeriodText(),
             const SizedBox(height: 20),
             ExpensesList(
-              filterPeriodGroup: _expensesFiltersCubit.state.periodGroup,
+              filterPeriodGroup: _currentFilters.periodGroup,
             ),
           ],
         ),
