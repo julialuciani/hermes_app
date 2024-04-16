@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/state/expenses_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
+import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
@@ -26,6 +27,7 @@ class _ExpensesListState extends State<ExpensesList>
   final _expensesCubit = Modular.get<ExpensesCubit>();
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return BlocBuilder<ExpensesCubit, ExpensesState>(
       bloc: _expensesCubit,
       builder: (context, state) {
@@ -49,11 +51,12 @@ class _ExpensesListState extends State<ExpensesList>
                       widget.filterPeriodGroup,
                       expenses.first.date!,
                     ),
+                    style: typography.bold.medium,
                   ),
                   children: expenses.map((expense) {
                     return DefaultRow(
                       title: expense.categoryName!,
-                      value: "${expense.value!}",
+                      value: formatCurrency(expense.value!),
                       textSize: TextSize.medium,
                     );
                   }).toList(),
@@ -85,5 +88,10 @@ mixin _ExpensesListFormatMixin {
       default:
         return '';
     }
+  }
+
+  String formatCurrency(double value) {
+    final format = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    return format.format(value);
   }
 }
