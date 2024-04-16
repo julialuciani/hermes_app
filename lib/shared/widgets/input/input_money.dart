@@ -41,6 +41,7 @@ class _InputMoneyState extends State<InputMoney> {
     decimalDigits: 2,
     symbol: "R\$ ",
     enableNegative: false,
+    locale: 'pt_BR',
   );
 
   @override
