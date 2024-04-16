@@ -58,13 +58,19 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         backgroundColor: Colors.white12,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const ExpensesPeriodRow(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
+            const SizedBox(
+              height: 250,
+              child: Center(
+                child: Text("Aqui terá um gráfico"),
+              ),
+            ),
             const ExtractPeriodText(),
             const SizedBox(height: 20),
             BlocBuilder<ExpensesCubit, ExpensesState>(
@@ -78,9 +84,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 }
                 if (state is ExpensesSuccess) {
                   final expensesModel = state.expenses;
-                  return SizedBox(
-                    height: 200,
+                  return Expanded(
                     child: ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 100),
                       itemCount: expensesModel.expenses.length,
                       itemBuilder: (context, index) {
                         final expenses = expensesModel.expenses[index];
