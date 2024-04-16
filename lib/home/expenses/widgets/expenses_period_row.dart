@@ -6,6 +6,7 @@ import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:intl/intl.dart';
 
 class ExpensesPeriodRow extends StatefulWidget {
@@ -27,18 +28,20 @@ class _ExpensesPeriodRowState extends State<ExpensesPeriodRow>
           String getTextByPeriodGroup() {
             switch (state.periodGroup) {
               case PeriodGroup.day:
-                final dayFormat = DateFormat('dd - MMMM - yyyy');
+                final dayFormat = DateFormat('dd/MM/yyyy', 'pt_BR');
                 return dayFormat.format(state.dateStart);
               case PeriodGroup.week:
-                final weekBegin = DateFormat('dd MMM').format(state.dateStart);
-                final weekEnd = DateFormat('dd MMM').format(state.dateEnd);
+                final weekBegin =
+                    DateFormat('dd/MM', 'pt_BR').format(state.dateStart);
+                final weekEnd =
+                    DateFormat('dd/MM', 'pt_BR').format(state.dateEnd);
                 final year = state.dateStart.year == DateTime.now().year
                     ? ''
                     : state.dateStart.year.toString();
                 return '$weekBegin - $weekEnd $year';
               case PeriodGroup.month:
-                final monthFormat = DateFormat('MMMM - yyyy');
-                return monthFormat.format(state.dateStart);
+                final monthFormat = DateFormat('MMMM - MM/yyyy', 'pt_BR');
+                return monthFormat.format(state.dateStart).capitalize();
               case PeriodGroup.year:
                 return "${state.dateStart.year}";
               default:

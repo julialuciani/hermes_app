@@ -5,6 +5,7 @@ import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/state/expenses_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
@@ -41,7 +42,7 @@ class _ExpensesListState extends State<ExpensesList>
           final expensesModel = state.expenses;
           return Expanded(
             child: ListView.separated(
-              padding: const EdgeInsets.only(bottom: 100),
+              padding: const EdgeInsets.only(bottom: 80),
               itemCount: expensesModel.expenses.length,
               itemBuilder: (context, index) {
                 final expenses = expensesModel.expenses[index];
@@ -80,11 +81,11 @@ mixin _ExpensesListFormatMixin {
       case PeriodGroup.day:
       case PeriodGroup.week:
       case PeriodGroup.month:
-        final format = DateFormat('dd - MMMM - yyyy');
-        return format.format(date);
+        final format = DateFormat('dd/MM/yyyy', 'pt_BR');
+        return format.format(date).capitalize();
       case PeriodGroup.year:
-        final format = DateFormat('MMMM - MM/yyyy');
-        return format.format(date);
+        final format = DateFormat('MMMM - MM/yyyy', 'pt_BR');
+        return format.format(date).capitalize();
       default:
         return '';
     }

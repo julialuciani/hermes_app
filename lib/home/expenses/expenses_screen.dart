@@ -67,7 +67,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             const ExpensesPeriodRow(),
             const SizedBox(height: 20),
             const SizedBox(
-              height: 250,
+              height: 200,
               child: Center(
                 child: Text("Aqui terá um gráfico"),
               ),
