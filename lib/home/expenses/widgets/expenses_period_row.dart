@@ -116,17 +116,9 @@ mixin _ExpensesPeriodRowExtension {
         final month =
             state.dateEnd.month - 1 > 0 ? state.dateEnd.month - 1 : 12;
         final year = month == 12 ? state.dateEnd.year - 1 : state.dateEnd.year;
-        return DateTime(
-          year,
-          month,
-          lastDay.day,
-        );
+        return DateTime(year, month, lastDay.day, 23, 59, 59, 999);
       case PeriodGroup.year:
-        return DateTime(
-          state.dateEnd.year - 1,
-          12,
-          31,
-        );
+        return DateTime(state.dateEnd.year - 1, 12, 31, 23, 59, 59, 999);
       default:
         return state.dateEnd;
     }
@@ -158,9 +150,10 @@ mixin _ExpensesPeriodRowExtension {
       case PeriodGroup.week:
         return state.dateEnd.add(const Duration(days: 7));
       case PeriodGroup.month:
-        return DateTime(state.dateEnd.year, state.dateEnd.month + 2, 0);
+        return DateTime(
+            state.dateEnd.year, state.dateEnd.month + 2, 0, 23, 59, 59, 999);
       case PeriodGroup.year:
-        return DateTime(state.dateEnd.year + 1, 12, 31);
+        return DateTime(state.dateEnd.year + 1, 12, 31, 23, 59, 59, 999);
       default:
         return state.dateEnd;
     }

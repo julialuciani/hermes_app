@@ -20,7 +20,7 @@ class FetchMovementsFilters {
       return PeriodGroup.day;
     } else if (diff.inDays <= 7) {
       return PeriodGroup.week;
-    } else if (diff.inDays <= 30) {
+    } else if (diff.inDays <= 31) {
       return PeriodGroup.month;
     } else {
       return PeriodGroup.year;

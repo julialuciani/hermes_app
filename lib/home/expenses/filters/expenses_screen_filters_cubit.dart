@@ -6,7 +6,8 @@ class ExpensesScreenFiltersCubit extends Cubit<FetchMovementsFilters> {
       : super(
           FetchMovementsFilters(
             dateStart: DateTime(DateTime.now().year, DateTime.now().month, 1),
-            dateEnd: DateTime(DateTime.now().year, DateTime.now().month + 1, 0),
+            dateEnd: DateTime(
+                DateTime.now().year, DateTime.now().month + 1, 0, 23, 59, 59),
             movementTypeId: 2,
           ),
         );

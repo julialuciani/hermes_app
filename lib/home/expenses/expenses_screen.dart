@@ -6,12 +6,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_filters_button.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
+import 'package:hermes_app/home/expenses/state/expenses_state.dart';
 import 'package:hermes_app/home/expenses/widgets/expenses_period_row.dart';
+import 'package:hermes_app/home/expenses/widgets/extract_period_text.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
-import 'package:hermes_app/home/utils/period_group_enum.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
+import 'package:hermes_app/shared/utils/text_size.dart';
+import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
+import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
 class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({super.key});
@@ -46,8 +49,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final typography = context.typography;
-
     return Scaffold(
       appBar: AppBar(
         actions: const [ExpensesFiltersButton()],
@@ -64,44 +65,48 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           children: [
             const ExpensesPeriodRow(),
             const SizedBox(height: 40),
-            _ExtractPeriodText(),
+            const ExtractPeriodText(),
+            const SizedBox(height: 20),
+            BlocBuilder<ExpensesCubit, ExpensesState>(
+              bloc: _expensesCubit,
+              builder: (context, state) {
+                if (state is ExpensesLoading) {
+                  //TODO: create shimmer for it
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ExpensesSuccess) {
+                  final expensesModel = state.expenses;
+                  return SizedBox(
+                    height: 200,
+                    child: ListView.separated(
+                      itemCount: expensesModel.expenses.length,
+                      itemBuilder: (context, index) {
+                        final expenses = expensesModel.expenses[index];
+                        return ExpandableBox(
+                          title: Text(expenses.first.date.toString()),
+                          children: expenses.map((expense) {
+                            return DefaultRow(
+                              title: expense.categoryName!,
+                              value: "${expense.value!}",
+                              textSize: TextSize.medium,
+                            );
+                          }).toList(),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 12);
+                      },
+                    ),
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _ExtractPeriodText extends StatefulWidget {
-  @override
-  State<_ExtractPeriodText> createState() => _ExtractPeriodTextState();
-}
-
-class _ExtractPeriodTextState extends State<_ExtractPeriodText> {
-  final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
-
-  @override
-  Widget build(BuildContext context) {
-    final typography = context.typography;
-    return BlocBuilder<ExpensesScreenFiltersCubit, FetchMovementsFilters>(
-      bloc: _expensesFiltersCubit,
-      builder: (context, state) {
-        String getTextByPeriod() {
-          switch (state.periodGroup) {
-            case PeriodGroup.day:
-            case PeriodGroup.week:
-            case PeriodGroup.month:
-              return 'Extrato diário';
-            case PeriodGroup.year:
-              return 'Extrato mensal';
-          }
-        }
-
-        return Text(
-          getTextByPeriod(),
-          style: typography.bold.medium,
-        );
-      },
     );
   }
 }
