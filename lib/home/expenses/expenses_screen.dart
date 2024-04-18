@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_filters_button.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
+import 'package:hermes_app/home/expenses/widgets/expenses_chart.dart';
 import 'package:hermes_app/home/expenses/widgets/expenses_list.dart';
 import 'package:hermes_app/home/expenses/widgets/expenses_period_row.dart';
 import 'package:hermes_app/home/expenses/widgets/extract_period_text.dart';
@@ -66,12 +67,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           children: [
             const ExpensesPeriodRow(),
             const SizedBox(height: 20),
-            const SizedBox(
-              height: 200,
-              child: Center(
-                child: Text("Aqui terá um gráfico"),
-              ),
-            ),
+            const ExpensesChart(),
             const ExtractPeriodText(),
             const SizedBox(height: 20),
             ExpensesList(

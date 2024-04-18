@@ -9,8 +9,9 @@ class ExpensesLoading extends ExpensesState {}
 
 class ExpensesSuccess extends ExpensesState {
   final ExpensesModel expenses;
+  final ExpensesChartModel chartModel;
 
-  ExpensesSuccess(this.expenses);
+  ExpensesSuccess(this.expenses, this.chartModel);
 }
 
 class ExpensesFailure extends ExpensesState {

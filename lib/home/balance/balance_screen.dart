@@ -238,7 +238,6 @@ class BalanceChart extends StatelessWidget {
           (e) => ChartSection(
             value: double.parse(e.totalValue!),
             title: e.name,
-            icon: const Icon(Icons.airplanemode_active),
             color: Colors.red,
           ),
         ),

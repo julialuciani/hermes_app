@@ -11,9 +11,12 @@ class MovementModel extends BaseModel<MovementModel> {
   final int? categoryId;
   final DateTime? date;
   final Uint8List? image;
+
+  //Unmapped
   final String? typeName;
   final Color? categoryColor;
   final String? categoryName;
+  final String? categoryIcon;
 
   const MovementModel({
     int? id,
@@ -26,6 +29,7 @@ class MovementModel extends BaseModel<MovementModel> {
     this.typeName,
     this.categoryColor,
     this.categoryName,
+    this.categoryIcon,
   }) : super(id: id);
 
   @override
@@ -66,6 +70,7 @@ class MovementModel extends BaseModel<MovementModel> {
       image: map['image'] as Uint8List?,
       categoryColor: color,
       categoryName: map['categoryName'] as String?,
+      categoryIcon: map['categoryIcon'] as String?,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/expenses/get_expenses_chart_sections_use_case.dart';
 import 'package:hermes_app/home/expenses/get_expenses_use_case.dart';
 import 'package:hermes_app/home/pages/home_page.dart';
 
@@ -21,13 +22,16 @@ class HomeModule extends Module {
         Bind.factory<GetExpensesUseCase>(
           (i) => GetExpensesUseCase(i()),
         ),
+        Bind.factory<GetExpensesChartSectionsUseCase>(
+          (i) => GetExpensesChartSectionsUseCase(i()),
+        ),
 
         //Cubits
         Bind.lazySingleton<BalanceScreenCubit>(
           (i) => BalanceScreenCubit(i()),
         ),
         Bind.lazySingleton<ExpensesCubit>(
-          (i) => ExpensesCubit(i()),
+          (i) => ExpensesCubit(i(), i()),
         ),
         Bind.lazySingleton<ExpensesScreenFiltersCubit>(
           (i) => ExpensesScreenFiltersCubit(),

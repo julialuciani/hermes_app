@@ -29,6 +29,7 @@ class MovementRepository extends BaseRepository<MovementModel> {
       category.red,
       category.green,
       category.blue,
+      category.alpha,
       movement.categoryId,
       movement_type.name AS typeName
     FROM ${Tables.movement}
@@ -64,9 +65,11 @@ class MovementRepository extends BaseRepository<MovementModel> {
       category.red,
       category.green,
       category.blue,
+      category.alpha,
       movement.categoryId,
       movement_type.name AS typeName,
-      category.name AS categoryName
+      category.name AS categoryName,
+      category.icon AS categoryIcon
     FROM ${Tables.movement}
     JOIN ${Tables.category} ON movement.categoryId = category.id
     JOIN ${Tables.movementType} ON category.movementTypeId = movement_type.id

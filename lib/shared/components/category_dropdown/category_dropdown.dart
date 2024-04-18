@@ -22,7 +22,8 @@ class CategoryDropdown extends StatefulWidget {
   State<CategoryDropdown> createState() => _CategoryDropdownState();
 }
 
-class _CategoryDropdownState extends State<CategoryDropdown> {
+class _CategoryDropdownState extends State<CategoryDropdown>
+    with WidgetsBindingObserver {
   final cubit = Modular.get<CategoryDropdownCubit>();
 
   @override
