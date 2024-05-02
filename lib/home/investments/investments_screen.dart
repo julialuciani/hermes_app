@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/investments/filters/investments_filters_button.dart';
 import 'package:hermes_app/home/investments/filters/investments_screen_filters_cubit.dart';
 import 'package:hermes_app/home/investments/investments_cubit.dart';
-import 'package:hermes_app/home/investments/widgets/Investments_chart.dart';
+import 'package:hermes_app/home/investments/widgets/investments_chart.dart';
 import 'package:hermes_app/home/investments/widgets/investments_list.dart';
 import 'package:hermes_app/home/investments/widgets/investments_period_row.dart';
 import 'package:hermes_app/home/investments/widgets/investments_period_text.dart';
