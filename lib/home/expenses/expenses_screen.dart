@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/home/widgets/home_drawer.dart';
 
 class ExpensesScreen extends StatelessWidget {
   const ExpensesScreen({super.key});
@@ -9,6 +10,7 @@ class ExpensesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Expenses'),
       ),
+      drawer: const HomeDrawer(),
       body: Container(),
     );
   }

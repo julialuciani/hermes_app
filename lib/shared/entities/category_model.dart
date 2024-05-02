@@ -6,12 +6,15 @@ class CategoryModel extends BaseModel<CategoryModel> {
   final int movementTypeId;
   final String icon;
   final Color color;
+
+  final String? movementTypeName;
   const CategoryModel({
     required int? id,
     required this.name,
     required this.movementTypeId,
     required this.icon,
     required this.color,
+    this.movementTypeName,
   }) : super(id: id);
 
   @override
@@ -42,6 +45,7 @@ class CategoryModel extends BaseModel<CategoryModel> {
       movementTypeId: map['movementTypeId'],
       icon: map['icon'],
       color: color,
+      movementTypeName: map['movementTypeName'],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_period_button.dart';
+import 'package:hermes_app/home/widgets/home_drawer.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
@@ -24,11 +25,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
   Widget build(BuildContext context) {
     useCase(Period.week);
     return Scaffold(
-      drawer: const Drawer(
-        child: Icon(
-          Icons.menu,
-        ),
-      ),
+      drawer: const HomeDrawer(),
       appBar: AppBar(
         actions: const [
           BalancePeriodButton(),
