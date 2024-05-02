@@ -75,7 +75,11 @@ class MovementFormCubit extends Cubit<MovementFormState> {
     if (value == null) return null;
     //Value format comes as R$  #.###,
     value =
-        value.replaceAll(".", "").replaceAll(",", ".").replaceAll("R\$ ", "");
+        value.replaceAll(".", "").replaceAll(",", "").replaceAll("R\$ ", "");
+    if (value.length > 2) {
+      value =
+          "${value.substring(0, value.length - 2)}.${value.substring(value.length - 2)}";
+    }
     formattedValue = double.tryParse(value);
 
     return Nullable(formattedValue);

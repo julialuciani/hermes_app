@@ -1,6 +1,7 @@
 import 'package:hermes_app/home/balance/get_all_movement_by_period_use_case.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
+import 'package:intl/intl.dart';
 
 class GroupMovementUseCase {
   List<PeriodExtractModel> groupMovementsByPeriod(
@@ -61,13 +62,15 @@ class GroupMovementUseCase {
     //2 - Passar por cada lista agrupada e realizar as transformações para ter o balance model
     //3 - Juntar o balance model com a lista de transações e adicionar na lista extract como um PeriodExtractModel
 
-    Map<int, List<MovementModel>> groupedMovement = {};
+    Map<String, List<MovementModel>> groupedMovement = {};
 
     for (var movement in unGroupedMovement) {
-      if (groupedMovement.containsKey(movement.date!.day)) {
-        groupedMovement[movement.date!.day]!.add(movement);
+      final String formattedDate =
+          DateFormat.MMMMEEEEd('pt_BR').format(movement.date!);
+      if (groupedMovement.containsKey(formattedDate)) {
+        groupedMovement[formattedDate]!.add(movement);
       } else {
-        groupedMovement[movement.date!.day] = [movement];
+        groupedMovement[formattedDate] = [movement];
       }
     }
 
