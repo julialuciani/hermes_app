@@ -68,6 +68,6 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
 
   void reset() {
     _category = const CategoryFormModel();
-    nameController.text = '';
+    nameController.clear();
   }
 }
