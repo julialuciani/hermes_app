@@ -17,6 +17,8 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
 
   final String? outsideLabel;
 
+  final double? borderWidth;
+
   /// [ContentBox] is a widget that must be used to group information that is related
   const ContentBox({
     super.key,
@@ -25,6 +27,7 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
     required this.child,
     this.onTap,
     this.borderColor,
+    this.borderWidth,
   });
 
   @override
@@ -50,7 +53,7 @@ class ContentBox extends StatelessWidget with ContentBoxMixin {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: getBorderColor(borderColor),
-                width: 0.7,
+                width: borderWidth ?? 0.7,
               ),
             ),
             child: child,

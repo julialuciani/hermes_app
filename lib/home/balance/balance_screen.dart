@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/balance/balance_period_button.dart';
 import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
@@ -19,7 +20,6 @@ import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/default_title/default_title.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
-import 'balance_period_button.dart';
 import 'get_all_movement_by_period_use_case.dart';
 
 class BalanceScreen extends StatefulWidget {
@@ -58,8 +58,6 @@ class _BalanceScreenState extends State<BalanceScreen> {
         }
 
         if (state is BalanceScreenError) {
-          print(state.failure.error);
-          print(state.failure.stackTrace);
           return DefaultErrorWidget(
             buttonLabel: 'Tentar novamente',
             description: 'Ocorreu um erro durante sua requisição',

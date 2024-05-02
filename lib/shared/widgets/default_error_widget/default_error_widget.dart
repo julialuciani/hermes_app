@@ -76,3 +76,79 @@ class _DefaultErrorWidgetState extends State<DefaultErrorWidget> {
     );
   }
 }
+
+class SmallDefaultErrorWidget extends StatefulWidget {
+  final String title;
+  final String description;
+  final String buttonLabel;
+  final Future<void> Function() onPressed;
+  final Failure failure;
+  const SmallDefaultErrorWidget({
+    Key? key,
+    required this.title,
+    required this.failure,
+    required this.description,
+    required this.buttonLabel,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  State<SmallDefaultErrorWidget> createState() =>
+      _SmallDefaultErrorWidgetState();
+}
+
+class _SmallDefaultErrorWidgetState extends State<SmallDefaultErrorWidget> {
+  bool isLoading = false;
+  final registerError = Modular.get<RegisterErrorCubit>();
+
+  @override
+  void initState() {
+    registerError.registerError(widget.failure);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/error.png'),
+          const SizedBox(height: 36),
+          Text(
+            widget.title,
+            style: context.typography.bold.large.copyWith(
+              color: AppColors.darkGrey,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            widget.description,
+            textAlign: TextAlign.center,
+            style: context.typography.paragraph.medium.copyWith(
+              color: AppColors.darkGrey,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: DefaultButton(
+              isLoading: isLoading,
+              onPressed: () async {
+                setState(() => isLoading = true);
+                widget.onPressed().then((_) {
+                  setState(() => isLoading = false);
+                });
+              },
+              title: Text(
+                widget.buttonLabel,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

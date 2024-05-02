@@ -3,11 +3,13 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String title;
+  final String? content;
   final String? denialText;
   final String? confirmationText;
   const ConfirmationDialog({
     super.key,
     required this.title,
+    this.content,
     this.denialText,
     this.confirmationText,
   });
@@ -26,6 +28,7 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
+      content: content != null ? Text(content!) : null,
       actions: [
         ElevatedButton(
           style: ButtonStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hermes_app/home/widgets/home_drawer.dart';
 
 class IncomeScreen extends StatelessWidget {
   const IncomeScreen({super.key});
@@ -9,6 +10,7 @@ class IncomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Income'),
       ),
+      drawer: const HomeDrawer(),
       body: Container(),
     );
   }
