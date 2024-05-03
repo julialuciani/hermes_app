@@ -82,41 +82,4 @@ class MovementRepository extends BaseRepository<MovementModel> {
 
     return movementTypes;
   }
-
-  Future<List<MovementModel>> fetch(FetchMovementsFilters filters) async {
-    String where = '';
-    where +=
-        'WHERE movement.date BETWEEN ${filters.dateStart.millisecondsSinceEpoch} AND ${filters.dateEnd.millisecondsSinceEpoch}';
-    if (filters.categoryId != null) {
-      where += '\nAND';
-      where += ' movement.categoryId = ${filters.categoryId}';
-    }
-    if (filters.movementTypeId != null) {
-      where += where.isEmpty ? '\nWHERE' : '\nAND';
-      where += ' category.movementTypeId = ${filters.movementTypeId}';
-    }
-    final query = '''
-    SELECT
-      movement.id,
-      movement.description,
-      movement.value,
-      movement.date,
-      category.red,
-      category.green,
-      category.blue,
-      category.alpha,
-      movement.categoryId,
-      movement_type.name AS typeName,
-      category.name AS categoryName,
-      category.icon AS categoryIcon
-    FROM ${Tables.movement}
-    JOIN ${Tables.category} ON movement.categoryId = category.id
-    JOIN ${Tables.movementType} ON category.movementTypeId = movement_type.id
-    $where
-    ''';
-
-    final result = await _db.rawQuery(query);
-
-    return result.map((e) => MovementModel.fromMap(e)).toList();
-  }
 }
