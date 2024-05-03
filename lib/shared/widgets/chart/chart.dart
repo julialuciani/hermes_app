@@ -24,7 +24,7 @@ class _ChartState extends State<Chart> {
     final typography = context.typography;
     return SizedBox(
       height: 100,
-      width: 100,
+      width: double.maxFinite,
       child: Stack(
         alignment: Alignment.center,
         children: [

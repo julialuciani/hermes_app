@@ -48,6 +48,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
     super.dispose();
   }
 
+  final useCase = Modular.get<GetAllMovementByPeriodUseCase>();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BalanceScreenCubit, BalanceScreenState>(
@@ -190,9 +191,9 @@ class DailyExtractText extends StatelessWidget {
 class PeriodBalanceContentBox extends StatelessWidget {
   final TypesWithValue typesWithValue;
   const PeriodBalanceContentBox({
-    Key? key,
+    super.key,
     required this.typesWithValue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -224,9 +225,9 @@ class PeriodBalanceContentBox extends StatelessWidget {
 class BalanceChart extends StatelessWidget {
   final List<MovementTypeModel> movementTypes;
   const BalanceChart({
-    Key? key,
+    super.key,
     required this.movementTypes,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -247,9 +248,9 @@ class BalanceChart extends StatelessWidget {
 class PeriodRow extends StatelessWidget {
   final String month;
   const PeriodRow({
-    Key? key,
+    super.key,
     required this.month,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
