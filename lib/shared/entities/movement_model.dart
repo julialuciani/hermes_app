@@ -11,20 +11,26 @@ class MovementModel extends BaseModel<MovementModel> {
   final int? categoryId;
   final DateTime? date;
   final Uint8List? image;
+
+  //Unmapped
   final String? typeName;
   final Color? categoryColor;
+  final String? categoryName;
+  final String? categoryIcon;
 
-  const MovementModel(
-      {int? id,
-      this.description,
-      this.value,
-      this.typeId,
-      this.categoryId,
-      this.date,
-      this.image,
-      this.typeName,
-      this.categoryColor})
-      : super(id: id);
+  const MovementModel({
+    int? id,
+    this.description,
+    this.value,
+    this.typeId,
+    this.categoryId,
+    this.date,
+    this.image,
+    this.typeName,
+    this.categoryColor,
+    this.categoryName,
+    this.categoryIcon,
+  }) : super(id: id);
 
   @override
   Map<String, dynamic> toMap() {
@@ -60,9 +66,11 @@ class MovementModel extends BaseModel<MovementModel> {
       date: map['date'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['date'])
           : null,
-      typeName: map['type_name'] as String?,
+      typeName: map['typeName'] as String?,
       image: map['image'] as Uint8List?,
       categoryColor: color,
+      categoryName: map['categoryName'] as String?,
+      categoryIcon: map['categoryIcon'] as String?,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/repositories/movement_repository.dart';
+import 'package:intl/intl.dart';
 
 import 'group_movement_use_case.dart';
 
@@ -14,14 +15,65 @@ class GetAllMovementByPeriodUseCase {
   );
 
   Future<BalanceModel> call(Period period) async {
+    final extract = _groupMovementsUseCase.groupMovementsByPeriod(
+      await getAllMovements(),
+      period,
+    );
     return BalanceModel(
+      movementTypesWithValue: getMovementTypesWithValue(extract),
       currentFilter: _getCurrentFilterName(period),
-      extract: _groupMovementsUseCase.groupMovementsByPeriod(
-        await getAllMovements(),
-        period,
+      extract: extract,
+    );
+  }
+
+  TypesWithValue getMovementTypesWithValue(List<PeriodExtractModel> extract) {
+    // Ele vau ter que passar por toda a lista de extrato
+    //dentro dela terao as listas de movement model
+    //para cada lista será adicionada uma key no map
+    //ele vai adicionar os values de cada lista em cada key
+    // depois ele irá somar o valor de cada lista
+
+    Map<String, List<double>> periods = {};
+
+    for (var period in extract) {
+      for (var expense in period.expenses) {
+        periods['expenses'] = [expense.value!];
+      }
+
+      for (var investment in period.investments) {
+        periods['investments'] = [investment.value!];
+      }
+
+      for (var income in period.income) {
+        periods['income'] = [income.value!];
+      }
+    }
+
+    final investment = _sumEntries(periods['investments']);
+    final expenses = _sumEntries(periods['expenses']);
+    final income = _sumEntries(periods['income']);
+
+    return TypesWithValue(
+      expenses: ValueWithDescription(
+          description: 'Gastos', formattedValue: formattAsCurrency(expenses)),
+      investments: ValueWithDescription(
+          description: 'Investimentos',
+          formattedValue: formattAsCurrency(investment)),
+      income: ValueWithDescription(
+        description: 'Entradas',
+        formattedValue: formattAsCurrency(income),
       ),
     );
   }
+
+  double _sumEntries(List<double>? entries) {
+    if (entries == null || entries.isEmpty == true) return 0.0;
+    return entries.fold(
+        0.0, (previousValue, element) => previousValue + element);
+  }
+
+  String formattAsCurrency(double value) =>
+      NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(value);
 
   String _getCurrentFilterName(Period period) {
     final month = _monthString(

@@ -6,7 +6,7 @@ import 'package:hermes_app/home/income/income_screen.dart';
 import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
-import 'package:hermes_app/shared/database/idatabase.dart';
+import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,9 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final db = Modular.get<IDatabase>();
-
   int _selectedIndex = 0;
+  late PageController _pageController;
 
   final List<Widget> pages = [
     const BalanceScreen(),
@@ -29,26 +28,41 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    // db.rawQuery('''SELECT * FROM ${Tables.movement} AS t
-    //   JOIN ${Tables.category} ON t.categoryId = category.id
-    //   WHERE category.movementTypeId = 1''').then(print);
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (newIndex) {
+          setState(() {
+            _selectedIndex = newIndex;
+          });
+        },
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _selectedIndex,
         onTap: (newIndex) {
           setState(() {
             _selectedIndex = newIndex;
           });
+          _pageController.animateToPage(
+            newIndex,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
         },
       ),
       floatingActionButton: DefaultFab(
         key: const Key('create_new_movement_fab'),
         onTap: () {
           Modular.to.pushNamed(MovementRoutes.movement).then((result) {
-            //TODO: figure it out what to do when come back, probably reload the page
+            eventBus.fire(CreateMovement());
           });
         },
       ),
