@@ -1,5 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/expenses/expenses_cubit.dart';
+import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
+import 'package:hermes_app/home/expenses/get_expenses_chart_sections_use_case.dart';
+import 'package:hermes_app/home/expenses/get_expenses_use_case.dart';
 import 'package:hermes_app/home/investments/filters/investments_screen_filters_cubit.dart';
 import 'package:hermes_app/home/investments/get_investments_chart_sections_use_case.dart';
 import 'package:hermes_app/home/investments/get_investments_use_case.dart';
@@ -12,6 +16,7 @@ import 'balance/group_movement_use_case.dart';
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
+        //UseCases
         Bind.factory<GroupMovementUseCase>(
           (i) => GroupMovementUseCase(),
         ),
@@ -24,6 +29,12 @@ class HomeModule extends Module {
         Bind.factory<GetInvestmentsChartSectionsUseCase>(
           (i) => GetInvestmentsChartSectionsUseCase(i()),
         ),
+        Bind.factory<GetExpensesUseCase>(
+          (i) => GetExpensesUseCase(i()),
+        ),
+        Bind.factory<GetExpensesChartSectionsUseCase>(
+          (i) => GetExpensesChartSectionsUseCase(i()),
+        ),
 
         //Cubits
         Bind.lazySingleton<BalanceScreenCubit>(
@@ -34,6 +45,12 @@ class HomeModule extends Module {
         ),
         Bind.lazySingleton<InvestmentsScreenFiltersCubit>(
           (i) => InvestmentsScreenFiltersCubit(),
+        ),
+        Bind.lazySingleton<ExpensesCubit>(
+          (i) => ExpensesCubit(i(), i()),
+        ),
+        Bind.lazySingleton<ExpensesScreenFiltersCubit>(
+          (i) => ExpensesScreenFiltersCubit(),
         ),
       ];
   @override

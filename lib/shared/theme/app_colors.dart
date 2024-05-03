@@ -13,8 +13,9 @@ class AppColors {
   static Color wine = const Color(0xFF781111);
   static Color darkWine = const Color(0xFF610A0A);
 
+  static Color lightBlue = const Color.fromARGB(255, 189, 232, 252);
   static Color skyBlue = const Color(0xFF83C2D7);
-  static Color lightBlue = const Color(0xFF4788C4);
+  static Color blue = const Color(0xFF4788C4);
   static Color darkBlue = const Color(0xFF0B4EB1);
 
   static Color darkGreen = const Color(0xFF04320E);
@@ -35,7 +36,7 @@ class AppColors {
     red,
     wine,
     skyBlue,
-    lightBlue,
+    blue,
     darkBlue,
     darkGreen,
     purple,

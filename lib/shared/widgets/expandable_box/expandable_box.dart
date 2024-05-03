@@ -53,8 +53,8 @@ class _ExpandableBoxState extends State<ExpandableBox> {
       child: ExpansionTile(
         onExpansionChanged: (val) => setState(() => isExpanded = val),
         controlAffinity: ListTileControlAffinity.trailing,
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 16) +
-            const EdgeInsets.only(bottom: 16),
+        childrenPadding:
+            const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
         initiallyExpanded: widget.initiallyExpanded ?? false,
         title: DefaultTextStyle(
           style: typography.regular.medium,

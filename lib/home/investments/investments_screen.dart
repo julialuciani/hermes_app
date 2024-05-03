@@ -10,6 +10,7 @@ import 'package:hermes_app/home/investments/widgets/investments_list.dart';
 import 'package:hermes_app/home/investments/widgets/investments_period_row.dart';
 import 'package:hermes_app/home/investments/widgets/investments_period_text.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/home/widgets/home_drawer.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 
@@ -52,6 +53,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const HomeDrawer(),
       appBar: AppBar(
         actions: const [InvestmentsFiltersButton()],
         iconTheme: IconThemeData(

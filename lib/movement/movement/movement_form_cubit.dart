@@ -73,7 +73,6 @@ class MovementFormCubit extends Cubit<MovementFormState> {
   Nullable<double?>? _formatValueToDouble(String? value) {
     double? formattedValue;
     if (value == null) return null;
-    //Value format comes as R$  #.###,
     value =
         value.replaceAll(".", "").replaceAll(",", "").replaceAll("R\$ ", "");
     if (value.length > 2) {

@@ -6,9 +6,8 @@ import 'package:hermes_app/home/income/income_screen.dart';
 import 'package:hermes_app/home/investments/investments_screen.dart';
 import 'package:hermes_app/home/widgets/bottom_nav_bar.dart';
 import 'package:hermes_app/movement/movement_routes.dart';
-import 'package:hermes_app/shared/database/idatabase.dart';
-import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
+import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,8 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final db = Modular.get<IDatabase>();
-
   int _selectedIndex = 0;
   late PageController _pageController;
 
@@ -61,26 +58,13 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: GestureDetector(
+      floatingActionButton: DefaultFab(
         key: const Key('create_new_movement_fab'),
         onTap: () {
           Modular.to.pushNamed(MovementRoutes.movement).then((result) {
             eventBus.fire(CreateMovement());
           });
         },
-        child: Container(
-          height: 60,
-          width: 60,
-          margin: const EdgeInsets.only(bottom: 10),
-          decoration: BoxDecoration(
-            color: AppColors.red,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(
-            Icons.add,
-            color: AppColors.white,
-          ),
-        ),
       ),
     );
   }

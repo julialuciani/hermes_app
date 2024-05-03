@@ -28,6 +28,8 @@ class Input extends StatefulWidget {
 
   final Widget? suffixIcon;
 
+  final String? hint;
+
   /// [Input] is a widget used to allow user to insert data of any type into the app
   const Input({
     Key? key,
@@ -40,6 +42,7 @@ class Input extends StatefulWidget {
     this.inputFormatters,
     this.keyboardType,
     this.suffixIcon,
+    this.hint,
   }) : super(key: key);
 
   @override
@@ -80,12 +83,17 @@ class _InputState extends State<Input> with InputMixin {
             return null;
           },
           onFieldSubmitted: widget.onFieldSubmitted,
+          onTapOutside: (_) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           autovalidateMode: AutovalidateMode.onUserInteraction,
           scrollPadding: EdgeInsets.only(
             bottom: viewInsetsBottom + 40,
           ),
           decoration: InputDecoration(
+              hintText: widget.hint,
               suffixIcon: widget.suffixIcon,
+              suffixIconColor: AppColors.darkGrey,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               fillColor: getInputFillColor(widget.enabled),

@@ -16,15 +16,10 @@ class FetchMovementsFilters {
 
   PeriodGroup get periodGroup {
     final diff = dateEnd.difference(dateStart);
-    if (diff.inDays <= 1) {
-      return PeriodGroup.day;
-    } else if (diff.inDays <= 7) {
-      return PeriodGroup.week;
-    } else if (diff.inDays <= 31) {
-      return PeriodGroup.month;
-    } else {
-      return PeriodGroup.year;
-    }
+    if (diff.inDays <= 1) return PeriodGroup.day;
+    if (diff.inDays <= 7) return PeriodGroup.week;
+    if (diff.inDays <= 31) return PeriodGroup.month;
+    return PeriodGroup.year;
   }
 
   FetchMovementsFilters copyWith({
