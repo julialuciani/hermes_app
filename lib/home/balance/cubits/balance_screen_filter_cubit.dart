@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 
-class ExpensesScreenFiltersCubit extends Cubit<FetchMovementsFilters> {
-  ExpensesScreenFiltersCubit() : super(_getDefaultFilters());
+class BalanceScreenFilterCubit extends Cubit<FetchMovementsFilters> {
+  BalanceScreenFilterCubit() : super(_getDefaultFilters());
 
   void change(FetchMovementsFilters filters) => emit(filters);
 
@@ -17,7 +17,6 @@ class ExpensesScreenFiltersCubit extends Cubit<FetchMovementsFilters> {
     return FetchMovementsFilters(
       dateStart: startOfMonth,
       dateEnd: endOfMonth,
-      movementTypeId: 2,
     );
   }
 }

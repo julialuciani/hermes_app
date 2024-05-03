@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
 import 'package:hermes_app/home/expenses/get_expenses_chart_sections_use_case.dart';

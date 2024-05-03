@@ -10,26 +10,24 @@ class BalanceModel {
     required this.currentFilter,
     required this.movementTypesWithValue,
   });
-}
 
-class TypesWithValue {
-  final ValueWithDescription expenses;
-  final ValueWithDescription investments;
-  final ValueWithDescription income;
-  TypesWithValue({
-    required this.expenses,
-    required this.investments,
-    required this.income,
-  });
-}
+  List<MovementModel> get allMovements {
+    List<MovementModel> movements = [];
+    for (PeriodExtractModel period in extract) {
+      for (MovementModel movement in period.income) {
+        movements.add(movement);
+      }
 
-class ValueWithDescription {
-  final String description;
-  final String formattedValue;
-  ValueWithDescription({
-    required this.description,
-    required this.formattedValue,
-  });
+      for (MovementModel movement in period.expenses) {
+        movements.add(movement);
+      }
+      for (MovementModel movement in period.investments) {
+        movements.add(movement);
+      }
+    }
+
+    return movements;
+  }
 }
 
 class PeriodExtractModel {
@@ -57,4 +55,24 @@ class PeriodExtractModel {
       investments: investments ?? this.investments,
     );
   }
+}
+
+class TypesWithValue {
+  final ValueWithDescription expenses;
+  final ValueWithDescription investments;
+  final ValueWithDescription income;
+  TypesWithValue({
+    required this.expenses,
+    required this.investments,
+    required this.income,
+  });
+}
+
+class ValueWithDescription {
+  final String description;
+  final String formattedValue;
+  ValueWithDescription({
+    required this.description,
+    required this.formattedValue,
+  });
 }

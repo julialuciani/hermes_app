@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_period_button.dart';
-import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
-import 'package:hermes_app/shared/entities/movement_type_model.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -95,13 +95,13 @@ class _BalanceScreenState extends State<BalanceScreen> {
                   PeriodRow(
                     month: state.balance.currentFilter,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 80,
                     ),
                     child: Center(
                       child: BalanceChart(
-                        movementTypes: [],
+                        movementModels: state.balance.allMovements,
                       ),
                     ),
                   ),
@@ -223,21 +223,34 @@ class PeriodBalanceContentBox extends StatelessWidget {
 }
 
 class BalanceChart extends StatelessWidget {
-  final List<MovementTypeModel> movementTypes;
+  final List<MovementModel> movementModels;
   const BalanceChart({
     super.key,
-    required this.movementTypes,
+    required this.movementModels,
   });
 
   @override
   Widget build(BuildContext context) {
+    Color getTypeColor(int typeId) {
+      switch (typeId) {
+        case 1:
+          return AppColors.darkGreen;
+        case 2:
+          return AppColors.lightRed;
+        case 3:
+          return AppColors.blue;
+        default:
+          return AppColors.grey;
+      }
+    }
+
     return Chart(
       sections: [
-        ...movementTypes.map(
+        ...movementModels.map(
           (e) => ChartSection(
-            value: double.parse(e.totalValue!),
-            title: e.name,
-            color: Colors.red,
+            value: e.value ?? 0,
+            title: e.categoryName ?? '',
+            color: getTypeColor(e.typeId ?? 0),
           ),
         ),
       ],
