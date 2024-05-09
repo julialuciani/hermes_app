@@ -4,6 +4,10 @@ import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
 import 'package:hermes_app/home/expenses/get_expenses_chart_sections_use_case.dart';
 import 'package:hermes_app/home/expenses/get_expenses_use_case.dart';
+import 'package:hermes_app/home/income/filters/income_screen_filters_cubit.dart';
+import 'package:hermes_app/home/income/get_income_chart_sections_use_case.dart';
+import 'package:hermes_app/home/income/get_income_use_case.dart';
+import 'package:hermes_app/home/income/income_cubit.dart';
 import 'package:hermes_app/home/investments/filters/investments_screen_filters_cubit.dart';
 import 'package:hermes_app/home/investments/get_investments_chart_sections_use_case.dart';
 import 'package:hermes_app/home/investments/get_investments_use_case.dart';
@@ -35,6 +39,12 @@ class HomeModule extends Module {
         Bind.factory<GetExpensesChartSectionsUseCase>(
           (i) => GetExpensesChartSectionsUseCase(i()),
         ),
+        Bind.factory<GetIncomeUseCase>(
+          (i) => GetIncomeUseCase(i()),
+        ),
+        Bind.factory<GetIncomeChartSectionsUseCase>(
+          (i) => GetIncomeChartSectionsUseCase(i()),
+        ),
 
         //Cubits
         Bind.lazySingleton<BalanceScreenCubit>(
@@ -51,6 +61,12 @@ class HomeModule extends Module {
         ),
         Bind.lazySingleton<ExpensesScreenFiltersCubit>(
           (i) => ExpensesScreenFiltersCubit(),
+        ),
+        Bind.lazySingleton<IncomeCubit>(
+          (i) => IncomeCubit(i(), i()),
+        ),
+        Bind.lazySingleton<IncomeScreenFiltersCubit>(
+          (i) => IncomeScreenFiltersCubit(),
         ),
       ];
   @override
