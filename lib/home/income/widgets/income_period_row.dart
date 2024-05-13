@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/home/investments/filters/investments_screen_filters_cubit.dart';
+import 'package:hermes_app/home/income/filters/income_screen_filters_cubit.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
@@ -9,22 +9,21 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:intl/intl.dart';
 
-class InvestmentsPeriodRow extends StatefulWidget {
-  const InvestmentsPeriodRow({super.key});
+class IncomePeriodRow extends StatefulWidget {
+  const IncomePeriodRow({super.key});
 
   @override
-  State<InvestmentsPeriodRow> createState() => _InvestmentsPeriodRowState();
+  State<IncomePeriodRow> createState() => _IncomePeriodRowState();
 }
 
-class _InvestmentsPeriodRowState extends State<InvestmentsPeriodRow>
-    with _InvestmentsPeriodRowExtension {
-  final _investmentsFiltersCubit = Modular.get<InvestmentsScreenFiltersCubit>();
-
+class _IncomePeriodRowState extends State<IncomePeriodRow>
+    with _IncomePeriodRowExtension {
+  final _incomeFiltersCubit = Modular.get<IncomeScreenFiltersCubit>();
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
-    return BlocBuilder<InvestmentsScreenFiltersCubit, FetchMovementsFilters>(
-        bloc: _investmentsFiltersCubit,
+    return BlocBuilder<IncomeScreenFiltersCubit, FetchMovementsFilters>(
+        bloc: _incomeFiltersCubit,
         builder: (context, state) {
           String getTextByPeriodGroup() {
             switch (state.periodGroup) {
@@ -55,7 +54,7 @@ class _InvestmentsPeriodRowState extends State<InvestmentsPeriodRow>
             children: [
               IconButton(
                 onPressed: () {
-                  _investmentsFiltersCubit.change(
+                  _incomeFiltersCubit.change(
                     state.copyWith(
                       dateStart: getPreviousPeriodStart(state),
                       dateEnd: getPreviousPeriodEnd(state),
@@ -74,7 +73,7 @@ class _InvestmentsPeriodRowState extends State<InvestmentsPeriodRow>
               IconButton(
                 onPressed: () {
                   if (!hasNextPeriod(state)) return;
-                  _investmentsFiltersCubit.change(
+                  _incomeFiltersCubit.change(
                     state.copyWith(
                       dateStart: getNextPeriodStart(state),
                       dateEnd: getNextPeriodEnd(state),
@@ -93,7 +92,7 @@ class _InvestmentsPeriodRowState extends State<InvestmentsPeriodRow>
   }
 }
 
-mixin _InvestmentsPeriodRowExtension {
+mixin _IncomePeriodRowExtension {
   DateTime getPreviousPeriodStart(FetchMovementsFilters state) {
     switch (state.periodGroup) {
       case PeriodGroup.day:
