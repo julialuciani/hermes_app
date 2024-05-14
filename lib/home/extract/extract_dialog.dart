@@ -70,6 +70,8 @@ class ExtractDialog extends StatelessWidget {
           final movement = movements[index];
 
           return ContentBox(
+            borderColor: movement.categoryColor,
+            borderWidth: 1,
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
