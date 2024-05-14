@@ -14,6 +14,7 @@ import 'package:hermes_app/shared/components/movement_type_dropdown/movement_typ
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
@@ -94,8 +95,27 @@ class _MovementPageState extends State<MovementPage>
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: const DefaultAppBar(
+            appBar: DefaultAppBar(
               title: 'Transação',
+              actions: movementFormCubit.movement.id != null
+                  ? [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            //TODO add dialog to ensure user wants to remove movement
+                            //If yes, then call function to remove it and pop
+                            // Modular.to.pop();
+                          },
+                          child: Icon(
+                            Icons.delete_outline,
+                            size: 24,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                    ]
+                  : null,
             ),
             body: Form(
               key: movementFormCubit.formKey,

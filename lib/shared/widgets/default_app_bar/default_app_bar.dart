@@ -7,10 +7,12 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.subtitle,
+    this.actions,
   });
 
   final String title;
   final String? subtitle;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           ]
         ],
       ),
+      actions: actions,
       backgroundColor: Colors.white12,
       elevation: 0,
     );
