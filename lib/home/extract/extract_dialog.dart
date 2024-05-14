@@ -5,6 +5,7 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/icon_utils.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
+import 'package:intl/intl.dart';
 
 class ExtractDialog extends StatelessWidget {
   const ExtractDialog({
@@ -49,6 +50,12 @@ class ExtractDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
+
+    String formatCurrency(double value) {
+      final format = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+      return format.format(value);
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: DefaultAppBar(
@@ -63,6 +70,7 @@ class ExtractDialog extends StatelessWidget {
           final movement = movements[index];
 
           return ContentBox(
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,61 +93,28 @@ class ExtractDialog extends StatelessWidget {
                           movement.categoryName!,
                           style: typography.bold.medium,
                         ),
-                        if (movement.description != null) ...[
-                          const SizedBox(height: 2),
+                        if (movement.description != null)
                           Text(
                             movement.description!,
-                            style: typography.paragraph.small,
+                            style: typography.regular.small,
                           ),
-                        ]
                       ],
                     ),
                     const Spacer(),
                     Text(
-                      movement.value?.toStringAsFixed(2) ?? '',
+                      formatCurrency(movement.value!),
                       style: typography.bold.medium,
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.close,
-                        color: AppColors.darkGrey,
-                      ),
-                      label: Text(
-                        'Remover',
-                        style: typography.regular.medium.copyWith(
-                          color: AppColors.darkGrey,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.white,
-                        elevation: 0,
-                      ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Ver mais',
+                    style: typography.regular.medium.copyWith(
+                      color: AppColors.darkGrey,
                     ),
-                    ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.edit,
-                        color: AppColors.darkGrey,
-                      ),
-                      label: Text(
-                        'Editar',
-                        style: typography.regular.medium.copyWith(
-                          color: AppColors.darkGrey,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.white,
-                        elevation: 0,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
