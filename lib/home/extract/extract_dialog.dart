@@ -87,25 +87,36 @@ class ExtractDialog extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          movement.categoryName!,
-                          style: typography.bold.medium,
-                        ),
-                        if (movement.description != null)
+                    Flexible(
+                      flex: 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            movement.description!,
-                            style: typography.regular.small,
+                            movement.categoryName!,
+                            style: typography.bold.medium,
                           ),
-                      ],
+                          if (movement.description != null)
+                            Text(
+                              movement.description!,
+                              style: typography.regular.small,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                        ],
+                      ),
                     ),
-                    const Spacer(),
-                    Text(
-                      formatCurrency(movement.value!),
-                      style: typography.bold.medium,
+                    const SizedBox(width: 8),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        formatCurrency(movement.value!),
+                        style: typography.bold.medium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
+                      ),
                     ),
                   ],
                 ),
