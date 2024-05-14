@@ -38,16 +38,18 @@ class GetIncomeUseCase {
         grouped.addAll(groupedByDay.values);
         break;
       case PeriodGroup.year:
-        final groupedByYear = <int, List<MovementModel>>{};
+        final groupedByMonth = <int, List<MovementModel>>{};
         for (var element in expenses) {
           final year = element.date!.year;
-          if (groupedByYear.containsKey(year)) {
-            groupedByYear[year]!.add(element);
+          final month = element.date!.month;
+          final key = year * 100 + month;
+          if (groupedByMonth.containsKey(key)) {
+            groupedByMonth[key]!.add(element);
           } else {
-            groupedByYear[year] = [element];
+            groupedByMonth[key] = [element];
           }
         }
-        grouped.addAll(groupedByYear.values);
+        grouped.addAll(groupedByMonth.values);
         break;
     }
 
