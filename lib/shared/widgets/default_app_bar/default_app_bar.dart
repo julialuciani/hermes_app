@@ -33,11 +33,13 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: typography.regular.medium,
           ),
-          if (subtitle != null)
+          if (subtitle != null) ...[
+            const SizedBox(height: 6),
             Text(
               subtitle!,
-              style: typography.paragraph.small,
+              style: typography.paragraph.medium.copyWith(fontSize: 14),
             ),
+          ]
         ],
       ),
       backgroundColor: Colors.white12,

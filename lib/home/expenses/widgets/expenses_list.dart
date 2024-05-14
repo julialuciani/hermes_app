@@ -33,7 +33,6 @@ class _ExpensesListState extends State<ExpensesList>
       bloc: _expensesCubit,
       builder: (context, state) {
         if (state is ExpensesLoading) {
-          //TODO: create shimmer for it
           return const Center(
             child: CircularProgressIndicator(),
           );
