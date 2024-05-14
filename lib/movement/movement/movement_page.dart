@@ -54,10 +54,11 @@ class _MovementPageState extends State<MovementPage>
   void initState() {
     super.initState();
     movementTypesCubit.fetch();
+    movementFormCubit.init(widget.movement);
     if (widget.movement != null) {
-      movementFormCubit.init(widget.movement!);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         eventBus.fire(ChangeMovementTypeEvent(widget.movement!.typeId));
+        setState(() {});
       });
     }
   }
@@ -141,6 +142,7 @@ class _MovementPageState extends State<MovementPage>
                     InputDate(
                       label: 'Data *',
                       controller: movementFormCubit.dateController,
+                      initialDate: movementFormCubit.movement.date,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo obrigatório';

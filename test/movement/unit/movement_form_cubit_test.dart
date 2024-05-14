@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
 import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
@@ -64,44 +62,6 @@ void main() {
 
       //ASSERT
       expect(cubit.movement.categoryId, isNull);
-    },
-  );
-
-  test(
-    'WHEN reset THEN movement should only have date',
-    () {
-      //ARRANGE
-      final cubit = MovementFormCubit(
-        getPictureFromCameraUseCaseMock,
-        saveMovementUseCaseMock,
-      );
-      final mockImage = Uint8List(255);
-
-      //ACT
-      cubit.change(typeId: Nullable(1));
-      cubit.change(categoryId: Nullable(2));
-      cubit.change(description: 'Mock Description');
-      cubit.change(image: Nullable(mockImage));
-      cubit.change(value: 'R\$  20,00');
-
-      expect(cubit.movement.categoryId, 2);
-      expect(cubit.movement.typeId, 1);
-      expect(cubit.movement.description, 'Mock Description');
-      expect(cubit.movement.image, mockImage);
-      expect(cubit.movement.value, 20.00);
-
-      cubit.reset();
-
-      final movement = cubit.movement;
-
-      //ASSERT
-      expect(movement.date, isNotNull);
-      expect(movement.categoryId, isNull);
-      expect(movement.description, isNull);
-      expect(movement.image, isNull);
-      expect(movement.typeId, isNull);
-      expect(movement.value, isNull);
-      expect(movement.id, isNull);
     },
   );
 

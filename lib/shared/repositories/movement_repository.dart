@@ -75,6 +75,7 @@ class MovementRepository extends BaseRepository<MovementModel> {
     JOIN ${Tables.category} ON movement.categoryId = category.id
     JOIN ${Tables.movementType} ON category.movementTypeId = movement_type.id
     $where
+    ORDER BY movement.date DESC
     ''';
 
     final result = await _db.rawQuery(query);

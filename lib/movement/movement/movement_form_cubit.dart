@@ -11,7 +11,7 @@ import 'package:hermes_app/shared/validators/movement_validator.dart';
 
 class MovementFormCubit extends Cubit<MovementFormState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  MovementModel movement = MovementModel(date: DateTime.now());
+  late MovementModel movement;
   TextEditingController valueController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -24,16 +24,16 @@ class MovementFormCubit extends Cubit<MovementFormState> {
     this._saveMovementUsecase,
   ) : super(MovementFormInitial());
 
-  void init(MovementModel movement) {
-    this.movement = movement;
-    valueController.text = movement.value?.toStringAsFixed(2) ?? "";
-    descriptionController.text = movement.description ?? "";
-    dateController.text = movement.date?.toIso8601String() ?? "";
+  void init(MovementModel? movement) {
+    if (movement != null) {
+      this.movement = movement;
+      valueController.text = movement.value?.toStringAsFixed(2) ?? "";
+      descriptionController.text = movement.description ?? "";
+      dateController.text = movement.date?.toIso8601String() ?? "";
+    } else {
+      this.movement = MovementModel(date: DateTime.now());
+    }
     emit(MovementFormSuccessChangeFields());
-  }
-
-  void reset() {
-    movement = MovementModel(date: DateTime.now());
   }
 
   void change({
