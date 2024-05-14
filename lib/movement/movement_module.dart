@@ -22,7 +22,12 @@ class MovementModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => const MovementPage(),
+          child: (context, args) {
+            final arguments = args.data as MovementPageArgs?;
+            return MovementPage(
+              movement: arguments?.movement,
+            );
+          },
           transition: TransitionType.rightToLeftWithFade,
           duration: const Duration(milliseconds: 300),
         ),

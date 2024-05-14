@@ -11,6 +11,7 @@ import 'package:hermes_app/shared/components/category_selector_box/category_sele
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
@@ -23,10 +24,21 @@ import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 
+class MovementPageArgs {
+  final MovementModel? movement;
+
+  MovementPageArgs({
+    this.movement,
+  });
+}
+
 class MovementPage extends StatefulWidget {
   const MovementPage({
     Key? key,
+    this.movement,
   }) : super(key: key);
+
+  final MovementModel? movement;
 
   @override
   State<MovementPage> createState() => _MovementPageState();
@@ -40,8 +52,14 @@ class _MovementPageState extends State<MovementPage>
 
   @override
   void initState() {
-    movementTypesCubit.fetch();
     super.initState();
+    movementTypesCubit.fetch();
+    if (widget.movement != null) {
+      movementFormCubit.init(widget.movement!);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        eventBus.fire(ChangeMovementTypeEvent(widget.movement!.typeId));
+      });
+    }
   }
 
   @override

@@ -24,6 +24,14 @@ class MovementFormCubit extends Cubit<MovementFormState> {
     this._saveMovementUsecase,
   ) : super(MovementFormInitial());
 
+  void init(MovementModel movement) {
+    this.movement = movement;
+    valueController.text = movement.value?.toStringAsFixed(2) ?? "";
+    descriptionController.text = movement.description ?? "";
+    dateController.text = movement.date?.toIso8601String() ?? "";
+    emit(MovementFormSuccessChangeFields());
+  }
+
   void reset() {
     movement = MovementModel(date: DateTime.now());
   }

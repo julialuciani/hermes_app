@@ -71,6 +71,7 @@ class MovementModel extends BaseModel<MovementModel> {
       categoryColor: color,
       categoryName: map['categoryName'] as String?,
       categoryIcon: map['categoryIcon'] as String?,
+      typeId: map['typeId'] as int?,
     );
   }
 
@@ -84,6 +85,7 @@ class MovementModel extends BaseModel<MovementModel> {
     Nullable<Uint8List?>? image,
   }) {
     return MovementModel(
+      id: id,
       description: description ?? this.description,
       value: value != null ? value.value : this.value,
       typeId: typeId != null ? typeId.value : this.typeId,

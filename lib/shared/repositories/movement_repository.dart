@@ -67,6 +67,7 @@ class MovementRepository extends BaseRepository<MovementModel> {
       category.blue,
       category.alpha,
       movement.categoryId,
+      movement_type.id as typeId,
       movement_type.name AS typeName,
       category.name AS categoryName,
       category.icon AS categoryIcon
