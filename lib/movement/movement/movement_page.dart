@@ -102,8 +102,12 @@ class _MovementPageState extends State<MovementPage>
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: GestureDetector(
-                          onTap: () {
-                            //TODO add dialog to ensure user wants to remove movement
+                          onTap: () async {
+                            final isConfirmed = await const ConfirmationDialog(
+                              title: 'Deseja excluir a movimentação?',
+                              content: 'Você não irá conseguir vê-la novamente',
+                            ).show(context);
+
                             //If yes, then call function to remove it and pop
                             // Modular.to.pop();
                           },
