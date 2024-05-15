@@ -10,6 +10,7 @@ import 'package:hermes_app/home/investments/get_investments_use_case.dart';
 import 'package:hermes_app/home/investments/investments_cubit.dart';
 import 'package:hermes_app/home/pages/home_page.dart';
 
+import 'balance/cubits/balance_screen_filter_cubit.dart';
 import 'balance/get_all_movement_by_period_use_case.dart';
 import 'balance/group_movement_use_case.dart';
 
@@ -39,6 +40,9 @@ class HomeModule extends Module {
         //Cubits
         Bind.lazySingleton<BalanceScreenCubit>(
           (i) => BalanceScreenCubit(i()),
+        ),
+        Bind.lazySingleton<BalanceScreenFilterCubit>(
+          (i) => BalanceScreenFilterCubit(),
         ),
         Bind.lazySingleton<InvestmentsCubit>(
           (i) => InvestmentsCubit(i(), i()),

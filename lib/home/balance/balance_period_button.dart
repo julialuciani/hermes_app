@@ -3,7 +3,9 @@ import 'package:hermes_app/home/balance/balance_filters_modal.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class BalancePeriodButton extends StatelessWidget {
+  final String currentFilter;
   const BalancePeriodButton({
+    required this.currentFilter,
     super.key,
   });
 
@@ -31,7 +33,7 @@ class BalancePeriodButton extends StatelessWidget {
           width: 87,
           child: Row(
             children: [
-              const Text('Mês'),
+              Text(currentFilter),
               Icon(
                 Icons.arrow_drop_down,
                 color: AppColors.white,

@@ -1,8 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/modal/modal.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
+
+import 'cubits/balance_screen_filter_cubit.dart';
 
 class BalanceFiltersModal extends StatefulWidget {
   const BalanceFiltersModal({
@@ -14,6 +18,8 @@ class BalanceFiltersModal extends StatefulWidget {
 }
 
 class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
+  final balanceCubit = Modular.get<BalanceScreenCubit>();
+  final filterCubit = Modular.get<BalanceScreenFilterCubit>();
   String selectedValue = 'week';
   bool isButtonEnabled = false;
   bool isButtonLoading = false;

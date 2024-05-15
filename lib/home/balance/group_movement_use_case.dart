@@ -1,21 +1,21 @@
-import 'package:hermes_app/home/balance/get_all_movement_by_period_use_case.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
+import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:intl/intl.dart';
 
 class GroupMovementUseCase {
   List<PeriodExtractModel> groupMovementsByPeriod(
     List<MovementModel> unGroupedMovement,
-    Period period,
+    PeriodGroup period,
   ) {
     switch (period) {
-      case Period.day:
+      case PeriodGroup.day:
         return groupMovementsByDay(unGroupedMovement);
-      case Period.week:
+      case PeriodGroup.week:
         return groupMovementsByDay(unGroupedMovement);
-      case Period.month:
+      case PeriodGroup.month:
         return groupMovementsByDay(unGroupedMovement);
-      case Period.year:
+      case PeriodGroup.year:
         return groupMovementByMonth(unGroupedMovement);
     }
   }

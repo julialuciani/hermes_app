@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_period_button.dart';
 import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_filter_cubit.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
+import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
@@ -30,21 +32,34 @@ class BalanceScreen extends StatefulWidget {
 }
 
 class _BalanceScreenState extends State<BalanceScreen> {
+  late FetchMovementsFilters _currentFilters;
   final balanceCubit = Modular.get<BalanceScreenCubit>();
-  StreamSubscription<CreateMovement>? subscription;
+  final filterCubit = Modular.get<BalanceScreenFilterCubit>();
+  StreamSubscription<FetchMovementsFilters>? _filterChangeListener;
+  StreamSubscription<CreateMovement>? _createMovementListener;
 
   @override
   void initState() {
-    subscription = eventBus.on<CreateMovement>().listen((event) {
-      balanceCubit.fetch(Period.week);
-    });
-    balanceCubit.fetch(Period.week);
     super.initState();
+
+    balanceCubit.fetch(filterCubit.state);
+    _filterChangeListener = filterCubit.stream.listen((filters) {
+      balanceCubit.fetch(filters);
+      setState(() {
+        _currentFilters = filters;
+      });
+    });
+    _createMovementListener = eventBus.on<CreateMovement>().listen((event) {
+      balanceCubit.fetch(filterCubit.state);
+    });
+
+    _currentFilters = filterCubit.state;
   }
 
   @override
   void dispose() {
-    subscription?.cancel();
+    _createMovementListener?.cancel();
+    _filterChangeListener?.cancel();
     super.dispose();
   }
 
@@ -76,8 +91,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
               ),
             ),
             appBar: AppBar(
-              actions: const [
-                BalancePeriodButton(),
+              actions: [
+                BalancePeriodButton(
+                  currentFilter: _currentFilters.periodGroup.name,
+                ),
               ],
               iconTheme: IconThemeData(
                 color: AppColors.black,
@@ -234,9 +251,9 @@ class BalanceChart extends StatelessWidget {
     Color getTypeColor(int typeId) {
       switch (typeId) {
         case 1:
-          return AppColors.darkGreen;
+          return Colors.green;
         case 2:
-          return AppColors.lightRed;
+          return AppColors.red;
         case 3:
           return AppColors.blue;
         default:

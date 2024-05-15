@@ -62,6 +62,7 @@ class MovementModel extends BaseModel<MovementModel> {
       id: map['id'] as int?,
       description: map['description'] as String?,
       value: map['value'] as double,
+      typeId: map['typeId'],
       categoryId: map['categoryId'] as int?,
       date: map['date'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['date'])
