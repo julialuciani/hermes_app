@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/home/investments/filters/investments_screen_filters_cubit.dart';
+import 'package:hermes_app/home/income/filters/income_screen_filters_cubit.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/components/category_dropdown/category_dropdown.dart';
@@ -11,25 +11,24 @@ import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/modal/modal.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
 
-class InvestmentsFiltersModal extends StatefulWidget {
-  const InvestmentsFiltersModal({
+class IncomeFiltersModal extends StatefulWidget {
+  const IncomeFiltersModal({
     super.key,
   });
 
   @override
-  State<InvestmentsFiltersModal> createState() =>
-      _InvestmentsFiltersModalState();
+  State<IncomeFiltersModal> createState() => _IncomeFiltersModalState();
 }
 
-class _InvestmentsFiltersModalState extends State<InvestmentsFiltersModal> {
-  final filtersCubit = Modular.get<InvestmentsScreenFiltersCubit>();
+class _IncomeFiltersModalState extends State<IncomeFiltersModal> {
+  final filtersCubit = Modular.get<IncomeScreenFiltersCubit>();
   final categoryDropdownCubit = Modular.get<CategoryDropdownCubit>();
   late FetchMovementsFilters state;
   @override
   void initState() {
     super.initState();
     state = filtersCubit.state;
-    categoryDropdownCubit.fetch(3);
+    categoryDropdownCubit.fetch(1);
   }
 
   @override
