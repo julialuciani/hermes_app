@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/movement/movement/delete_movement_use_case.dart';
 import 'package:hermes_app/movement/movement/movement_category_selector_page.dart';
 import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
 import 'package:hermes_app/movement/movement/movement_page.dart';
@@ -11,10 +12,13 @@ class MovementModule extends Module {
         Bind.factory<SaveMovementUseCase>(
           (i) => SaveMovementUseCase(i()),
         ),
+        Bind.factory<DeleteMovementUseCase>(
+          (i) => DeleteMovementUseCase(i()),
+        ),
 
         //Cubits
         Bind.lazySingleton(
-          (i) => MovementFormCubit(i(), i()),
+          (i) => MovementFormCubit(i(), i(), i()),
         ),
       ];
 

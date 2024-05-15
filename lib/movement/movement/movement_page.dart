@@ -91,6 +91,16 @@ class _MovementPageState extends State<MovementPage>
               toastDuration: const Duration(seconds: 2),
             ).show(context);
           }
+          if (state is MovementFormSuccessDelete) {
+            CherryToast.success(
+              title: Text(
+                'Transação excluída com sucesso',
+                style: typography.regular.medium,
+              ),
+              toastDuration: const Duration(seconds: 2),
+            ).show(context);
+            Modular.to.pop();
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -104,12 +114,13 @@ class _MovementPageState extends State<MovementPage>
                         child: GestureDetector(
                           onTap: () async {
                             final isConfirmed = await const ConfirmationDialog(
-                              title: 'Deseja excluir a movimentação?',
+                              title: 'Deseja excluir a transação?',
                               content: 'Você não irá conseguir vê-la novamente',
                             ).show(context);
 
-                            //If yes, then call function to remove it and pop
-                            // Modular.to.pop();
+                            if (isConfirmed) {
+                              movementFormCubit.delete();
+                            }
                           },
                           child: Icon(
                             Icons.delete_outline,

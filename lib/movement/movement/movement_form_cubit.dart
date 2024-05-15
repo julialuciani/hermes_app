@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hermes_app/movement/movement/delete_movement_use_case.dart';
 import 'package:hermes_app/movement/movement/movement_form_state.dart';
 import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
@@ -18,10 +19,12 @@ class MovementFormCubit extends Cubit<MovementFormState> {
 
   final GetPictureFromCameraUseCase _getPictureFromCameraUseCase;
   final SaveMovementUseCase _saveMovementUsecase;
+  final DeleteMovementUseCase _deleteMovementUseCase;
 
   MovementFormCubit(
     this._getPictureFromCameraUseCase,
     this._saveMovementUsecase,
+    this._deleteMovementUseCase,
   ) : super(MovementFormInitial());
 
   void init(MovementModel? movement) {
@@ -100,6 +103,11 @@ class MovementFormCubit extends Cubit<MovementFormState> {
     final bytes = await picture.readAsBytes();
 
     change(image: Nullable(bytes));
+  }
+
+  void delete() async {
+    await _deleteMovementUseCase(movement.id!);
+    emit(MovementFormSuccessDelete());
   }
 
   @override
