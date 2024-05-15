@@ -75,15 +75,14 @@ class ExtractDialog extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
+              Modular.to.pop();
               Future navigate() => Modular.to.pushNamed(
                     MovementRoutes.movement,
                     arguments: MovementPageArgs(movement: movement),
                   );
-
               navigate().then(
                 (_) {
                   eventBus.fire(UpdateMovements());
-                  Modular.to.pop();
                 },
               );
             },
@@ -105,8 +104,7 @@ class ExtractDialog extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Flexible(
-                        flex: 3,
+                      Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,16 +123,13 @@ class ExtractDialog extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          formatCurrency(movement.value!),
-                          style: typography.bold.medium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.right,
-                        ),
+                      const SizedBox(width: 12),
+                      Text(
+                        formatCurrency(movement.value!),
+                        style: typography.bold.medium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
                       ),
                     ],
                   ),
