@@ -27,8 +27,8 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
 
   @override
   void initState() {
-    state = filtersCubit.state;
     super.initState();
+    state = filtersCubit.state;
   }
 
   @override
@@ -64,17 +64,10 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
               ],
               onPressed: (selected) {
                 selected as PeriodGroup;
-                if (filtersCubit.state.periodGroup == selected) {
-                  setState(() {
-                    buttonEnabled = false;
-                    state = state.copyWithPeriod(selected);
-                  });
-                } else {
-                  setState(() {
-                    buttonEnabled = true;
-                    state = state.copyWithPeriod(selected);
-                  });
-                }
+                setState(() {
+                  buttonEnabled = filtersCubit.state.periodGroup != selected;
+                  state = state.copyWithPeriod(selected);
+                });
               },
               selectedValue: state.periodGroup,
             ),
