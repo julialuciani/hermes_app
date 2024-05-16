@@ -143,7 +143,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.expenses.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
@@ -155,7 +155,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.income.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
@@ -167,7 +167,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.investments.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
