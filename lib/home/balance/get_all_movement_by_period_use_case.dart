@@ -1,4 +1,6 @@
 import 'package:hermes_app/home/balance/model/balance_model.dart';
+import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/repositories/movement_repository.dart';
 import 'package:intl/intl.dart';
@@ -14,14 +16,14 @@ class GetAllMovementByPeriodUseCase {
     this._groupMovementsUseCase,
   );
 
-  Future<BalanceModel> call(Period period) async {
+  Future<BalanceModel> call(FetchMovementsFilters filters) async {
     final extract = _groupMovementsUseCase.groupMovementsByPeriod(
-      await getAllMovements(),
-      period,
+      await getAllMovements(filters),
+      filters.periodGroup,
     );
     return BalanceModel(
       movementTypesWithValue: getMovementTypesWithValue(extract),
-      currentFilter: _getCurrentFilterName(period),
+      currentFilter: _getCurrentFilterName(filters.periodGroup),
       extract: extract,
     );
   }
@@ -75,18 +77,18 @@ class GetAllMovementByPeriodUseCase {
   String formattAsCurrency(double value) =>
       NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(value);
 
-  String _getCurrentFilterName(Period period) {
+  String _getCurrentFilterName(PeriodGroup period) {
     final month = _monthString(
       DateTime.now().month,
     );
     switch (period) {
-      case Period.day:
+      case PeriodGroup.day:
         return '${DateTime.now().day} - $month - ${DateTime.now().year}';
-      case Period.week:
+      case PeriodGroup.week:
         return 'não sei';
-      case Period.month:
+      case PeriodGroup.month:
         return '$month - ${DateTime.now().year}';
-      case Period.year:
+      case PeriodGroup.year:
         return DateTime.now().year.toString();
       default:
         return '';
@@ -125,8 +127,9 @@ class GetAllMovementByPeriodUseCase {
     }
   }
 
-  Future<List<MovementModel>> getAllMovements() async {
-    final result = await _repository.getAll();
+  Future<List<MovementModel>> getAllMovements(
+      FetchMovementsFilters filters) async {
+    final result = await _repository.fetch(filters);
     return result;
   }
 }

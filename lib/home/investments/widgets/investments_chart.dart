@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/investments/investments_cubit.dart';
 import 'package:hermes_app/home/investments/state/investments_state.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
-import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/chart/chart.dart';
+import 'package:hermes_app/shared/widgets/chart/empty_state_chart.dart';
 
 class InvestmentsChart extends StatefulWidget {
   const InvestmentsChart({super.key});
@@ -31,7 +30,7 @@ class _InvestmentsChartState extends State<InvestmentsChart> {
       bloc: _investmentsCubit,
       builder: (context, state) {
         if (state is InvestmentsSuccess) {
-          if (state.chartModel.sections.isEmpty) return _EmptyStateChart();
+          if (state.chartModel.sections.isEmpty) return const EmptyStateChart();
 
           return SizedBox(
             height: height * 0.25,
@@ -45,39 +44,6 @@ class _InvestmentsChartState extends State<InvestmentsChart> {
         }
         return const Offstage();
       },
-    );
-  }
-}
-
-class _EmptyStateChart extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final typography = context.typography;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: height * 0.25,
-              width: height * 0.25,
-              child: CircularProgressIndicator(
-                value: 0,
-                backgroundColor: AppColors.lightGrey,
-                strokeWidth: 12,
-              ),
-            ),
-            Text(
-              'Sem dados para exibir',
-              style: typography.bold.medium.copyWith(
-                color: AppColors.darkGrey,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

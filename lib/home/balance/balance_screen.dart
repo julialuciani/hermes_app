@@ -3,23 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/home/balance/balance_period_button.dart';
-import 'package:hermes_app/home/balance/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_filters_cubit.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
-import 'package:hermes_app/shared/entities/movement_type_model.dart';
+import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/chart/chart.dart';
+import 'package:hermes_app/shared/widgets/chart/empty_state_chart.dart';
 import 'package:hermes_app/shared/widgets/content_box/content_box.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/default_title/default_title.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
+import 'balance_period_button.dart';
+import 'balance_period_row.dart';
 import 'get_all_movement_by_period_use_case.dart';
 
 class BalanceScreen extends StatefulWidget {
@@ -31,20 +35,27 @@ class BalanceScreen extends StatefulWidget {
 
 class _BalanceScreenState extends State<BalanceScreen> {
   final balanceCubit = Modular.get<BalanceScreenCubit>();
-  StreamSubscription<RefreshMovementsTabs>? subscription;
+  final filterCubit = Modular.get<BalanceScreenFiltersCubit>();
+  StreamSubscription<FetchMovementsFilters>? _filterChangeListener;
+  StreamSubscription<RefreshMovementsTabs>? _refreshMovementsTabs;
 
   @override
   void initState() {
-    subscription = eventBus.on<RefreshMovementsTabs>().listen((event) {
-      balanceCubit.fetch(Period.week);
-    });
-    balanceCubit.fetch(Period.week);
     super.initState();
+
+    balanceCubit.fetch(filterCubit.state);
+    _filterChangeListener = filterCubit.stream.listen((filters) {
+      balanceCubit.fetch(filters);
+    });
+    _refreshMovementsTabs = eventBus.on<RefreshMovementsTabs>().listen((event) {
+      balanceCubit.fetch(filterCubit.state);
+    });
   }
 
   @override
   void dispose() {
-    subscription?.cancel();
+    _refreshMovementsTabs?.cancel();
+    _filterChangeListener?.cancel();
     super.dispose();
   }
 
@@ -92,16 +103,15 @@ class _BalanceScreenState extends State<BalanceScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PeriodRow(
-                    month: state.balance.currentFilter,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  const BalancePeriodRow(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 80,
                     ),
                     child: Center(
                       child: BalanceChart(
-                        movementTypes: [],
+                        balanceScreenCubit: balanceCubit,
+                        movementModels: state.balance.allMovements,
                       ),
                     ),
                   ),
@@ -127,7 +137,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.expenses.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
@@ -139,7 +149,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.income.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
@@ -151,7 +161,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 ),
                               ...extract.investments.map(
                                 (e) => DefaultRow(
-                                  title: e.description ?? '',
+                                  title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
                                   value: e.value.toString(),
                                 ),
@@ -223,52 +233,52 @@ class PeriodBalanceContentBox extends StatelessWidget {
 }
 
 class BalanceChart extends StatelessWidget {
-  final List<MovementTypeModel> movementTypes;
+  final List<MovementModel> movementModels;
+  final BalanceScreenCubit balanceScreenCubit;
   const BalanceChart({
     super.key,
-    required this.movementTypes,
+    required this.balanceScreenCubit,
+    required this.movementModels,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Chart(
-      sections: [
-        ...movementTypes.map(
-          (e) => ChartSection(
-            value: double.parse(e.totalValue!),
-            title: e.name,
-            color: Colors.red,
-          ),
-        ),
-      ],
-    );
-  }
-}
+    Color getTypeColor(int typeId) {
+      switch (typeId) {
+        case 1:
+          return Colors.green;
+        case 2:
+          return AppColors.red;
+        case 3:
+          return AppColors.blue;
+        default:
+          return AppColors.grey;
+      }
+    }
 
-class PeriodRow extends StatelessWidget {
-  final String month;
-  const PeriodRow({
-    super.key,
-    required this.month,
-  });
+    return BlocBuilder<BalanceScreenCubit, BalanceScreenState>(
+      bloc: balanceScreenCubit,
+      builder: (context, state) {
+        if (state is BalanceScreenSucess) {
+          if (state.balance.allMovements.isEmpty) {
+            return const EmptyStateChart();
+          }
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_left,
-          ),
-        ),
-        Text(month),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_right),
-        ),
-      ],
+          return Chart(
+            sections: [
+              ...movementModels.map(
+                (e) => ChartSection(
+                  value: e.value ?? 0,
+                  title: e.categoryName ?? '',
+                  color: getTypeColor(e.typeId ?? 0),
+                ),
+              ),
+            ],
+          );
+        }
+
+        return const Offstage();
+      },
     );
   }
 }

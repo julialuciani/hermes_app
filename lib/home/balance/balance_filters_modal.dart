@@ -1,8 +1,14 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
+import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/modal/modal.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
+
+import 'cubits/balance_screen_filters_cubit.dart';
 
 class BalanceFiltersModal extends StatefulWidget {
   const BalanceFiltersModal({
@@ -14,9 +20,17 @@ class BalanceFiltersModal extends StatefulWidget {
 }
 
 class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
-  String selectedValue = 'week';
-  bool isButtonEnabled = false;
-  bool isButtonLoading = false;
+  final balanceCubit = Modular.get<BalanceScreenCubit>();
+  final filtersCubit = Modular.get<BalanceScreenFiltersCubit>();
+  bool buttonEnabled = false;
+  late FetchMovementsFilters state;
+
+  @override
+  void initState() {
+    super.initState();
+    state = filtersCubit.state;
+  }
+
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
@@ -43,38 +57,26 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
             ),
             Select(
               data: const [
-                SelectData(value: 'day', label: 'Dia'),
-                SelectData(value: 'week', label: 'Semana'),
-                SelectData(value: 'month', label: 'Mês'),
-                SelectData(value: 'year', label: 'Ano'),
+                SelectData(value: PeriodGroup.day, label: 'Dia'),
+                SelectData(value: PeriodGroup.week, label: 'Semana'),
+                SelectData(value: PeriodGroup.month, label: 'Mês'),
+                SelectData(value: PeriodGroup.year, label: 'Ano'),
               ],
               onPressed: (selected) {
+                selected as PeriodGroup;
                 setState(() {
-                  if (selectedValue == selected) {
-                    selectedValue = '';
-                    isButtonEnabled = false;
-                  } else {
-                    isButtonEnabled = true;
-                    selectedValue = selected;
-                  }
+                  buttonEnabled = filtersCubit.state.periodGroup != selected;
+                  state = state.copyWithPeriod(selected);
                 });
               },
-              selectedValue: selectedValue,
+              selectedValue: state.periodGroup,
             ),
             const SizedBox(height: 30),
             DefaultButton(
-              isLoading: isButtonLoading,
-              enabled: isButtonEnabled,
+              enabled: buttonEnabled,
               onPressed: () {
-                try {
-                  setState(() {
-                    isButtonLoading = true;
-                  });
-                } finally {
-                  setState(() {
-                    isButtonLoading = false;
-                  });
-                }
+                filtersCubit.change(state);
+                Modular.to.pop();
               },
               title: const Text(
                 'Aplicar',

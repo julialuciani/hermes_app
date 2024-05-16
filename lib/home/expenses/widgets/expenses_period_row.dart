@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
+import 'package:hermes_app/home/utils/extensions/get_time_period.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
@@ -16,8 +17,7 @@ class ExpensesPeriodRow extends StatefulWidget {
   State<ExpensesPeriodRow> createState() => _ExpensesPeriodRowState();
 }
 
-class _ExpensesPeriodRowState extends State<ExpensesPeriodRow>
-    with _ExpensesPeriodRowExtension {
+class _ExpensesPeriodRowState extends State<ExpensesPeriodRow> {
   final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,8 @@ class _ExpensesPeriodRowState extends State<ExpensesPeriodRow>
                 onPressed: () {
                   _expensesFiltersCubit.change(
                     state.copyWith(
-                      dateStart: getPreviousPeriodStart(state),
-                      dateEnd: getPreviousPeriodEnd(state),
+                      dateStart: state.getPreviousPeriodStart(),
+                      dateEnd: state.getPreviousPeriodEnd(),
                     ),
                   );
                 },
@@ -72,93 +72,22 @@ class _ExpensesPeriodRowState extends State<ExpensesPeriodRow>
               ),
               IconButton(
                 onPressed: () {
-                  if (!hasNextPeriod(state)) return;
+                  if (!state.hasNextPeriod()) return;
                   _expensesFiltersCubit.change(
                     state.copyWith(
-                      dateStart: getNextPeriodStart(state),
-                      dateEnd: getNextPeriodEnd(state),
+                      dateStart: state.getNextPeriodStart(),
+                      dateEnd: state.getNextPeriodEnd(),
                     ),
                   );
                 },
                 icon: Icon(
                   Icons.arrow_right,
                   size: 28,
-                  color: hasNextPeriod(state) ? null : AppColors.grey,
+                  color: state.hasNextPeriod() ? null : AppColors.grey,
                 ),
               ),
             ],
           );
         });
-  }
-}
-
-mixin _ExpensesPeriodRowExtension {
-  DateTime getPreviousPeriodStart(FetchMovementsFilters state) {
-    switch (state.periodGroup) {
-      case PeriodGroup.day:
-        return state.dateStart.subtract(const Duration(days: 1));
-      case PeriodGroup.week:
-        return state.dateStart.subtract(const Duration(days: 7));
-      case PeriodGroup.month:
-        return DateTime(state.dateStart.year, state.dateStart.month - 1, 1);
-      case PeriodGroup.year:
-        return DateTime(state.dateStart.year - 1, 1, 1);
-      default:
-        return state.dateStart;
-    }
-  }
-
-  DateTime getPreviousPeriodEnd(FetchMovementsFilters state) {
-    switch (state.periodGroup) {
-      case PeriodGroup.day:
-        return state.dateEnd.subtract(const Duration(days: 1));
-      case PeriodGroup.week:
-        return state.dateEnd.subtract(const Duration(days: 7));
-      case PeriodGroup.month:
-        final lastDay = DateTime(state.dateEnd.year, state.dateEnd.month, 0);
-        final month =
-            state.dateEnd.month - 1 > 0 ? state.dateEnd.month - 1 : 12;
-        final year = month == 12 ? state.dateEnd.year - 1 : state.dateEnd.year;
-        return DateTime(year, month, lastDay.day, 23, 59, 59, 999);
-      case PeriodGroup.year:
-        return DateTime(state.dateEnd.year - 1, 12, 31, 23, 59, 59, 999);
-      default:
-        return state.dateEnd;
-    }
-  }
-
-  bool hasNextPeriod(FetchMovementsFilters state) {
-    return state.dateEnd.isBefore(DateTime.now());
-  }
-
-  DateTime getNextPeriodStart(FetchMovementsFilters state) {
-    switch (state.periodGroup) {
-      case PeriodGroup.day:
-        return state.dateStart.add(const Duration(days: 1));
-      case PeriodGroup.week:
-        return state.dateStart.add(const Duration(days: 7));
-      case PeriodGroup.month:
-        return DateTime(state.dateStart.year, state.dateStart.month + 1);
-      case PeriodGroup.year:
-        return DateTime(state.dateStart.year + 1);
-      default:
-        return state.dateStart;
-    }
-  }
-
-  DateTime getNextPeriodEnd(FetchMovementsFilters state) {
-    switch (state.periodGroup) {
-      case PeriodGroup.day:
-        return state.dateEnd.add(const Duration(days: 1));
-      case PeriodGroup.week:
-        return state.dateEnd.add(const Duration(days: 7));
-      case PeriodGroup.month:
-        return DateTime(
-            state.dateEnd.year, state.dateEnd.month + 2, 0, 23, 59, 59, 999);
-      case PeriodGroup.year:
-        return DateTime(state.dateEnd.year + 1, 12, 31, 23, 59, 59, 999);
-      default:
-        return state.dateEnd;
-    }
   }
 }
