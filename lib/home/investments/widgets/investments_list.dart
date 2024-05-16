@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/investments/investments_cubit.dart';
 import 'package:hermes_app/home/investments/state/investments_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
@@ -52,6 +53,23 @@ class _InvestmentsListState extends State<InvestmentsList>
                       investments.first.date!,
                     ),
                     style: typography.bold.medium,
+                  ),
+                  footer: GestureDetector(
+                    onTap: () {
+                      ExtractDialog.show(
+                        context,
+                        period: formatDateTimeByPeriodGroup(
+                          widget.filterPeriodGroup,
+                          investments.first.date!,
+                        ),
+                        movements: investments,
+                      );
+                    },
+                    child: Text(
+                      'Detalhes',
+                      style: typography.bold.medium,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   children: investments.map((investment) {
                     return DefaultRow(

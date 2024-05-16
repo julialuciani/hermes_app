@@ -21,6 +21,9 @@ class InputDate extends StatefulWidget {
   /// [enabled] if not enabled, many of the functions of the input will not be called and its style will be different
   final bool enabled;
 
+  /// [initialDate] is the date that will be shown when the widget is created
+  final DateTime? initialDate;
+
   /// [InputDate] is a widget used to allow user to insert data of any type into the app
   const InputDate({
     Key? key,
@@ -30,6 +33,7 @@ class InputDate extends StatefulWidget {
     this.onChanged,
     this.onFieldSubmitted,
     this.enabled = true,
+    this.initialDate,
   }) : super(key: key);
 
   @override
@@ -37,11 +41,12 @@ class InputDate extends StatefulWidget {
 }
 
 class _InputDateState extends State<InputDate> {
-  DateTime? currentDate = DateTime.now();
+  late DateTime? currentDate;
   TextEditingController? controller;
 
   @override
   void initState() {
+    currentDate = widget.initialDate ?? DateTime.now();
     controller = widget.controller ?? TextEditingController();
     controller?.text = formatDate(currentDate!);
     super.initState();

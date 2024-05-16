@@ -11,72 +11,72 @@ class AppTypography {
     if (_typography != null) return _typography!;
     _typography = Typography(
         bold: Bold(
-          extraLarge: GoogleFonts.inter(
+          extraLarge: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: AppColors.black,
           ),
-          large: GoogleFonts.inter(
+          large: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: AppColors.black,
           ),
-          medium: GoogleFonts.inter(
+          medium: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.black,
           ),
-          small: GoogleFonts.inter(
+          small: GoogleFonts.poppins(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: AppColors.black,
           ),
-          extraSmall: GoogleFonts.inter(
+          extraSmall: GoogleFonts.poppins(
             fontSize: 8,
             fontWeight: FontWeight.bold,
             color: AppColors.black,
           ),
         ),
         regular: Regular(
-          extraLarge: GoogleFonts.inter(
+          extraLarge: GoogleFonts.poppins(
             fontSize: 24,
             color: AppColors.black,
           ),
-          large: GoogleFonts.inter(
+          large: GoogleFonts.poppins(
             fontSize: 20,
             color: AppColors.black,
           ),
-          medium: GoogleFonts.inter(
+          medium: GoogleFonts.poppins(
             fontSize: 16,
             color: AppColors.black,
           ),
-          small: GoogleFonts.inter(
+          small: GoogleFonts.poppins(
             fontSize: 12,
             color: AppColors.black,
           ),
-          extraSmall: GoogleFonts.inter(
+          extraSmall: GoogleFonts.poppins(
             fontSize: 8,
             color: AppColors.black,
           ),
         ),
         paragraph: Paragraph(
-          extraLarge: GoogleFonts.inter(
+          extraLarge: GoogleFonts.poppins(
             fontSize: 24,
             color: AppColors.grey,
           ),
-          large: GoogleFonts.inter(
+          large: GoogleFonts.poppins(
             fontSize: 20,
             color: AppColors.grey,
           ),
-          medium: GoogleFonts.inter(
+          medium: GoogleFonts.poppins(
             fontSize: 16,
             color: AppColors.grey,
           ),
-          small: GoogleFonts.inter(
+          small: GoogleFonts.poppins(
             fontSize: 12,
             color: AppColors.grey,
           ),
-          extraSmall: GoogleFonts.inter(
+          extraSmall: GoogleFonts.poppins(
             fontSize: 8,
             color: AppColors.grey,
           ),

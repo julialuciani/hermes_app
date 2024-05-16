@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/income/income_cubit.dart';
 import 'package:hermes_app/home/income/state/income_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
@@ -43,16 +44,33 @@ class _IncomeListState extends State<IncomeList> with _IncomeListFormatMixin {
               padding: const EdgeInsets.only(bottom: 80),
               itemCount: incomeModel.incomes.length,
               itemBuilder: (context, index) {
-                final investments = incomeModel.incomes[index];
+                final incomes = incomeModel.incomes[index];
                 return ExpandableBox(
                   title: Text(
                     formatDateTimeByPeriodGroup(
                       widget.filterPeriodGroup,
-                      investments.first.date!,
+                      incomes.first.date!,
                     ),
                     style: typography.bold.medium,
                   ),
-                  children: investments.map((investment) {
+                  footer: GestureDetector(
+                    onTap: () {
+                      ExtractDialog.show(
+                        context,
+                        period: formatDateTimeByPeriodGroup(
+                          widget.filterPeriodGroup,
+                          incomes.first.date!,
+                        ),
+                        movements: incomes,
+                      );
+                    },
+                    child: Text(
+                      'Detalhes',
+                      style: typography.bold.medium,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  children: incomes.map((investment) {
                     return DefaultRow(
                       title: investment.categoryName!,
                       value: formatCurrency(investment.value!),

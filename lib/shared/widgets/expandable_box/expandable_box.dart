@@ -15,6 +15,9 @@ class ExpandableBox extends StatefulWidget {
   /// [initiallyExpanded] is used to set an initial value to the [ExpandableBox]
   final bool? initiallyExpanded;
 
+  /// [footer] a Widget that will be displayed at the bottom of the [ExpandableBox]
+  final Widget? footer;
+
   /// [ExpandableBox] is a widget that contains an arrow and hides or displays the [children] according to the state
   const ExpandableBox({
     Key? key,
@@ -22,6 +25,7 @@ class ExpandableBox extends StatefulWidget {
     this.subtitle,
     required this.children,
     this.initiallyExpanded,
+    this.footer,
   }) : super(key: key);
 
   @override
@@ -53,8 +57,6 @@ class _ExpandableBoxState extends State<ExpandableBox> {
       child: ExpansionTile(
         onExpansionChanged: (val) => setState(() => isExpanded = val),
         controlAffinity: ListTileControlAffinity.trailing,
-        childrenPadding:
-            const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
         initiallyExpanded: widget.initiallyExpanded ?? false,
         title: DefaultTextStyle(
           style: typography.regular.medium,
@@ -71,7 +73,29 @@ class _ExpandableBoxState extends State<ExpandableBox> {
           color: AppColors.black,
           size: 30,
         ),
-        children: widget.children,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 8),
+            child: Column(
+              children: widget.children,
+            ),
+          ),
+          if (widget.footer != null)
+            Container(
+              padding: const EdgeInsets.all(12),
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: AppColors.black,
+                    width: 0.5,
+                  ),
+                ),
+              ),
+              child: widget.footer!,
+            ),
+        ],
       ),
     );
   }

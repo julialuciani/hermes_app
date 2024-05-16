@@ -37,7 +37,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
   final balanceCubit = Modular.get<BalanceScreenCubit>();
   final filterCubit = Modular.get<BalanceScreenFiltersCubit>();
   StreamSubscription<FetchMovementsFilters>? _filterChangeListener;
-  StreamSubscription<CreateMovement>? _createMovementListener;
+  StreamSubscription<RefreshMovementsTabs>? _refreshMovementsTabs;
 
   @override
   void initState() {
@@ -47,14 +47,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
     _filterChangeListener = filterCubit.stream.listen((filters) {
       balanceCubit.fetch(filters);
     });
-    _createMovementListener = eventBus.on<CreateMovement>().listen((event) {
+    _refreshMovementsTabs = eventBus.on<RefreshMovementsTabs>().listen((event) {
       balanceCubit.fetch(filterCubit.state);
     });
   }
 
   @override
   void dispose() {
-    _createMovementListener?.cancel();
+    _refreshMovementsTabs?.cancel();
     _filterChangeListener?.cancel();
     super.dispose();
   }
