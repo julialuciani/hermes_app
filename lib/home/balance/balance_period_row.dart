@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:hermes_app/home/expenses/filters/expenses_screen_filters_cubit.dart';
 import 'package:hermes_app/home/utils/extensions/get_time_period.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
@@ -10,19 +9,21 @@ import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:intl/intl.dart';
 
-class ExpensesPeriodRow extends StatefulWidget {
-  const ExpensesPeriodRow({super.key});
+import 'cubits/balance_screen_filters_cubit.dart';
+
+class BalancePeriodRow extends StatefulWidget {
+  const BalancePeriodRow({super.key});
 
   @override
-  State<ExpensesPeriodRow> createState() => _ExpensesPeriodRowState();
+  State<BalancePeriodRow> createState() => _BalancePeriodRowState();
 }
 
-class _ExpensesPeriodRowState extends State<ExpensesPeriodRow> {
-  final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
+class _BalancePeriodRowState extends State<BalancePeriodRow> {
+  final _expensesFiltersCubit = Modular.get<BalanceScreenFiltersCubit>();
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
-    return BlocBuilder<ExpensesScreenFiltersCubit, FetchMovementsFilters>(
+    return BlocBuilder<BalanceScreenFiltersCubit, FetchMovementsFilters>(
         bloc: _expensesFiltersCubit,
         builder: (context, state) {
           String getTextByPeriodGroup() {

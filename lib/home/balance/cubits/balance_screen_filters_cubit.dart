@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 
-class BalanceScreenFilterCubit extends Cubit<FetchMovementsFilters> {
-  BalanceScreenFilterCubit() : super(_getDefaultFilters());
+class BalanceScreenFiltersCubit extends Cubit<FetchMovementsFilters> {
+  BalanceScreenFiltersCubit() : super(_getDefaultFilters());
 
   void change(FetchMovementsFilters filters) => emit(filters);
 
