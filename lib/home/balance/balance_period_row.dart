@@ -19,7 +19,7 @@ class BalancePeriodRow extends StatefulWidget {
 }
 
 class _BalancePeriodRowState extends State<BalancePeriodRow> {
-  final _expensesFiltersCubit = Modular.get<BalanceScreenFiltersCubit>();
+  final _balanceFiltersCubit = Modular.get<BalanceScreenFiltersCubit>();
   @override
   Widget build(BuildContext context) {
     final typography = context.typography;
