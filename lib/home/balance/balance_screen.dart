@@ -34,7 +34,6 @@ class BalanceScreen extends StatefulWidget {
 }
 
 class _BalanceScreenState extends State<BalanceScreen> {
-  late FetchMovementsFilters _currentFilter;
   final balanceCubit = Modular.get<BalanceScreenCubit>();
   final filterCubit = Modular.get<BalanceScreenFiltersCubit>();
   StreamSubscription<FetchMovementsFilters>? _filterChangeListener;
@@ -47,15 +46,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
     balanceCubit.fetch(filterCubit.state);
     _filterChangeListener = filterCubit.stream.listen((filters) {
       balanceCubit.fetch(filters);
-      setState(() {
-        _currentFilter = filters;
-      });
     });
     _createMovementListener = eventBus.on<CreateMovement>().listen((event) {
       balanceCubit.fetch(filterCubit.state);
     });
-
-    _currentFilter = filterCubit.state;
   }
 
   @override
