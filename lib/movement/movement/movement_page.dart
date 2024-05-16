@@ -11,8 +11,10 @@ import 'package:hermes_app/shared/components/category_selector_box/category_sele
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_cubit.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown.dart';
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
+import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
@@ -23,10 +25,21 @@ import 'package:hermes_app/shared/widgets/input/input_date.dart';
 import 'package:hermes_app/shared/widgets/input/input_money.dart';
 import 'package:hermes_app/shared/widgets/input/utils/date_validator.dart';
 
+class MovementPageArgs {
+  final MovementModel? movement;
+
+  MovementPageArgs({
+    this.movement,
+  });
+}
+
 class MovementPage extends StatefulWidget {
   const MovementPage({
     Key? key,
+    this.movement,
   }) : super(key: key);
+
+  final MovementModel? movement;
 
   @override
   State<MovementPage> createState() => _MovementPageState();
@@ -40,8 +53,15 @@ class _MovementPageState extends State<MovementPage>
 
   @override
   void initState() {
-    movementTypesCubit.fetch();
     super.initState();
+    movementTypesCubit.fetch();
+    movementFormCubit.init(widget.movement);
+    if (widget.movement != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        eventBus.fire(ChangeMovementTypeEvent(widget.movement!.typeId));
+        setState(() {});
+      });
+    }
   }
 
   @override
@@ -71,12 +91,46 @@ class _MovementPageState extends State<MovementPage>
               toastDuration: const Duration(seconds: 2),
             ).show(context);
           }
+          if (state is MovementFormSuccessDelete) {
+            CherryToast.success(
+              title: Text(
+                'Transação excluída com sucesso',
+                style: typography.regular.medium,
+              ),
+              toastDuration: const Duration(seconds: 2),
+            ).show(context);
+            Modular.to.pop();
+          }
         },
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: const DefaultAppBar(
+            appBar: DefaultAppBar(
               title: 'Transação',
+              actions: movementFormCubit.movement.id != null
+                  ? [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            final isConfirmed = await const ConfirmationDialog(
+                              title: 'Deseja excluir a transação?',
+                              content: 'Você não irá conseguir vê-la novamente',
+                            ).show(context);
+
+                            if (isConfirmed) {
+                              movementFormCubit.delete();
+                            }
+                          },
+                          child: Icon(
+                            Icons.delete_outline,
+                            size: 24,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                    ]
+                  : null,
             ),
             body: Form(
               key: movementFormCubit.formKey,
@@ -123,6 +177,7 @@ class _MovementPageState extends State<MovementPage>
                     InputDate(
                       label: 'Data *',
                       controller: movementFormCubit.dateController,
+                      initialDate: movementFormCubit.movement.date,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Campo obrigatório';

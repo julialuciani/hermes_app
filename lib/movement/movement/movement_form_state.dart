@@ -15,3 +15,5 @@ class MovementFormErrorSave extends MovementFormState {
 
   MovementFormErrorSave(this.failure);
 }
+
+class MovementFormSuccessDelete extends MovementFormState {}
