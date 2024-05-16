@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/state/expenses_state.dart';
+import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
@@ -33,7 +34,6 @@ class _ExpensesListState extends State<ExpensesList>
       bloc: _expensesCubit,
       builder: (context, state) {
         if (state is ExpensesLoading) {
-          //TODO: create shimmer for it
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -53,6 +53,23 @@ class _ExpensesListState extends State<ExpensesList>
                       expenses.first.date!,
                     ),
                     style: typography.bold.medium,
+                  ),
+                  footer: GestureDetector(
+                    onTap: () {
+                      ExtractDialog.show(
+                        context,
+                        period: formatDateTimeByPeriodGroup(
+                          widget.filterPeriodGroup,
+                          expenses.first.date!,
+                        ),
+                        movements: expenses,
+                      );
+                    },
+                    child: Text(
+                      'Detalhes',
+                      style: typography.bold.medium,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   children: expenses.map((expense) {
                     return DefaultRow(

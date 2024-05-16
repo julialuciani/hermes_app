@@ -6,9 +6,11 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DefaultAppBar({
     super.key,
     required this.title,
+    this.subtitle,
   });
 
   final String title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,20 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           size: 20,
         ),
       ),
-      title: Text(
-        title,
-        style: typography.regular.medium,
+      title: Column(
+        children: [
+          Text(
+            title,
+            style: typography.regular.medium,
+          ),
+          if (subtitle != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              subtitle!,
+              style: typography.paragraph.medium.copyWith(fontSize: 14),
+            ),
+          ]
+        ],
       ),
       backgroundColor: Colors.white12,
       elevation: 0,
