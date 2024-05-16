@@ -83,8 +83,7 @@ class _BalanceFiltersModalState extends State<BalanceFiltersModal> {
               enabled: buttonEnabled,
               onPressed: () {
                 filtersCubit.change(state);
-
-                Navigator.of(context).pop();
+                Modular.to.pop();
               },
               title: const Text(
                 'Aplicar',
