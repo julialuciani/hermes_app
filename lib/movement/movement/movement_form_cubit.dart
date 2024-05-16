@@ -27,7 +27,7 @@ class MovementFormCubit extends Cubit<MovementFormState> {
     this._deleteMovementUseCase,
   ) : super(MovementFormInitial());
 
-  void init(MovementModel? movement) {
+  void init([MovementModel? movement]) {
     if (movement != null) {
       this.movement = movement;
       valueController.text = movement.value?.toStringAsFixed(2) ?? "";

@@ -35,6 +35,7 @@ void main() {
         saveMovementUseCaseMock,
         deleteMovementUseCaseMock,
       );
+      cubit.init();
 
       //ACT
       final movement = cubit.movement;
@@ -59,6 +60,7 @@ void main() {
         saveMovementUseCaseMock,
         deleteMovementUseCaseMock,
       );
+      cubit.init();
 
       //ACT
       cubit.change(typeId: Nullable(1));
@@ -81,6 +83,7 @@ void main() {
         saveMovementUseCaseMock,
         deleteMovementUseCaseMock,
       );
+      cubit.init();
 
       //ACT
       cubit.change(value: 'R\$  2.345,21');
