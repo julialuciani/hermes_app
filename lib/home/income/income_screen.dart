@@ -26,7 +26,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
   final _incomeFiltersCubit = Modular.get<IncomeScreenFiltersCubit>();
   late FetchMovementsFilters _currentFilters;
   StreamSubscription<FetchMovementsFilters>? _filtersChangeListener;
-  StreamSubscription<UpdateMovements>? _updateMovementListener;
+  StreamSubscription<RefreshMovementsTabs>? _updateMovementListener;
   @override
   void initState() {
     super.initState();
@@ -37,7 +37,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
         _currentFilters = filters;
       });
     });
-    _updateMovementListener = eventBus.on<UpdateMovements>().listen((event) {
+    _updateMovementListener =
+        eventBus.on<RefreshMovementsTabs>().listen((event) {
       _incomeCubit.fetch(_incomeFiltersCubit.state);
     });
     _currentFilters = _incomeFiltersCubit.state;

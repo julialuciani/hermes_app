@@ -82,7 +82,7 @@ class ExtractDialog extends StatelessWidget {
                   );
               navigate().then(
                 (_) {
-                  eventBus.fire(UpdateMovements());
+                  eventBus.fire(RefreshMovementsTabs());
                 },
               );
             },

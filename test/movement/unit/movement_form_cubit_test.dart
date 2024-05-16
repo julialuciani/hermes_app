@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hermes_app/movement/movement/delete_movement_use_case.dart';
 import 'package:hermes_app/movement/movement/movement_form_cubit.dart';
 import 'package:hermes_app/movement/movement/save_movement_use_case.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
@@ -10,14 +11,18 @@ class GetPictureFromCameraUseCaseMock extends Mock
 
 class SaveMovementUsecaseMock extends Mock implements SaveMovementUseCase {}
 
+class DeleteMovementUseCaseMock extends Mock implements DeleteMovementUseCase {}
+
 void main() {
   late GetPictureFromCameraUseCase getPictureFromCameraUseCaseMock;
   late SaveMovementUseCase saveMovementUseCaseMock;
+  late DeleteMovementUseCase deleteMovementUseCaseMock;
 
   setUpAll(
     () {
       saveMovementUseCaseMock = SaveMovementUsecaseMock();
       getPictureFromCameraUseCaseMock = GetPictureFromCameraUseCase();
+      deleteMovementUseCaseMock = DeleteMovementUseCaseMock();
     },
   );
 
@@ -28,6 +33,7 @@ void main() {
       final cubit = MovementFormCubit(
         getPictureFromCameraUseCaseMock,
         saveMovementUseCaseMock,
+        deleteMovementUseCaseMock,
       );
 
       //ACT
@@ -51,6 +57,7 @@ void main() {
       final cubit = MovementFormCubit(
         getPictureFromCameraUseCaseMock,
         saveMovementUseCaseMock,
+        deleteMovementUseCaseMock,
       );
 
       //ACT
@@ -72,6 +79,7 @@ void main() {
       final cubit = MovementFormCubit(
         getPictureFromCameraUseCaseMock,
         saveMovementUseCaseMock,
+        deleteMovementUseCaseMock,
       );
 
       //ACT

@@ -26,7 +26,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   final _expensesFiltersCubit = Modular.get<ExpensesScreenFiltersCubit>();
   late FetchMovementsFilters _currentFilters;
   StreamSubscription<FetchMovementsFilters>? _filtersChangeListener;
-  StreamSubscription<UpdateMovements>? _updateMovementListener;
+  StreamSubscription<RefreshMovementsTabs>? _updateMovementListener;
   @override
   void initState() {
     super.initState();
@@ -37,7 +37,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         _currentFilters = filters;
       });
     });
-    _updateMovementListener = eventBus.on<UpdateMovements>().listen((event) {
+    _updateMovementListener =
+        eventBus.on<RefreshMovementsTabs>().listen((event) {
       _expensesCubit.fetch(_expensesFiltersCubit.state);
     });
     _currentFilters = _expensesFiltersCubit.state;
