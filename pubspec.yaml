@@ -49,6 +49,9 @@ dependencies:
   image_picker: ^1.0.4
   cherry_toast: ^1.8.0
   font_awesome_flutter: ^10.4.0
+  firebase_core: ^2.24.2
+  firebase_analytics: ^10.8.0
+  firebase_crashlytics: ^3.4.9
 
 dev_dependencies:
   flutter_test:
