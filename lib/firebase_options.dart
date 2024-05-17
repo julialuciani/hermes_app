@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'hermes-app-bac82.appspot.com',
     iosBundleId: 'com.example.hermesApp',
   );
-
 }
