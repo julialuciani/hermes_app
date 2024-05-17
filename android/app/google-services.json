@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994193311939",
+    "project_id": "hermes-app-bac82",
+    "storage_bucket": "hermes-app-bac82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994193311939:android:d11b294c20858f947d7a76",
+        "android_client_info": {
+          "package_name": "com.example.hermes_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN6YB4MQJYGWfCGr48pUa34-OXd8ziGnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
