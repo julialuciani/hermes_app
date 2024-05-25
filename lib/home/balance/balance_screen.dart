@@ -7,6 +7,7 @@ import 'package:hermes_app/home/balance/cubits/balance_screen_cubit.dart';
 import 'package:hermes_app/home/balance/cubits/balance_screen_filters_cubit.dart';
 import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
+import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
@@ -23,6 +24,7 @@ import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/default_title/default_title.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
 
+import '../utils/mixin/format_date_time_by_period_group_mixin.dart';
 import 'balance_period_button.dart';
 import 'balance_period_row.dart';
 import 'get_all_movement_by_period_use_case.dart';
@@ -34,7 +36,8 @@ class BalanceScreen extends StatefulWidget {
   State<BalanceScreen> createState() => _BalanceScreenState();
 }
 
-class _BalanceScreenState extends State<BalanceScreen> {
+class _BalanceScreenState extends State<BalanceScreen>
+    with FormatDateTimeByPeriodGroupMixin {
   final balanceCubit = Modular.get<BalanceScreenCubit>();
   final filterCubit = Modular.get<BalanceScreenFiltersCubit>();
   StreamSubscription<FetchMovementsFilters>? _filterChangeListener;
@@ -63,6 +66,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
   final useCase = Modular.get<GetAllMovementByPeriodUseCase>();
   @override
   Widget build(BuildContext context) {
+    final typography = context.typography;
     return BlocBuilder<BalanceScreenCubit, BalanceScreenState>(
       bloc: balanceCubit,
       builder: (context, state) {
@@ -130,6 +134,34 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           ),
                           child: ExpandableBox(
                             title: Text(extract.title),
+                            footer: GestureDetector(
+                              onTap: () {
+                                ExtractDialog.show(
+                                  context,
+                                  period: formatDateTimeByPeriodGroup(
+                                    filterCubit.state.periodGroup,
+                                    [
+                                      if (extract.expenses.isNotEmpty)
+                                        extract.expenses.first.date!,
+                                      if (extract.income.isNotEmpty)
+                                        extract.income.first.date!,
+                                      if (extract.investments.isNotEmpty)
+                                        extract.investments.first.date!,
+                                    ].first,
+                                  ),
+                                  movements: [
+                                    ...extract.expenses,
+                                    ...extract.income,
+                                    ...extract.investments,
+                                  ],
+                                );
+                              },
+                              child: Text(
+                                'Detalhes',
+                                style: typography.bold.medium,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                             children: [
                               if (extract.expenses.isNotEmpty)
                                 const DefaultTitle(
