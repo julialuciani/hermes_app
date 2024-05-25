@@ -46,13 +46,18 @@ class _IncomeListState extends State<IncomeList> with _IncomeListFormatMixin {
               itemCount: incomeModel.incomes.length,
               itemBuilder: (context, index) {
                 final incomes = incomeModel.incomes[index];
+                late String formattedDate;
+                if (widget.filterPeriodGroup != PeriodGroup.year) {
+                  formattedDate =
+                      DateFormat.MMMMEEEEd('pt_BR').format(incomes.first.date!);
+                } else {
+                  formattedDate = DateFormat('MMMM - MM/yyyy', 'pt_BR')
+                      .format(incomes.first.date!);
+                }
                 return ExpandableBox(
                   title: Text(
-                    formatDateTimeByPeriodGroup(
-                      widget.filterPeriodGroup,
-                      incomes.first.date!,
-                    ),
-                    style: typography.bold.medium,
+                    formattedDate,
+                    style: typography.regular.medium,
                   ),
                   footer: GestureDetector(
                     onTap: () {
@@ -67,7 +72,7 @@ class _IncomeListState extends State<IncomeList> with _IncomeListFormatMixin {
                     },
                     child: Text(
                       'Detalhes',
-                      style: typography.bold.medium,
+                      style: typography.regular.medium,
                       textAlign: TextAlign.center,
                     ),
                   ),

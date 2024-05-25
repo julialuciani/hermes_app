@@ -4,10 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/expenses/expenses_cubit.dart';
 import 'package:hermes_app/home/expenses/state/expenses_state.dart';
 import 'package:hermes_app/home/extract/extract_dialog.dart';
+import 'package:hermes_app/home/utils/mixin/format_date_time_by_period_group_mixin.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/extensions/format_currency_extension.dart';
-import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
 import 'package:hermes_app/shared/widgets/expandable_box/expandable_box.dart';
@@ -26,7 +26,7 @@ class ExpensesList extends StatefulWidget {
 }
 
 class _ExpensesListState extends State<ExpensesList>
-    with _ExpensesListFormatMixin {
+    with FormatDateTimeByPeriodGroupMixin {
   final _expensesCubit = Modular.get<ExpensesCubit>();
   @override
   Widget build(BuildContext context) {
@@ -47,13 +47,18 @@ class _ExpensesListState extends State<ExpensesList>
               itemCount: expensesModel.expenses.length,
               itemBuilder: (context, index) {
                 final expenses = expensesModel.expenses[index];
+                late String formattedDate;
+                if (widget.filterPeriodGroup != PeriodGroup.year) {
+                  formattedDate = DateFormat.MMMMEEEEd('pt_BR')
+                      .format(expenses.first.date!);
+                } else {
+                  formattedDate = DateFormat('MMMM - MM/yyyy', 'pt_BR')
+                      .format(expenses.first.date!);
+                }
                 return ExpandableBox(
                   title: Text(
-                    formatDateTimeByPeriodGroup(
-                      widget.filterPeriodGroup,
-                      expenses.first.date!,
-                    ),
-                    style: typography.bold.medium,
+                    formattedDate,
+                    style: typography.regular.medium,
                   ),
                   footer: GestureDetector(
                     onTap: () {
@@ -68,7 +73,7 @@ class _ExpensesListState extends State<ExpensesList>
                     },
                     child: Text(
                       'Detalhes',
-                      style: typography.bold.medium,
+                      style: typography.regular.medium,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -90,22 +95,5 @@ class _ExpensesListState extends State<ExpensesList>
         return const SizedBox();
       },
     );
-  }
-}
-
-mixin _ExpensesListFormatMixin {
-  String formatDateTimeByPeriodGroup(PeriodGroup group, DateTime date) {
-    switch (group) {
-      case PeriodGroup.day:
-      case PeriodGroup.week:
-      case PeriodGroup.month:
-        final format = DateFormat('dd/MM/yyyy', 'pt_BR');
-        return format.format(date).capitalize();
-      case PeriodGroup.year:
-        final format = DateFormat('MMMM - MM/yyyy', 'pt_BR');
-        return format.format(date).capitalize();
-      default:
-        return '';
-    }
   }
 }

@@ -158,7 +158,7 @@ class _BalanceScreenState extends State<BalanceScreen>
                               },
                               child: Text(
                                 'Detalhes',
-                                style: typography.bold.medium,
+                                style: typography.regular.medium,
                                 textAlign: TextAlign.center,
                               ),
                             ),

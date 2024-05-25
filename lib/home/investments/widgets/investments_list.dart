@@ -47,13 +47,18 @@ class _InvestmentsListState extends State<InvestmentsList>
               itemCount: investmentsModel.investments.length,
               itemBuilder: (context, index) {
                 final investments = investmentsModel.investments[index];
+                late String formattedDate;
+                if (widget.filterPeriodGroup != PeriodGroup.year) {
+                  formattedDate = DateFormat.MMMMEEEEd('pt_BR')
+                      .format(investments.first.date!);
+                } else {
+                  formattedDate = DateFormat('MMMM - MM/yyyy', 'pt_BR')
+                      .format(investments.first.date!);
+                }
                 return ExpandableBox(
                   title: Text(
-                    formatDateTimeByPeriodGroup(
-                      widget.filterPeriodGroup,
-                      investments.first.date!,
-                    ),
-                    style: typography.bold.medium,
+                    formattedDate,
+                    style: typography.regular.medium,
                   ),
                   footer: GestureDetector(
                     onTap: () {
@@ -68,7 +73,7 @@ class _InvestmentsListState extends State<InvestmentsList>
                     },
                     child: Text(
                       'Detalhes',
-                      style: typography.bold.medium,
+                      style: typography.regular.medium,
                       textAlign: TextAlign.center,
                     ),
                   ),
