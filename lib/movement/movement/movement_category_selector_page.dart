@@ -7,7 +7,7 @@ import 'package:hermes_app/shared/components/category_selector_box/category_sele
 import 'package:hermes_app/shared/components/category_selector_box/category_selector_box_state.dart';
 import 'package:hermes_app/shared/components/category_selector_box/widgets/category_icon.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 import 'package:hermes_app/shared/widgets/default_fab/default_fab.dart';

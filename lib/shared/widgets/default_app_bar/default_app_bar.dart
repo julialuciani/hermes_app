@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {

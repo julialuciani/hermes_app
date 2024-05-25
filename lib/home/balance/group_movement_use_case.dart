@@ -31,14 +31,15 @@ class GroupMovementUseCase {
       if (groupedMovement.containsKey(movement.date!.month)) {
         groupedMovement[movement.date!.month]!.add(movement);
       } else {
-        groupedMovement[movement.date!.day] = [movement];
+        groupedMovement[movement.date!.month] = [movement];
       }
     }
 
     groupedMovement.forEach((key, value) {
       extract.add(
         PeriodExtractModel(
-            title: key.toString(), //formatar
+            title:
+                DateFormat('MMMM - MM/yyyy', 'pt_BR').format(value.first.date!),
             income:
                 value.where((element) => element.typeName == 'income').toList(),
             expenses: value

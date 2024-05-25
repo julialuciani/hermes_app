@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/balance/balance_filters_modal.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 
 import '../utils/fetch_movements_filters.dart';

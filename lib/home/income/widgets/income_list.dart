@@ -5,7 +5,8 @@ import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/income/income_cubit.dart';
 import 'package:hermes_app/home/income/state/income_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/format_currency_extension.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
@@ -45,13 +46,18 @@ class _IncomeListState extends State<IncomeList> with _IncomeListFormatMixin {
               itemCount: incomeModel.incomes.length,
               itemBuilder: (context, index) {
                 final incomes = incomeModel.incomes[index];
+                late String formattedDate;
+                if (widget.filterPeriodGroup != PeriodGroup.year) {
+                  formattedDate =
+                      DateFormat.MMMMEEEEd('pt_BR').format(incomes.first.date!);
+                } else {
+                  formattedDate = DateFormat('MMMM - MM/yyyy', 'pt_BR')
+                      .format(incomes.first.date!);
+                }
                 return ExpandableBox(
                   title: Text(
-                    formatDateTimeByPeriodGroup(
-                      widget.filterPeriodGroup,
-                      incomes.first.date!,
-                    ),
-                    style: typography.bold.medium,
+                    formattedDate,
+                    style: typography.regular.medium,
                   ),
                   footer: GestureDetector(
                     onTap: () {
@@ -66,14 +72,14 @@ class _IncomeListState extends State<IncomeList> with _IncomeListFormatMixin {
                     },
                     child: Text(
                       'Detalhes',
-                      style: typography.bold.medium,
+                      style: typography.regular.medium,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   children: incomes.map((investment) {
                     return DefaultRow(
                       title: investment.categoryName!,
-                      value: formatCurrency(investment.value!),
+                      value: investment.value!.formatCurrency(),
                       textSize: TextSize.medium,
                     );
                   }).toList(),
@@ -105,10 +111,5 @@ mixin _IncomeListFormatMixin {
       default:
         return '';
     }
-  }
-
-  String formatCurrency(double value) {
-    final format = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
-    return format.format(value);
   }
 }

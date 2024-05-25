@@ -4,8 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/utils/extensions/get_time_period.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:intl/intl.dart';
 

@@ -9,7 +9,7 @@ import 'package:hermes_app/category/category_listing/category_listing_filter/cat
 import 'package:hermes_app/category/category_listing/category_listing_state.dart';
 import 'package:hermes_app/category/category_listing/widgets/category_list_widget.dart';
 import 'package:hermes_app/category/category_routes.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';

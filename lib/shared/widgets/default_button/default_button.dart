@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_button/utils/default_button_mixin.dart';
 

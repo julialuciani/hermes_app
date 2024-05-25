@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 
 class DefaultTitle extends StatelessWidget {
