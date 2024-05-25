@@ -5,7 +5,8 @@ import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/investments/investments_cubit.dart';
 import 'package:hermes_app/home/investments/state/investments_state.dart';
 import 'package:hermes_app/home/utils/period_group_enum.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/format_currency_extension.dart';
 import 'package:hermes_app/shared/utils/string_extensions.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/default_row/default_row.dart';
@@ -74,7 +75,7 @@ class _InvestmentsListState extends State<InvestmentsList>
                   children: investments.map((investment) {
                     return DefaultRow(
                       title: investment.categoryName!,
-                      value: formatCurrency(investment.value!),
+                      value: investment.value!.formatCurrency(),
                       textSize: TextSize.medium,
                     );
                   }).toList(),
@@ -106,10 +107,5 @@ mixin _InvestmentsListFormatMixin {
       default:
         return '';
     }
-  }
-
-  String formatCurrency(double value) {
-    final format = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
-    return format.format(value);
   }
 }

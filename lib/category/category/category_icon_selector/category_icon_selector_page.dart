@@ -5,7 +5,7 @@ import 'package:hermes_app/category/category/category_form_cubit.dart';
 import 'package:hermes_app/category/category/category_icon_selector/category_icon_selector_cubit.dart';
 import 'package:hermes_app/category/category/category_icon_selector/category_icon_selector_state.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/default_error_widget.dart';

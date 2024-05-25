@@ -9,10 +9,11 @@ import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/format_currency_extension.dart';
 import 'package:hermes_app/shared/utils/text_size.dart';
 import 'package:hermes_app/shared/widgets/chart/chart.dart';
 import 'package:hermes_app/shared/widgets/chart/empty_state_chart.dart';
@@ -139,7 +140,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 (e) => DefaultRow(
                                   title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
-                                  value: e.value.toString(),
+                                  value: e.value?.formatCurrency() ?? '0,00',
                                 ),
                               ),
                               if (extract.income.isNotEmpty)
@@ -151,7 +152,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 (e) => DefaultRow(
                                   title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
-                                  value: e.value.toString(),
+                                  value: e.value?.formatCurrency() ?? '0,00',
                                 ),
                               ),
                               if (extract.investments.isNotEmpty)
@@ -163,7 +164,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                 (e) => DefaultRow(
                                   title: e.description ?? e.categoryName!,
                                   textSize: TextSize.medium,
-                                  value: e.value.toString(),
+                                  value: e.value?.formatCurrency() ?? '0,00',
                                 ),
                               ),
                             ],
