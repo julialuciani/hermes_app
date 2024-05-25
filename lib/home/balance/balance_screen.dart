@@ -9,6 +9,8 @@ import 'package:hermes_app/home/balance/model/balance_model.dart';
 import 'package:hermes_app/home/balance/state/balance_screen_state.dart';
 import 'package:hermes_app/home/extract/extract_dialog.dart';
 import 'package:hermes_app/home/utils/fetch_movements_filters.dart';
+import 'package:hermes_app/home/widgets/extract_text_title.dart';
+import 'package:hermes_app/home/widgets/home_drawer.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/screen/default_loading_screen.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
@@ -86,11 +88,7 @@ class _BalanceScreenState extends State<BalanceScreen>
 
         if (state is BalanceScreenSucess) {
           return Scaffold(
-            drawer: const Drawer(
-              child: Icon(
-                Icons.menu,
-              ),
-            ),
+            drawer: const HomeDrawer(),
             appBar: AppBar(
               actions: const [
                 BalancePeriodButton(),
@@ -124,7 +122,7 @@ class _BalanceScreenState extends State<BalanceScreen>
                     typesWithValue: state.balance.movementTypesWithValue,
                   ),
                   const SizedBox(height: 22),
-                  const DailyExtractText(),
+                  ExtractTextTitle(periodGroup: filterCubit.state.periodGroup),
                   const SizedBox(height: 17),
                   ...state.balance.extract
                       .map(
@@ -211,22 +209,6 @@ class _BalanceScreenState extends State<BalanceScreen>
         }
         return const SizedBox.shrink();
       },
-    );
-  }
-}
-
-class DailyExtractText extends StatelessWidget {
-  const DailyExtractText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final typography = context.typography;
-
-    return Text(
-      'Extrato Diário',
-      style: typography.bold.medium,
     );
   }
 }
