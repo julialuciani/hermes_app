@@ -35,19 +35,23 @@ class GetAllMovementByPeriodUseCase {
     //ele vai adicionar os values de cada lista em cada key
     // depois ele irá somar o valor de cada lista
 
-    Map<String, List<double>> periods = {};
+    Map<String, List<double>> periods = {
+      'expenses': [],
+      'investments': [],
+      'income': [],
+    };
 
     for (var period in extract) {
       for (var expense in period.expenses) {
-        periods['expenses'] = [expense.value!];
+        periods['expenses']?.add(expense.value!);
       }
 
       for (var investment in period.investments) {
-        periods['investments'] = [investment.value!];
+        periods['investments']?.add(investment.value!);
       }
 
       for (var income in period.income) {
-        periods['income'] = [income.value!];
+        periods['income']?.add(income.value!);
       }
     }
 

@@ -6,7 +6,7 @@ import 'package:hermes_app/home/utils/period_group_enum.dart';
 import 'package:hermes_app/shared/components/category_dropdown/category_dropdown.dart';
 import 'package:hermes_app/shared/components/category_dropdown/category_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
-import 'package:hermes_app/shared/extensions/build_context_extensions.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/modal/modal.dart';
 import 'package:hermes_app/shared/widgets/select/select.dart';
