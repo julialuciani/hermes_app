@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hermes_app/shared/theme/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -18,6 +19,10 @@ class AppWidget extends StatelessWidget {
         ),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
+        colorScheme: ColorScheme.light(
+          primary: AppColors.red,
+          secondary: AppColors.blue,
+        ),
       ),
     );
   }
