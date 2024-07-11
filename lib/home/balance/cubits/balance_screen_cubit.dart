@@ -20,7 +20,6 @@ class BalanceScreenCubit extends Cubit<BalanceScreenState> {
       emit(BalanceScreenSucess(balance));
     } catch (error, stackTrace) {
       final unknownError = UnknownError(error: error, stackTrace: stackTrace);
-
       emit(BalanceScreenError(unknownError));
     }
   }
