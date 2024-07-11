@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hermes_app/home/home_routes.dart';
@@ -16,6 +17,11 @@ class _SplashScreenState extends State<SplashScreen> {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       await FirebaseAuth.instance.signInAnonymously();
+    }
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      FirebaseCrashlytics.instance.setUserIdentifier(currentUser.uid);
     }
   }
 

@@ -81,8 +81,10 @@ class _BalanceScreenState extends State<BalanceScreen>
             buttonLabel: 'Tentar novamente',
             description: 'Ocorreu um erro durante sua requisição',
             failure: state.failure,
-            onPressed: () async {},
-            title: 'Error',
+            onPressed: () async {
+              balanceCubit.fetch(filterCubit.state);
+            },
+            title: 'Erro',
           );
         }
 
