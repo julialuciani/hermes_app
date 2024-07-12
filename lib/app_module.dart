@@ -12,6 +12,7 @@ import 'package:hermes_app/shared/usecases/get_categories_by_movement_type_id_us
 import 'package:hermes_app/shared/usecases/get_movement_types_to_dropdown_use_case.dart';
 import 'package:hermes_app/shared/usecases/get_picture_from_camera_use_case.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';
+import 'package:hermes_app/splash_screen.dart';
 
 import 'shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 
@@ -62,8 +63,12 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute(
+    ChildRoute(
       '/',
+      child: (context, args) => const SplashScreen(),
+    ),
+    ModuleRoute(
+      '/home',
       module: HomeModule(),
     ),
     ModuleRoute(
