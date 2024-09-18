@@ -46,8 +46,8 @@ class FetchMovementsFilters {
         );
       case PeriodGroup.week:
         final weekDay = now.weekday;
-        final start = now.subtract(Duration(days: weekDay - 1));
-        final end = now.add(Duration(days: 7 - weekDay));
+        final start = now.subtract(Duration(days: weekDay));
+        final end = now.add(Duration(days: 6 - weekDay));
         return copyWith(
           dateStart: DateTime(start.year, start.month, start.day),
           dateEnd: DateTime(end.year, end.month, end.day),
