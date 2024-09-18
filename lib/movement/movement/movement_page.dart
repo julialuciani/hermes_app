@@ -13,9 +13,9 @@ import 'package:hermes_app/shared/components/movement_type_dropdown/movement_typ
 import 'package:hermes_app/shared/components/movement_type_dropdown/movement_type_dropdown_cubit.dart';
 import 'package:hermes_app/shared/entities/movement_model.dart';
 import 'package:hermes_app/shared/entities/nullable_model.dart';
-import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/theme/app_colors.dart';
 import 'package:hermes_app/shared/utils/event_bus.dart';
+import 'package:hermes_app/shared/utils/extensions/build_context_extensions.dart';
 import 'package:hermes_app/shared/widgets/default_app_bar/default_app_bar.dart';
 import 'package:hermes_app/shared/widgets/default_button/default_button.dart';
 import 'package:hermes_app/shared/widgets/default_error_widget/register_error_cubit.dart';

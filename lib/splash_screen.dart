@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       FirebaseCrashlytics.instance.setUserIdentifier(currentUser.uid);
+      FirebaseAnalytics.instance.setUserId(id: currentUser.uid);
     }
   }
 
